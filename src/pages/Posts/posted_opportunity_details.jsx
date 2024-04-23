@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Review_component from "./review_component";
 
 export default () => {
@@ -49,8 +50,8 @@ export default () => {
                 </div>
 
                 <div className="flex items-center gap-x-3 sm:text-sm">
-                  <a
-                    href="javascript:void(0)"
+                  <Link
+                    to="/task"
                     className="flex items-center justify-center gap-x-1 py-3 px-4 dark:bg-slate-700 dark:text-white text-white font-medium bg-gray-800 duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg md:inline-flex"
                   >
                     Start The Program
@@ -66,7 +67,7 @@ export default () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="flex-1 hidden md:block">

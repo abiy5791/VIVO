@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import Avatar_menu from "../avatar_menu";
+import ThemeToggle from "../AdminComponents/ThemeToggle";
 
 const dropdownNavs = [
   {
@@ -142,7 +143,11 @@ export default () => {
       isDrapdown: true,
       navs: dropdownNavs,
     },
-    { title: "Internship", path: "javascript:void(0)", isDrapdown: false },
+    {
+      title: "Internship",
+      path: "/internship_opportunities",
+      isDrapdown: false,
+    },
     { title: "Volunteer", path: "javascript:void(0)", isDrapdown: false },
     { title: "Pricing", path: "javascript:void(0)", isDrapdown: false },
   ];
@@ -302,7 +307,10 @@ export default () => {
               })}
               <div className="flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0">
                 {user ? (
-                  <Avatar_menu />
+                  <>
+                    <ThemeToggle />
+                    <Avatar_menu />
+                  </>
                 ) : (
                   <>
                     <li>

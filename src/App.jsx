@@ -15,11 +15,13 @@ import Applicant_profile_component from "./components/ApplicantComponents/applic
 import Applicants_list from "./pages/AdminDashboard/Sidebar_elements/applicants_list";
 import Organizations_list from "./pages/AdminDashboard/Sidebar_elements/organizations_list";
 import Internship_opportunity_card from "./pages/AdminDashboard/Sidebar_elements/internship_opportunity_card";
-import Opportunity_details from "./pages/AdminDashboard/Sidebar_elements/opportunity_details";
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
 import Task from "./components/ApplicantComponents/task";
+import Admin_home from "./pages/AdminDashboard/admin_home";
+import Opportunity_details_component from "./components/AdminComponents/opportunity_details_component";
+import ProLayout from "./pages/AdminDashboard/pro_layout";
 
 function App() {
   const location = useLocation();
@@ -45,25 +47,32 @@ function App() {
             element={<Applicant_profile_component />}
           />
           <Route path="settings" element={<Settings_component />} />
+          <Route
+            path="internship_opportunities"
+            element={<Internship_opportunity_card />}
+          />
         </Route>
         <Route path="task" element={<Task />} />
-        <Route path="/applicants_list" element={<Applicants_list />} />
-        <Route path="/organizations_list" element={<Organizations_list />} />
-        <Route
-          path="/internship_opportunities"
-          element={<Internship_opportunity_card />}
-        />
-        <Route
-          path="/internship_opportunity_details"
-          element={<Opportunity_details />}
-        />
 
-        <Route exact path="/admin_dashboard" element={<Dashboard />} />
+        <Route exact path="/admin_dashboard" element={<Dashboard />}>
+          <Route index element={<Admin_home />} />
+          <Route path="applicants_list" element={<Applicants_list />} />
+          <Route path="organizations_list" element={<Organizations_list />} />
+
+          <Route path="internship_opportunities" element={<ProLayout />}>
+            <Route index element={<Internship_opportunity_card />} />
+            <Route
+              path="internship_opportunity_details"
+              element={<Opportunity_details_component />}
+            />
+          </Route>
+        </Route>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </>
   );
+  ``;
 }
 
 export default App;

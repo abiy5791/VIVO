@@ -81,7 +81,7 @@ export default () => {
                   {item.name}
                 </span>
                 <div className="text-gray-800 text-3xl font-semibold dark:text-slate-300 ">
-                  ${item.price}{" "}
+                  {item.price} ETB
                   <span className="text-xl text-gray-600 font-normal dark:text-slate-100 ">
                     /mo
                   </span>

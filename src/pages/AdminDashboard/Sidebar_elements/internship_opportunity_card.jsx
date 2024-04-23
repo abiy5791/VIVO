@@ -1,5 +1,3 @@
-import Header from "../../../partials/Admin/Header";
-import Sidebar from "../../../partials/Admin/Sidebar";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -60,90 +58,81 @@ const apiData = [
   },
 ];
 export default () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main className="px-10 py-4">
-          <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
-            <div className="container mx-auto">
-              <h1 class="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
-                Internship Opportunities
-              </h1>
-              {/* card grid */}
-              <Link to="/internship_opportunity_details">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-1 text-left">
-                  {Array(5).fill(
-                    apiData.map((data, index) => (
-                      <div
-                        className="border rounded-lg hover:drop-shadow-md overflow-hidden relative dark:bg-transparent bg-white"
-                        key={index}
-                      >
-                        {/* image and avatar block */}
-                        <div className="cursor-pointer h-48 overflow-hidden">
-                          <img
-                            src={data.image}
-                            alt="Profile image for perticular category"
-                            sizes="300px"
-                            className="w-full h-full hover:scale-125 delay-200 duration-300 ease-in-out"
-                          />
-                          <span className="absolute top-40 mx-auto w-36 h-8 items-center backdrop-blur bg-white/70 flex justify-center font-medium">
-                            {data.name}
-                          </span>
-                        </div>
-                        {/* card fields section  */}
-                        <div className="p-4 space-y-2 relative h-60 text-gray-400">
-                          <div>
-                            <p className="text-sm font-bold truncate">
-                              {data.category}
-                            </p>
-                          </div>
-                          <div>
-                            <span
-                              style={myStyle}
-                              className="font-bold dark:text-slate-400 text-gray-600 overflow-hidden h-12"
-                            >
-                              {data.title}
-                            </span>
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            <CategoryIcon />
-                            <span className="text-sm font-normal">
-                              {data.subCategory}
-                            </span>
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            <DateIcon />
-                            <span className="text-sm font-normal">
-                              {data.date}
-                            </span>
-                          </div>
-                          <div className="flex gap-2 justify-start items-center">
-                            <LocationIcon />
-                            <span className="text-sm font-normal">
-                              {data.location}
-                            </span>
-                          </div>
-                          {/* fix bottom section */}
-                          <div className="bottom-2 absolute inset-x-0">
-                            <div className="border-t mt-2 mb-2"></div>
-                            <span className="dark:text-slate-100 text-xl text-gray-600 pl-4">
-                              {data.price}
-                            </span>
-                          </div>
-                        </div>
+    <main className="px-10 py-4">
+      <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
+        <div className="container mx-auto">
+          <h1 class="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
+            Internship Opportunities
+          </h1>
+          {/* card grid */}
+          <Link to="internship_opportunity_details">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-1 text-left">
+              {Array(5).fill(
+                apiData.map((data, index) => (
+                  <div
+                    className="border rounded-lg hover:drop-shadow-md overflow-hidden relative dark:bg-transparent bg-white"
+                    key={index}
+                  >
+                    {/* image and avatar block */}
+                    <div className="cursor-pointer h-48 overflow-hidden">
+                      <img
+                        src={data.image}
+                        alt="Profile image for perticular category"
+                        sizes="300px"
+                        className="w-full h-full hover:scale-125 delay-200 duration-300 ease-in-out"
+                      />
+                      <span className="absolute top-40 mx-auto w-36 h-8 items-center backdrop-blur bg-white/70 flex justify-center font-medium">
+                        {data.name}
+                      </span>
+                    </div>
+                    {/* card fields section  */}
+                    <div className="p-4 space-y-2 relative h-60 text-gray-400">
+                      <div>
+                        <p className="text-sm font-bold truncate">
+                          {data.category}
+                        </p>
                       </div>
-                    ))
-                  )}
-                </div>
-              </Link>
+                      <div>
+                        <span
+                          style={myStyle}
+                          className="font-bold dark:text-slate-400 text-gray-600 overflow-hidden h-12"
+                        >
+                          {data.title}
+                        </span>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <CategoryIcon />
+                        <span className="text-sm font-normal">
+                          {data.subCategory}
+                        </span>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <DateIcon />
+                        <span className="text-sm font-normal">{data.date}</span>
+                      </div>
+                      <div className="flex gap-2 justify-start items-center">
+                        <LocationIcon />
+                        <span className="text-sm font-normal">
+                          {data.location}
+                        </span>
+                      </div>
+                      {/* fix bottom section */}
+                      <div className="bottom-2 absolute inset-x-0">
+                        <div className="border-t mt-2 mb-2"></div>
+                        <span className="dark:text-slate-100 text-xl text-gray-600 pl-4">
+                          {data.price}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
-          </div>
-        </main>
+          </Link>
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
