@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import "./css/style.css";
@@ -8,6 +8,8 @@ import "./charts/ChartjsConfig";
 // Import pages
 import Dashboard from "./pages/AdminDashboard/Dashboard";
 import SyscooDashboard from "./pages/SystemCoordinatorDashboard/SyscooDashboard";
+
+
 import OrganizationDashboard from "./pages/OrganizationDashboard/OrganizationDashboard";
 import Organization from "./pages/OrganizationDashboard/Organization";
 import LandingPage from "./pages/landingpage";
@@ -36,8 +38,13 @@ import Organization_Applications from "./pages/OrganizationDashboard/Sidebar_ele
 import Organization_Applicants from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Applicants";
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
-import Uv_coordinator_dashboard from "./pages/UniversityCoordinator/Uv_coordinator_dashboard";
-import List_of_Suprvisor from "./pages/UniversityCoordinator/Sidebar_elementsUVCoordinator/List_of_Supervisor"
+import UvCoordDashboard from "./pages/UvCoordinatorDashboard/UvCoordDashboard";
+import AddSupervisor from "./pages/UvCoordinatorDashboard/Sidebar_elements/AddSupervisor";
+import AssignSupervisor from "./pages/UvCoordinatorDashboard/Sidebar_elements/AssignSupervisor";
+import ViewSuperVisors from "./pages/UvCoordinatorDashboard/Sidebar_elements/ViewSuperVisors";
+import ViewStudents from "./pages/UvCoordinatorDashboard/Sidebar_elements/ViewStudents";
+// import Uv_coordinator_dashboard from "./pages/UniversityCoordinator/Uv_coordinator_dashboard";
+// import List_of_Suprvisor from "./pages/UniversityCoordinator/Sidebar_elementsUVCoordinator/List_of_Supervisor"
 function App() {
   const location = useLocation();
 
@@ -124,15 +131,43 @@ function App() {
             <Route index element={<Organization_Applicants />} />
             <Route path="Applicant_evaluation" element={<Evaluation_page />} />
           </Route>
+        
         </Route>
-        <Route path="uv_coordinator" element={<Uv_coordinator_dashboard />} />
-        <Route path="list_of_supervisor" element={<List_of_Suprvisor />} />
+
+        <Route exact path="/UvCoordinator" element={< UvCoordDashboard />}>
+          <Route index element={<SystemCoordinator />} />
+          <Route path="AddSupervisor" element={<ProLayout />}>
+            <Route index element={< AddSupervisor />} />
+           
+          </Route><Route path="ViewSupervisors" element={<ProLayout />}>
+            <Route index element={< ViewSuperVisors />} />
+            <Route path="Applicant_evaluation" element={<Evaluation_page />} />
+          </Route>
+          <Route path="AssignSupervisor" element={<ProLayout />}>
+            <Route index element={< AssignSupervisor />} />
+            <Route
+              path="Application_Details"
+              element={<Syscoordinator_Application_detail />}
+            />
+          </Route>
+          
+          <Route path="ViewStudents" element={<ProLayout />}>
+            <Route index element={< ViewStudents />} />
+            <Route
+              path="Application_Details"
+              element={<Syscoordinator_Application_detail />}
+            />
+          </Route>
+          
+        </Route>
+        {/* <Route path="uv_coordinator" element={<Uv_coordinator_dashboard />} />
+        <Route path="list_of_supervisor" element={<List_of_Suprvisor />} /> */}
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </>
   );
-  ``;
+  
 }
 
 export default App;
