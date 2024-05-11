@@ -5,7 +5,7 @@ import Landing_page_navbar from "../components/LandingPageComponents/landing_pag
 
 export default () => {
   return (
-    <>
+    <> 
       <Landing_page_announcement_banner />
       <Landing_page_navbar />
 

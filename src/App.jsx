@@ -36,7 +36,8 @@ import Organization_Applications from "./pages/OrganizationDashboard/Sidebar_ele
 import Organization_Applicants from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Applicants";
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
-
+import Uv_coordinator_dashboard from "./pages/UniversityCoordinator/Uv_coordinator_dashboard";
+import List_of_Suprvisor from "./pages/UniversityCoordinator/Sidebar_elementsUVCoordinator/List_of_Supervisor"
 function App() {
   const location = useLocation();
 
@@ -52,6 +53,7 @@ function App() {
         <Route exact path="/" element={<Home />}>
           <Route index element={<LandingPage />} />
           <Route path="applicant_dashboard" element={<ApplicantDashboard />} />
+          
           <Route
             path="posted_opportunity_details"
             element={<Posted_opportunity_details />}
@@ -123,6 +125,8 @@ function App() {
             <Route path="Applicant_evaluation" element={<Evaluation_page />} />
           </Route>
         </Route>
+        <Route path="uv_coordinator" element={<Uv_coordinator_dashboard />} />
+        <Route path="list_of_supervisor" element={<List_of_Suprvisor />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
