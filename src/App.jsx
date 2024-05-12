@@ -22,6 +22,8 @@ import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_ele
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
 import Application_detail from "./components/OrganizationComponents/Application_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
+import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
+import System_Coordinator_Progress_page from "./components/SystemCoordinatorComponents/System_Coordinator_Progress_page";
 import Evaluation_page from "./components/OrganizationComponents/Progress_page";
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
@@ -39,6 +41,7 @@ import Organization_Applicants from "./pages/OrganizationDashboard/Sidebar_eleme
 import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Submitted_tasks";
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
+import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
 
 function App() {
   const location = useLocation();
@@ -102,7 +105,17 @@ function App() {
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
             <Route index element={<Syscoordinator_Applicants />} />
-            <Route path="Applicant_evaluation" element={<Evaluation_page />} />
+            <Route
+              path="Applicant_Progress"
+              element={<System_Coordinator_Progress_page />}
+            />
+          </Route>
+          <Route path="Evaluated_applicant" element={<ProLayout />}>
+            <Route index element={<Evaluated_applicants />} />
+            <Route
+              path="Certifiy_Applicants"
+              element={<Certifiy_Applicants />}
+            />
           </Route>
         </Route>
         <Route exact path="/Organization" element={<OrganizationDashboard />}>
