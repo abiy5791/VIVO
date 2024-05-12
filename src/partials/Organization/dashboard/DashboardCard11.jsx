@@ -5,10 +5,9 @@ import Image02 from "../../../images/user-36-06.jpg";
 import Image03 from "../../../images/user-36-07.jpg";
 import Image04 from "../../../images/user-36-08.jpg";
 import Image05 from "../../../images/user-36-09.jpg";
-import load_bar from "../../../images/load-bar.png";
 import { NavLink } from "react-router-dom";
 
-function DashboardCard07() {
+function DashboardCard11() {
   const customers = [
     {
       id: "0",
@@ -16,8 +15,8 @@ function DashboardCard07() {
       name: "Alex Shatov",
       email: "alexshatov@gmail.com",
       Post: "data structure",
-      spent: "Jun 6, 2024",
-      status: load_bar,
+      spent: "$2,890.66",
+      status: "Pending...",
     },
     {
       id: "1",
@@ -25,8 +24,8 @@ function DashboardCard07() {
       name: "Philip Harbach",
       email: "philip.h@gmail.com",
       Post: "machin learning",
-      spent: "May 6, 2024",
-      status: load_bar,
+      spent: "$2,767.04",
+      status: "Accepted",
     },
     {
       id: "2",
@@ -34,8 +33,8 @@ function DashboardCard07() {
       name: "Mirko Fisuk",
       email: "mirkofisuk@gmail.com",
       Post: "web dev",
-      spent: "Jun 6, 2024",
-      status: load_bar,
+      spent: "$2,996.00",
+      status: "Declined",
     },
     {
       id: "3",
@@ -43,8 +42,8 @@ function DashboardCard07() {
       name: "Olga Semklo",
       email: "olga.s@cool.design",
       Post: "artifical intelligence",
-      spent: "May 7, 2024",
-      status: load_bar,
+      spent: "$1,220.66",
+      status: "Accepted",
     },
     {
       id: "4",
@@ -52,8 +51,8 @@ function DashboardCard07() {
       name: "Burak Long",
       email: "longburak@gmail.com",
       Post: "artifical intelligence",
-      spent: "May 6, 2024",
-      status: load_bar,
+      spent: "$1,890.66",
+      status: "Declined",
     },
   ];
 
@@ -61,7 +60,7 @@ function DashboardCard07() {
     <div className="col-span-full xl:col-span-full bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-          Applicants
+          Submitted Tasks
         </h2>
       </header>
       <div className="p-3">
@@ -72,10 +71,10 @@ function DashboardCard07() {
             <thead className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50">
               <tr>
                 <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Name</div>
+                  <div className="font-semibold text-left">Applicant</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">post</div>
+                  <div className="font-semibold text-left">Task</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-left">Date</div>
@@ -84,7 +83,7 @@ function DashboardCard07() {
                   <div className="font-semibold text-center">email</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">Progress</div>
+                  <div className="font-semibold text-center">Status</div>
                 </th>
               </tr>
             </thead>
@@ -96,7 +95,7 @@ function DashboardCard07() {
                     <td className="p-2 whitespace-nowrap">
                       <NavLink
                         end
-                        to="Applicant_progress"
+                        to="Submitted_Tasks_Detail"
                         className={({ isActive }) =>
                           "block transition duration-150 truncate " +
                           (isActive
@@ -134,14 +133,18 @@ function DashboardCard07() {
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="w-10 h-10 shrink-0 mr-0 sm:mr-3">
-                        <img
-                          className="rounded-full"
-                          src={customer.status}
-                          width="40"
-                          height="40"
-                          alt={customer.name}
-                        />
+                      <div
+                        className="text-center font-medium"
+                        style={{
+                          color:
+                            customer.status === "Accepted"
+                              ? "green"
+                              : customer.status === "Pending..."
+                              ? "black"
+                              : "red",
+                        }}
+                      >
+                        {customer.status}
                       </div>
                     </td>
                   </tr>
@@ -155,4 +158,4 @@ function DashboardCard07() {
   );
 }
 
-export default DashboardCard07;
+export default DashboardCard11;

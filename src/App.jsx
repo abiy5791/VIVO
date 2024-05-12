@@ -22,7 +22,7 @@ import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_ele
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
 import Application_detail from "./components/OrganizationComponents/Application_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
-import Evaluation_page from "./components/OrganizationComponents/Evaluation_page";
+import Evaluation_page from "./components/OrganizationComponents/Progress_page";
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
@@ -30,10 +30,13 @@ import Task from "./components/ApplicantComponents/task";
 import Admin_home from "./pages/AdminDashboard/admin_home";
 import Opportunity_details_component from "./components/AdminComponents/opportunity_details_component";
 import Organization_Post_details_component from "./components/OrganizationComponents/Organization_Post_details_component";
+import Organization_Submitted_Tasks_Detail from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
+import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ProLayout from "./pages/AdminDashboard/pro_layout";
 import SystemCoordinator from "./pages/SystemCoordinatorDashboard/SystemCoordinator";
 import Organization_Applications from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Applications";
 import Organization_Applicants from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Applicants";
+import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Submitted_tasks";
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
 
@@ -120,7 +123,14 @@ function App() {
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
             <Route index element={<Organization_Applicants />} />
-            <Route path="Applicant_evaluation" element={<Evaluation_page />} />
+            <Route path="Applicant_progress" element={<Progress_page />} />
+          </Route>
+          <Route path="Submitted_Tasks" element={<ProLayout />}>
+            <Route index element={<Organization_Submitted_tasks />} />
+            <Route
+              path="Submitted_Tasks_Detail"
+              element={<Organization_Submitted_Tasks_Detail />}
+            />
           </Route>
         </Route>
         <Route path="/signin" element={<SignIn />} />
