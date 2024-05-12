@@ -22,6 +22,18 @@ import Task from "./components/ApplicantComponents/task";
 import Admin_home from "./pages/AdminDashboard/admin_home";
 import Opportunity_details_component from "./components/AdminComponents/opportunity_details_component";
 import ProLayout from "./pages/AdminDashboard/pro_layout";
+import Apply_form from "./components/apply_form";
+import ErrorPage from "./pages/error_page";
+import WelcomePage from "./pages/AuthPages/Welcome";
+import SignupCompany from "./pages/AuthPages/Signup_company";
+import Modal from "./components/modal";
+import WaitApproval from "./components/wait_approval";
+import LoadingIndicator from "./components/loading_indicator";
+import SuccessfulAlert from "./components/successful_alert";
+import ErrorAlert from "./components/Error_alert";
+import SuccessPage from "./components/success_page";
+import Confetti from "./components/confetti";
+import SignupStudent from "./pages/AuthPages/Signup_student";
 
 function App() {
   const location = useLocation();
@@ -42,6 +54,7 @@ function App() {
             path="posted_opportunity_details"
             element={<Posted_opportunity_details />}
           />
+          <Route path="apply" element={<Apply_form />} />
           <Route
             path="applicant_profile"
             element={<Applicant_profile_component />}
@@ -69,10 +82,20 @@ function App() {
         </Route>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/pagenotfound" element={<ErrorPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/signup_company" element={<SignupCompany />} />
+        <Route path="/signup_student" element={<SignupStudent />} />
+        <Route path="/modal" element={<Modal />} />
+        <Route path="/wait" element={<WaitApproval />} />
+        <Route path="/loading" element={<LoadingIndicator />} />
+        <Route path="/successalert" element={<SuccessfulAlert />} />
+        <Route path="/alert" element={<ErrorAlert />} />
+        <Route path="/successpage" element={<SuccessPage />} />
+        <Route path="/confetti" element={<Confetti />} />
       </Routes>
     </>
   );
-  ``;
 }
 
 export default App;

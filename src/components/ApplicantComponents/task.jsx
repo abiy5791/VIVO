@@ -228,6 +228,24 @@ export default () => {
                     </div>
                   </div>
                 </header>
+                <div className="flex justify-center">
+                  <span id="ProgressLabel" className="sr-only">
+                    Loading
+                  </span>
+
+                  <span
+                    role="progressbar"
+                    aria-labelledby="ProgressLabel"
+                    aria-valuenow="75"
+                    className="relative block w-1/3 rounded-full bg-gray-200"
+                  >
+                    <span className="absolute inset-0 flex items-center justify-center text-[10px]/4">
+                      <span className="font-bold text-white"> 75% </span>
+                    </span>
+
+                    <span className="w-3/4 block h-4 rounded-full bg-indigo-600 text-center"></span>
+                  </span>
+                </div>
                 <section>
                   <div class=" flex flex-col items-center px-5 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div class="flex flex-col w-full max-w-4xl mx-auto prose text-left prose-blue">
@@ -384,6 +402,14 @@ export default () => {
                   <h5 className="text-slate-800 dark:text-slate-300">
                     Hear from a team member at JPMorgan Chase introduce the task
                   </h5>
+                </div>
+                <div className="flex justify-end">
+                  <button class="my-7 right-0 px-8 py-2 text-base font-bold text-center text-indigo-500">
+                    Back
+                  </button>
+                  <button class="my-7 ml-2 right-0 px-8 py-2 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 lg:px-10 rounded-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Next
+                  </button>
                 </div>
               </div>
             </div>
