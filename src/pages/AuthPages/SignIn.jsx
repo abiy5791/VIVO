@@ -1,6 +1,35 @@
 import Logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+
 export default () => {
+  const [data, setData] = useState([]);
+  const { login } = useAuth();
+
+  const location = useLocation();
+  const { state } = location;
+  const from = state?.from || "/";
+
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleLogin = async (e) => {
+    try {
+      // Your login logic
+      await login(data);
+      console.log(from);
+      // Redirect the user to the intended destination route
+      navigate(from.pathname)
+    } catch (error) {
+      console.error("Login failed:", error);
+      // Handle login failure
+    }
+  };
+
   return (
     <main className="w-full flex">
       <div className="relative flex-1 hidden items-center justify-center h-screen lg:flex bg-transparent">
@@ -39,7 +68,7 @@ export default () => {
                 Sign In
               </h3>
               <p className="">
-                I don't have an account?{" "}
+                I don&apos;t have an account?{" "}
                 <Link
                   to="/signup"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -156,7 +185,9 @@ export default () => {
             <div>
               <label className="font-medium">Email</label>
               <input
+                onChange={handleChange}
                 type="email"
+                name="email"
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -164,12 +195,17 @@ export default () => {
             <div>
               <label className="font-medium">Password</label>
               <input
+                onChange={handleChange}
                 type="password"
+                name="password"
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>
-            <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+            <button
+              onClick={handleLogin}
+              className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+            >
               Sign In
             </button>
           </form>
