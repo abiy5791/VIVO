@@ -96,7 +96,7 @@ function DashboardCard07() {
                     <td className="p-2 whitespace-nowrap">
                       <NavLink
                         end
-                        to="Applicant_evaluation"
+                        to="Applicant_Progress"
                         className={({ isActive }) =>
                           "block transition duration-150 truncate " +
                           (isActive

@@ -3,6 +3,7 @@ import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import Avatar_menu from "../avatar_menu";
 import ThemeToggle from "../AdminComponents/ThemeToggle";
+import Notifications from "../../components/AdminComponents/DropdownNotifications";
 
 const dropdownNavs = [
   {
@@ -308,6 +309,7 @@ export default () => {
               <div className="flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0">
                 {user ? (
                   <>
+                    <Notifications align="right" />
                     <ThemeToggle />
                     <Avatar_menu />
                   </>

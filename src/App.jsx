@@ -24,7 +24,9 @@ import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_ele
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
 import Application_detail from "./components/OrganizationComponents/Application_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
-import Evaluation_page from "./components/OrganizationComponents/Evaluation_page";
+import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
+import System_Coordinator_Progress_page from "./components/SystemCoordinatorComponents/System_Coordinator_Progress_page";
+import Evaluation_page from "./components/OrganizationComponents/Progress_page";
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
@@ -32,12 +34,29 @@ import Task from "./components/ApplicantComponents/task";
 import Admin_home from "./pages/AdminDashboard/admin_home";
 import Opportunity_details_component from "./components/AdminComponents/opportunity_details_component";
 import Organization_Post_details_component from "./components/OrganizationComponents/Organization_Post_details_component";
+import Organization_Submitted_Tasks_Detail from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
+import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ProLayout from "./pages/AdminDashboard/pro_layout";
+import Apply_form from "./components/apply_form";
+import ErrorPage from "./pages/error_page";
+import WelcomePage from "./pages/AuthPages/Welcome";
+import SignupCompany from "./pages/AuthPages/Signup_company";
+import Modal from "./components/modal";
+import WaitApproval from "./components/wait_approval";
+import LoadingIndicator from "./components/loading_indicator";
+import SuccessfulAlert from "./components/successful_alert";
+import ErrorAlert from "./components/Error_alert";
+import SuccessPage from "./components/success_page";
+import Confetti from "./components/confetti";
+import SignupStudent from "./pages/AuthPages/Signup_student";
 import SystemCoordinator from "./pages/SystemCoordinatorDashboard/SystemCoordinator";
 import Organization_Applications from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Applications";
 import Organization_Applicants from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Applicants";
+import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_elements/Organization_Submitted_tasks";
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
+import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
+
 import UvCoordDashboard from "./pages/UvCoordinatorDashboard/UvCoordDashboard";
 import AddSupervisor from "./pages/UvCoordinatorDashboard/Sidebar_elements/AddSupervisor";
 import AssignSupervisor from "./pages/UvCoordinatorDashboard/Sidebar_elements/AssignSupervisor";
@@ -65,6 +84,7 @@ function App() {
             path="posted_opportunity_details"
             element={<Posted_opportunity_details />}
           />
+          <Route path="apply" element={<Apply_form />} />
           <Route
             path="applicant_profile"
             element={<Applicant_profile_component />}
@@ -108,7 +128,17 @@ function App() {
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
             <Route index element={<Syscoordinator_Applicants />} />
-            <Route path="Applicant_evaluation" element={<Evaluation_page />} />
+            <Route
+              path="Applicant_Progress"
+              element={<System_Coordinator_Progress_page />}
+            />
+          </Route>
+          <Route path="Evaluated_applicant" element={<ProLayout />}>
+            <Route index element={<Evaluated_applicants />} />
+            <Route
+              path="Certifiy_Applicants"
+              element={<Certifiy_Applicants />}
+            />
           </Route>
         </Route>
         <Route exact path="/Organization" element={<OrganizationDashboard />}>
@@ -129,7 +159,14 @@ function App() {
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
             <Route index element={<Organization_Applicants />} />
-            <Route path="Applicant_evaluation" element={<Evaluation_page />} />
+            <Route path="Applicant_progress" element={<Progress_page />} />
+          </Route>
+          <Route path="Submitted_Tasks" element={<ProLayout />}>
+            <Route index element={<Organization_Submitted_tasks />} />
+            <Route
+              path="Submitted_Tasks_Detail"
+              element={<Organization_Submitted_Tasks_Detail />}
+            />
           </Route>
         
         </Route>
@@ -164,6 +201,17 @@ function App() {
         <Route path="list_of_supervisor" element={<List_of_Suprvisor />} /> */}
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/pagenotfound" element={<ErrorPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/signup_company" element={<SignupCompany />} />
+        <Route path="/signup_student" element={<SignupStudent />} />
+        <Route path="/modal" element={<Modal />} />
+        <Route path="/wait" element={<WaitApproval />} />
+        <Route path="/loading" element={<LoadingIndicator />} />
+        <Route path="/successalert" element={<SuccessfulAlert />} />
+        <Route path="/alert" element={<ErrorAlert />} />
+        <Route path="/successpage" element={<SuccessPage />} />
+        <Route path="/confetti" element={<Confetti />} />
       </Routes>
     </>
   );

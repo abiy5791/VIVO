@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import Confetti from "../confetti";
 export default () => {
   return (
     <>
@@ -15,14 +17,14 @@ export default () => {
               doloremque laudantium, totam rem aperiam, eaque ipsa quae.
             </p>
             <div className="items-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
-              <a
-                href="javascript:void(0)"
+              <Link
+                to="/welcome"
                 className="block py-2 px-4 text-center text-white font-medium bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-lg hover:shadow-none"
               >
                 Let's get started
-              </a>
-              <a
-                href="javascript:void(0)"
+              </Link>
+              <Link
+                to="/modal"
                 className="flex items-center justify-center gap-x-2 py-2 px-4 dark:text-slate-100 text-gray-700 hover:text-gray-500 font-medium duration-150 active:bg-gray-100 border rounded-lg md:inline-flex"
               >
                 Get access
@@ -38,7 +40,7 @@ export default () => {
                     clipRule="evenodd"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex-none mt-14 md:mt-0 md:max-w-xl">
