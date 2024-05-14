@@ -55,7 +55,7 @@ import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Side
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
 import RequireAuth from "./components/RequireAuth";
-import NotFound from "./components/NotFound";
+import ApplicantSignup from "./pages/AuthPages/ApplicantSignup";
 
 function App() {
   const location = useLocation();
@@ -184,10 +184,11 @@ function App() {
         <Route path="/task" element={<Task />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/pagenotfound" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/signup_company" element={<SignupCompany />} />
         <Route path="/signup_student" element={<SignupStudent />} />
+        <Route path="/signup_applicant" element={<ApplicantSignup />} />
         <Route path="/modal" element={<Modal />} />
         <Route path="/wait" element={<WaitApproval />} />
         <Route path="/loading" element={<LoadingIndicator />} />
@@ -195,7 +196,6 @@ function App() {
         <Route path="/alert" element={<ErrorAlert />} />
         <Route path="/successpage" element={<SuccessPage />} />
         <Route path="/confetti" element={<Confetti />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

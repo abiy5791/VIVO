@@ -13,40 +13,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const googleAuthenticate = async (state, code) => {
-  //   if (state && code && !localStorage.getItem("access")) {
-  //     const config = {
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Content-Type": "application/x-www-form-urlencoded",
-  //       },
-  //     };
-
-  //     const details = {
-  //       state: state,
-  //       code: code,
-  //     };
-
-  //     const formBody = Object.keys(details)
-  //       .map(
-  //         (key) =>
-  //           encodeURIComponent(key) + "=" + encodeURIComponent(details[key])
-  //       )
-  //       .join("&");
-
-  //     try {
-  //       const res = await axios.post(
-  //         `/auth/o/google-oauth2/?${formBody}`,
-  //         config
-  //       );
-
-  //       console.log("success", res);
-  //     } catch (err) {
-  //       console.log("fail", res);
-  //       console.log("login failed try again");
-  //     }
-  //   }
-  // };
 
   async function login({ email, password }) {
     try {
