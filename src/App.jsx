@@ -148,7 +148,7 @@ function App() {
 
             <Route
               exact
-              path="/Organization"
+              path="/organization"
               element={<OrganizationDashboard />}
             >
               <Route index element={<Organization />} />

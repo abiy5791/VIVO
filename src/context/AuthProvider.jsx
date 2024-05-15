@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "../api/axios";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import LoadingIndicator from "../components/loading_indicator";
 
 const AuthContext = createContext({});
@@ -12,7 +12,6 @@ export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
 
   async function login({ email, password }) {
     try {
@@ -105,7 +104,7 @@ export const AuthProvider = ({ children }) => {
     setAuthToken(null);
     setUser(null);
     localStorage.removeItem("tokens");
-    navigate("/");
+    redirect("/");
   }
 
   useEffect(() => {
