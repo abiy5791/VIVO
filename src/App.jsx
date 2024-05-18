@@ -24,7 +24,6 @@ import Application_detail from "./components/OrganizationComponents/Application_
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
 import System_Coordinator_Progress_page from "./components/SystemCoordinatorComponents/System_Coordinator_Progress_page";
-import Evaluation_page from "./components/OrganizationComponents/Progress_page";
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
@@ -54,6 +53,8 @@ import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
+import ApplyComponent from "./components/apply_component";
+import ApplicationDetails from "./components/Application_Details";
 
 function App() {
   const location = useLocation();
@@ -75,6 +76,7 @@ function App() {
             element={<Posted_opportunity_details />}
           />
           <Route path="apply" element={<Apply_form />} />
+          <Route path="applyproposal" element={<ApplyComponent />} />
           <Route
             path="applicant_profile"
             element={<Applicant_profile_component />}
@@ -144,7 +146,7 @@ function App() {
             <Route index element={<Organization_Applications />} />
             <Route
               path="Application_Details"
-              element={<Application_detail />}
+              element={<ApplicationDetails />}
             />
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
