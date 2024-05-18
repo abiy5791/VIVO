@@ -40,7 +40,7 @@ function SignupStudent() {
           password: user.password,
         };
         console.log("success", data);
-        login(data);
+        login(data, "/applcant_dashboard");
       }
     } catch {
       console.log("catched");

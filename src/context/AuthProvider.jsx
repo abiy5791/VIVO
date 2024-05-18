@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  async function login({ email, password }) {
+  async function login({ email, password }, redirectUrl = "/") {
     try {
       const response = await axios.post(
         "auth/jwt/create/",
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         setAuthToken(response.data);
         setUser(jwtDecode(response.data.access));
         localStorage.setItem("tokens", JSON.stringify(response.data));
-        navigate("/");
+        navigate(redirectUrl);
       } else {
         console.log("Something went wrong");
       }
@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
       }
       formData.append("image", image);
       const formDataObject = Object.fromEntries(formData);
-      console.log(formDataObject);
 
       const url = "auth/users/";
 
@@ -65,7 +64,6 @@ export const AuthProvider = ({ children }) => {
           email: user.email,
           password: user.password,
         };
-        console.log("success", data);
         login(data);
       }
     } catch {
@@ -104,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     setAuthToken(null);
     setUser(null);
     localStorage.removeItem("tokens");
-    redirect("/");
+    navigate("/");
   }
 
   useEffect(() => {

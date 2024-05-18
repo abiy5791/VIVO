@@ -53,7 +53,9 @@ function SignupCompany() {
           password: user.password,
         };
         console.log("success", data);
-        login(data);
+        // make login to organization dashboard
+
+        login(data, "/organization");
       }
     } catch {
       console.log("catched");
@@ -376,7 +378,7 @@ function SignupCompany() {
                   </label>
 
                   <input
-                    type="number"
+                    type="text"
                     id="supervisor_phone_number"
                     name="phone_number"
                     placeholder="+251911121314"

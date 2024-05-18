@@ -10,23 +10,19 @@ export default () => {
 
   const location = useLocation();
   const { state } = location;
-  const from = state?.from || "/";
+  const from = state?.from || { pathname: "/" };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const handleLogin = async (e) => {
     try {
-      // Your login logic
       await login(data);
-      console.log(from);
-      // Redirect the user to the intended destination route
-      navigate(from.pathname)
+      navigate(from.pathname);
     } catch (error) {
       console.error("Login failed:", error);
-      // Handle login failure
     }
   };
 
