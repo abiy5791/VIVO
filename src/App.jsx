@@ -24,7 +24,6 @@ import Application_detail from "./components/OrganizationComponents/Application_
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
 import System_Coordinator_Progress_page from "./components/SystemCoordinatorComponents/System_Coordinator_Progress_page";
-import Evaluation_page from "./components/OrganizationComponents/Progress_page";
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
@@ -56,6 +55,9 @@ import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sideba
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
 import RequireAuth from "./components/RequireAuth";
 import ApplicantSignup from "./pages/AuthPages/ApplicantSignup";
+import ApplyComponent from "./components/apply_component";
+import ApplicationDetails from "./components/Application_Details";
+
 
 function App() {
   const location = useLocation();
@@ -73,43 +75,51 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route index element={<LandingPage />} />
 
+       
+       
             <Route
               path="posted_opportunity_details"
               element={<Posted_opportunity_details />}
             />
-
+        
             <Route
               path="internship_opportunities"
               element={<Internship_opportunity_card />}
             />
           </Route>
           <Route element={<RequireAuth />}>
-            <Route
-              path="applicant_dashboard"
-              element={<ApplicantDashboard />}
-            />
-            <Route path="apply" element={<Apply_form />} />
-            <Route
-              path="applicant_profile"
-              element={<Applicant_profile_component />}
-            />
-            <Route path="settings" element={<Settings_component />} />
-            <Route exact path="/admin_dashboard" element={<Dashboard />}>
-              <Route index element={<Admin_home />} />
-              <Route path="applicants_list" element={<Applicants_list />} />
+              <Route path="apply" element={<Apply_form />} />
+              <Route path="applyproposal" element={<ApplyComponent />} />
               <Route
-                path="organizations_list"
-                element={<Organizations_list />}
+                path="applicant_profile"
+                element={<Applicant_profile_component />}
+               />
+              
+              <Route path="settings" element={<Settings_component />} />
+              
+              <Route path="applicant_dashboard" element={<ApplicantDashboard />} />
+              <Route path="apply" element={<Apply_form />} />
+              <Route
+                path="applicant_profile"
+                element={<Applicant_profile_component />}
               />
-
-              <Route path="internship_opportunities" element={<ProLayout />}>
-                <Route index element={<Internship_opportunity_card />} />
+              <Route path="settings" element={<Settings_component />} />
+              <Route exact path="/admin_dashboard" element={<Dashboard />}>
+                <Route index element={<Admin_home />} />
+                <Route path="applicants_list" element={<Applicants_list />} />
                 <Route
-                  path="internship_opportunity_details"
-                  element={<Opportunity_details_component />}
+                  path="organizations_list"
+                  element={<Organizations_list />}
                 />
+
+                <Route path="internship_opportunities" element={<ProLayout />}>
+                  <Route index element={<Internship_opportunity_card />} />
+                  <Route
+                    path="internship_opportunity_details"
+                    element={<Opportunity_details_component />}
+                  />
+                </Route>
               </Route>
-            </Route>
             <Route
               exact
               path="/System_Coordinator"
@@ -145,6 +155,7 @@ function App() {
                 />
               </Route>
             </Route>
+
 
             <Route
               exact
