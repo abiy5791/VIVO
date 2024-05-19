@@ -5,7 +5,49 @@ import Image04 from "../../../images/user-36-08.jpg";
 import Image05 from "../../../images/user-36-09.jpg";
 import load_bar from "../../../images/load-bar.png";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import axios from "../../../api/axios";
+import { useState, useEffect } from "react";
+
 function DashboardCard07() {
+  const {
+    user: { organization_id },
+  } = useAuth();
+  const [applications, setApplications] = useState([]);
+
+  const fetchApplications = async (organization_id) => {
+    try {
+      const res = await axios.get(
+        `organizations/${organization_id}/applications`
+      );
+      const filteredApplications = res.data
+        .filter((application) => application.status === "accepted")
+        .map((application) => ({
+          id: application.id.toString(),
+          applicant_id: application.applicant.id,
+          image: Image01,
+          name: `${application.applicant.first_name} ${application.applicant.last_name}`,
+          email: application.applicant.email,
+          phone_number: application.applicant.phone_number,
+          gender: application.applicant.gender,
+          post_id: application.post.id,
+          post: application.post.title,
+          spent: new Date(application.created).toLocaleDateString(),
+          status: load_bar,
+          progress: "25%",
+        }));
+      setApplications(filteredApplications);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (organization_id) {
+      fetchApplications(organization_id);
+    }
+  }, [organization_id]);
+
   const customers = [
     {
       id: "0",
@@ -82,40 +124,44 @@ function DashboardCard07() {
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
-          {customers.map((customer) => {
+          {applications.map((application) => {
             return (
-              <tr id={customer.id} class="text-gray-500">
+              <tr
+                id={application.id}
+                key={application.id}
+                class="text-gray-500"
+              >
                 <td class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
-                  <Link to="Applicant_progress">
+                  <Link to="Applicant_progress" state={application}>
                     <div className="flex items-center">
                       <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                         <img
                           className="rounded-full"
-                          src={customer.image}
+                          src={application.image}
                           width="40"
                           height="40"
-                          alt={customer.name}
+                          alt={application.name}
                         />
                       </div>
                       <div className="font-medium text-slate-800 dark:text-slate-100">
-                        {customer.name}
+                        {application.name}
                       </div>
                     </div>
                   </Link>
                 </td>
                 <td class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
-                  {customer.Post}
+                  {application.post}
                 </td>
                 <td class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
-                  {customer.spent}
+                  {application.spent}
                 </td>
                 <td class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">
-                  {customer.email}
+                  {application.email}
                 </td>
                 <td class="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
                   <div class="flex items-center">
                     <span class="mr-2 text-xs font-medium">
-                      {customer.progress}
+                      {application.progress}
                     </span>
                     <div class="relative w-full">
                       <div class="w-full bg-gray-200 rounded-sm h-2">
