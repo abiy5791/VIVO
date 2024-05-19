@@ -1,4 +1,9 @@
+import { useLocation } from "react-router-dom";
+import { useMemo } from "react";
+
 export default () => {
+  const location = useLocation();
+  const application = useMemo(() => location.state || {}, [location.state]);
   return (
     <div>
       <div>
@@ -9,9 +14,8 @@ export default () => {
 
           <div class="w-2/3 sm:text-center pl-5 mt-10 text-start">
             <p class="font-poppins font-bold text-heading sm:text-4xl text-2xl">
-              Post title
+              {application.post}
             </p>
-            <p class="text-heading">Post title</p>
           </div>
         </div>
 
@@ -252,14 +256,10 @@ export default () => {
             <div class="flex flex-col sm:w-2/3 order-first sm:order-none sm:-mt-10">
               <div class="py-3">
                 <h2 class="text-lg font-poppins font-bold text-top-color">
-                  post Description
+                  Description
                 </h2>
                 <div class="border-2 w-20 border-top-color my-3"></div>
-                <p>
-                  To get a career opportunity which would help me to utilize my
-                  academic background to assist me to gain experience, employ my
-                  excellent skills, and enable me to make positive contribution.
-                </p>
+                <p>{application.post}</p>
               </div>
 
               <div class="py-3">

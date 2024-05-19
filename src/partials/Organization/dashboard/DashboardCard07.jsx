@@ -48,58 +48,7 @@ function DashboardCard07() {
     }
   }, [organization_id]);
 
-  const customers = [
-    {
-      id: "0",
-      image: Image01,
-      name: "Alex Shatov",
-      email: "alexshatov@gmail.com",
-      Post: "data structure",
-      spent: "Jun 6, 2024",
-      status: load_bar,
-      progress: "25%",
-    },
-    {
-      id: "1",
-      image: Image02,
-      name: "Philip Harbach",
-      email: "philip.h@gmail.com",
-      Post: "machin learning",
-      spent: "May 6, 2024",
-      status: load_bar,
-      progress: "25%",
-    },
-    {
-      id: "2",
-      image: Image03,
-      name: "Mirko Fisuk",
-      email: "mirkofisuk@gmail.com",
-      Post: "web dev",
-      spent: "Jun 6, 2024",
-      status: load_bar,
-      progress: "50%",
-    },
-    {
-      id: "3",
-      image: Image04,
-      name: "Olga Semklo",
-      email: "olga.s@cool.design",
-      Post: "artifical intelligence",
-      spent: "May 7, 2024",
-      status: load_bar,
-      progress: "25%",
-    },
-    {
-      id: "4",
-      image: Image05,
-      name: "Burak Long",
-      email: "longburak@gmail.com",
-      Post: "artifical intelligence",
-      spent: "May 6, 2024",
-      status: load_bar,
-      progress: "75%",
-    },
-  ];
+
   return (
     <div class="rounded-lg mb-4 overflow-auto border">
       <table class="items-center w-full bg-transparent border-collapse">

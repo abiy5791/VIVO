@@ -57,7 +57,7 @@ import RequireAuth from "./components/RequireAuth";
 import ApplicantSignup from "./pages/AuthPages/ApplicantSignup";
 import ApplyComponent from "./components/apply_component";
 import ApplicationDetails from "./components/Application_Details";
-
+import Unauthorized from "./components/Unauhtorized";
 
 function App() {
   const location = useLocation();
@@ -74,52 +74,53 @@ function App() {
         <Route exact path="/" element={<ProLayout />}>
           <Route path="/" element={<Home />}>
             <Route index element={<LandingPage />} />
-
-       
-       
             <Route
               path="posted_opportunity_details"
               element={<Posted_opportunity_details />}
             />
-        
             <Route
               path="internship_opportunities"
               element={<Internship_opportunity_card />}
             />
           </Route>
-          <Route element={<RequireAuth />}>
-              <Route path="apply" element={<Apply_form />} />
-              <Route path="applyproposal" element={<ApplyComponent />} />
-              <Route
-                path="applicant_profile"
-                element={<Applicant_profile_component />}
-               />
-              
-              <Route path="settings" element={<Settings_component />} />
-              
-              <Route path="applicant_dashboard" element={<ApplicantDashboard />} />
-              <Route path="apply" element={<Apply_form />} />
-              <Route
-                path="applicant_profile"
-                element={<Applicant_profile_component />}
-              />
-              <Route path="settings" element={<Settings_component />} />
-              <Route exact path="/admin_dashboard" element={<Dashboard />}>
-                <Route index element={<Admin_home />} />
-                <Route path="applicants_list" element={<Applicants_list />} />
-                <Route
-                  path="organizations_list"
-                  element={<Organizations_list />}
-                />
 
-                <Route path="internship_opportunities" element={<ProLayout />}>
-                  <Route index element={<Internship_opportunity_card />} />
-                  <Route
-                    path="internship_opportunity_details"
-                    element={<Opportunity_details_component />}
-                  />
-                </Route>
+          <Route
+            element={<RequireAuth allowedRoles={["applicant", "student"]} />}
+          >
+            <Route path="apply" element={<Apply_form />} />
+            <Route path="applyproposal" element={<ApplyComponent />} />
+            <Route
+              path="applicant_profile"
+              element={<Applicant_profile_component />}
+            />
+            <Route path="settings" element={<Settings_component />} />
+            <Route
+              path="applicant_dashboard"
+              element={<ApplicantDashboard />}
+            />
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+            <Route exact path="/admin_dashboard" element={<Dashboard />}>
+              <Route index element={<Admin_home />} />
+              <Route path="applicants_list" element={<Applicants_list />} />
+              <Route
+                path="organizations_list"
+                element={<Organizations_list />}
+              />
+              <Route path="internship_opportunities" element={<ProLayout />}>
+                <Route index element={<Internship_opportunity_card />} />
+                <Route
+                  path="internship_opportunity_details"
+                  element={<Opportunity_details_component />}
+                />
               </Route>
+            </Route>
+          </Route>
+
+          <Route
+            element={<RequireAuth allowedRoles={["system_coordinator"]} />}
+          >
             <Route
               exact
               path="/System_Coordinator"
@@ -155,8 +156,9 @@ function App() {
                 />
               </Route>
             </Route>
+          </Route>
 
-
+          <Route element={<RequireAuth allowedRoles={["organization"]} />}>
             <Route
               exact
               path="/organization"
@@ -207,6 +209,7 @@ function App() {
         <Route path="/alert" element={<ErrorAlert />} />
         <Route path="/successpage" element={<SuccessPage />} />
         <Route path="/confetti" element={<Confetti />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </>
   );
