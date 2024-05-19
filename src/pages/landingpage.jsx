@@ -8,8 +8,12 @@ import Landing_page_pricing from "../components/LandingPageComponents/landing_pa
 import Opportunity_card_component from "../components/LandingPageComponents/opportunity_card_component";
 import Stat_component from "../components/LandingPageComponents/stat_component";
 import Testimonial_component from "../components/LandingPageComponents/testimonial_component";
+import useAuth from "../hooks/useAuth"
 
 const LandingPage = () => {
+  const {user} = useAuth()
+  user && console.log(user)
+
   return (
     <>
       <Landing_page_herosection />

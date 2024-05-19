@@ -1,10 +1,10 @@
 import WelcomeBanner from "../../partials/Organization/dashboard/WelcomeBanner";
-import DashboardCard01 from "../../partials/Organization/dashboard/DashboardCard01";
-import DashboardCard02 from "../../partials/Organization/dashboard/DashboardCard02";
-import DashboardCard03 from "../../partials/Organization/dashboard/DashboardCard03";
 import DashboardCard07 from "../../partials/Organization/dashboard/DashboardCard07";
 import DashboardCard10 from "../../partials/Organization/dashboard/DashboardCard10";
 import Banner from "../../partials/Organization/Banner";
+import CookieComponent from "../../components/Cookie_Component";
+import DashboardCard06 from "../../partials/Organization/dashboard/DashbaordCard06";
+
 export default () => {
   return (
     <>
@@ -13,22 +13,18 @@ export default () => {
           {/* Welcome banner */}
           <WelcomeBanner />
 
+          <DashboardCard06 />
+
+          <DashboardCard07 />
+
           {/* Cards */}
           <div className="grid grid-cols-12 gap-6">
-            <DashboardCard01 />
-
-            <DashboardCard02 />
-
-            <DashboardCard03 />
-
             <DashboardCard10 />
-
-            <DashboardCard07 />
           </div>
         </div>
       </main>
 
-      <Banner />
+      <CookieComponent />
     </>
   );
 };
