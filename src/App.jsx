@@ -23,8 +23,7 @@ import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents
 import Application_detail from "./components/OrganizationComponents/Application_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
-import System_Coordinator_Progress_page from "./components/SystemCoordinatorComponents/System_Coordinator_Progress_page";
-import Evaluation_page from "./components/OrganizationComponents/Progress_page";
+
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
@@ -33,7 +32,6 @@ import Admin_home from "./pages/AdminDashboard/admin_home";
 import Opportunity_details_component from "./components/AdminComponents/opportunity_details_component";
 import Organization_Post_details_component from "./components/OrganizationComponents/Organization_Post_details_component";
 import Organization_Submitted_Tasks_Detail from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
-import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ProLayout from "./pages/AdminDashboard/pro_layout";
 import Apply_form from "./components/apply_form";
 import ErrorPage from "./pages/error_page";
@@ -54,6 +52,8 @@ import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
+import Organization_Add_post from "./components/OrganizationComponents/Organization_Add_post";
+import SystemCoordinator_add_post from "./components/SystemCoordinatorComponents/SystemCoordinator_add_post";
 
 function App() {
   const location = useLocation();
@@ -108,6 +108,7 @@ function App() {
               path="internship_posts_details"
               element={<Syscoordinator_post_detail />}
             />
+            <Route path="add_post" element={<SystemCoordinator_add_post />} />
           </Route>
           <Route path="Applications" element={<ProLayout />}>
             <Route index element={<Syscoordinator_Applications />} />
@@ -118,10 +119,6 @@ function App() {
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
             <Route index element={<Syscoordinator_Applicants />} />
-            <Route
-              path="Applicant_Progress"
-              element={<System_Coordinator_Progress_page />}
-            />
           </Route>
           <Route path="Evaluated_applicant" element={<ProLayout />}>
             <Route index element={<Evaluated_applicants />} />
@@ -139,6 +136,7 @@ function App() {
               path="internship_posts_details"
               element={<Organization_Post_details_component />}
             />
+            <Route path="add_post" element={<Organization_Add_post />} />
           </Route>
           <Route path="Applications" element={<ProLayout />}>
             <Route index element={<Organization_Applications />} />
@@ -149,7 +147,6 @@ function App() {
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
             <Route index element={<Organization_Applicants />} />
-            <Route path="Applicant_progress" element={<Progress_page />} />
           </Route>
           <Route path="Submitted_Tasks" element={<ProLayout />}>
             <Route index element={<Organization_Submitted_tasks />} />
