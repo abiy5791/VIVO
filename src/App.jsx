@@ -62,6 +62,7 @@ import AddSupervisor from "./pages/UvCoordinatorDashboard/Sidebar_elements/AddSu
 import AssignSupervisor from "./pages/UvCoordinatorDashboard/Sidebar_elements/AssignSupervisor";
 import ViewSuperVisors from "./pages/UvCoordinatorDashboard/Sidebar_elements/ViewSuperVisors";
 import ViewStudents from "./pages/UvCoordinatorDashboard/Sidebar_elements/ViewStudents";
+import Supervisor from "./pages/SupervisorDashboard/Supervisor";
 // import Uv_coordinator_dashboard from "./pages/UniversityCoordinator/Uv_coordinator_dashboard";
 // import List_of_Suprvisor from "./pages/UniversityCoordinator/Sidebar_elementsUVCoordinator/List_of_Supervisor"
 function App() {
@@ -197,8 +198,34 @@ function App() {
           </Route>
           
         </Route>
-        {/* <Route path="uv_coordinator" element={<Uv_coordinator_dashboard />} />
-        <Route path="list_of_supervisor" element={<List_of_Suprvisor />} /> */}
+    
+        <Route exact path="/Supervisor" element={< Supervisor />}>
+          <Route index element={<SystemCoordinator />} />
+          <Route path="AddSupervisor" element={<ProLayout />}>
+            <Route index element={< AddSupervisor />} />
+           
+          </Route><Route path="ViewSupervisors" element={<ProLayout />}>
+            <Route index element={< ViewSuperVisors />} />
+            <Route path="Applicant_evaluation" element={<Evaluation_page />} />
+          </Route>
+          <Route path="AssignSupervisor" element={<ProLayout />}>
+            <Route index element={< AssignSupervisor />} />
+            <Route
+              path="Application_Details"
+              element={<Syscoordinator_Application_detail />}
+            />
+          </Route>
+          
+          <Route path="ViewStudents" element={<ProLayout />}>
+            <Route index element={< ViewStudents />} />
+            <Route
+              path="Application_Details"
+              element={<Syscoordinator_Application_detail />}
+            />
+          </Route>
+          
+        </Route>
+    
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/pagenotfound" element={<ErrorPage />} />
