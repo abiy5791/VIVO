@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "../../components/OrganizationComponents/ThemeToggle";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import useAuth from "../../hooks/useAuth";
 
 const Menu = (props) => {
   const { children, items } = props;
@@ -52,6 +53,7 @@ const Menu = (props) => {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+  const { logout } = useAuth();
   const navigation = [
     {
       href: "/Organization",
@@ -352,7 +354,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         <button className="block w-full p-2 text-left rounded-md hover:bg-gray-50 active:bg-gray-100 duration-150">
                           Messages
                         </button>
-                        <button className="block w-full p-2 text-left rounded-md hover:bg-gray-50 active:bg-gray-100 duration-150">
+                        <button
+                          onClick={logout}
+                          className="block w-full p-2 text-left rounded-md hover:bg-gray-50 active:bg-gray-100 duration-150"
+                        >
                           Logout
                         </button>
                       </div>

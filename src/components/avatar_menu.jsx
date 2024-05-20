@@ -5,11 +5,23 @@ import useAuth from "../hooks/useAuth";
 export default () => {
   const [state, setState] = useState(false);
   const profileRef = useRef();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
+
+  const getDashboardPath = (role) => {
+    const paths = {
+      organization: "/organization",
+      admin: "/admin_dashboard",
+      applicant: "/applicant_dashboard",
+      student: "/applicant_dashboard",
+      system_coordinator: "/System_Coordinator",
+    };
+    return paths[role] || "/";
+  };
 
   const navigation = [
     { title: "Profile", path: "/applicant_profile" },
     { title: "Settings", path: "/settings" },
+    { title: "Dashboard", path: getDashboardPath(user.role) },
   ];
 
   return (

@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     setAuthToken(null);
     setUser(null);
     localStorage.removeItem("tokens");
-    navigate("/");
+    navigate("/", { replace: true });
   }
 
   useEffect(() => {

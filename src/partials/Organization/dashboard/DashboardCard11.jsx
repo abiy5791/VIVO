@@ -33,53 +33,6 @@ function DashboardCard11() {
     }
   }, [organization_id]);
 
-  const customers = [
-    {
-      id: "0",
-      image: Image01,
-      name: "Alex Shatov",
-      email: "alexshatov@gmail.com",
-      Post: "data structure",
-      spent: "$2,890.66",
-      status: "Pending...",
-    },
-    {
-      id: "1",
-      image: Image02,
-      name: "Philip Harbach",
-      email: "philip.h@gmail.com",
-      Post: "machin learning",
-      spent: "$2,767.04",
-      status: "Accepted",
-    },
-    {
-      id: "2",
-      image: Image03,
-      name: "Mirko Fisuk",
-      email: "mirkofisuk@gmail.com",
-      Post: "web dev",
-      spent: "$2,996.00",
-      status: "Declined",
-    },
-    {
-      id: "3",
-      image: Image04,
-      name: "Olga Semklo",
-      email: "olga.s@cool.design",
-      Post: "artifical intelligence",
-      spent: "$1,220.66",
-      status: "Accepted",
-    },
-    {
-      id: "4",
-      image: Image05,
-      name: "Burak Long",
-      email: "longburak@gmail.com",
-      Post: "artifical intelligence",
-      spent: "$1,890.66",
-      status: "Declined",
-    },
-  ];
 
   return (
     <div className="col-span-full xl:col-span-full bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
