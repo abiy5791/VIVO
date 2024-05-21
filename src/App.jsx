@@ -19,6 +19,7 @@ import Applicants_list from "./pages/AdminDashboard/Sidebar_elements/applicants_
 import Organizations_list from "./pages/AdminDashboard/Sidebar_elements/organizations_list";
 import Internship_opportunity_card from "./pages/AdminDashboard/Sidebar_elements/internship_opportunity_card";
 import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Internship_post_card";
+import InternshipPostCard from "./pages/OrganizationDashboard/Sidebar_elements/Internship_post_card";
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
 import Application_detail from "./components/OrganizationComponents/Application_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
@@ -166,7 +167,7 @@ function App() {
             >
               <Route index element={<Organization />} />
               <Route path="internship_posts" element={<ProLayout />}>
-                <Route index element={<Internship_post_card />} />
+                <Route index element={<InternshipPostCard />} />
                 <Route
                   path="internship_posts_details"
                   element={<Organization_Post_details_component />}

@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
-import axios from "../../../api/axios";
 
 const myStyle = {
   display: "-webkit-box",
@@ -9,28 +7,57 @@ const myStyle = {
   WebkitBoxOrient: "vertical",
 };
 
-
-export default () => {
-  const {
-    user: { organization_id },
-  } = useAuth();
-  const [posts, setPosts] = useState([]);
-
-  const fetchPosts = async (organization_id) => {
-    try {
-      const res = await axios.get(`organizations/${organization_id}/posts`);
-      setPosts(res.data);
-    } catch (error) {
-      console.error("Error fetching applications:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (organization_id) {
-      fetchPosts(organization_id);
-    }
-  }, [organization_id]);
-
+//JSON to generate a dummy database
+const apiData = [
+  {
+    category: "Project Managment",
+    title:
+      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
+    date: new Date().toDateString(),
+    location: "Addis Ababa, Ethiopia",
+    subCategory: "Easy",
+    price: "Free",
+    image:
+      "https://plus.unsplash.com/premium_photo-1661385965839-f6c4f10838ed?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
+    name: "Ethio Tech",
+  },
+  {
+    category: "Data Structure",
+    title:
+      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
+    date: new Date().toDateString(),
+    location: "Adama, Ethiopia",
+    subCategory: "Advance",
+    price: "Free",
+    image:
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
+    name: "Habesha Tech",
+  },
+  {
+    category: "Business",
+    title:
+      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
+    date: new Date().toDateString(),
+    location: "Addis Ababa, Ethiopia",
+    subCategory: "Intermidate",
+    price: "$52",
+    image:
+      "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
+    name: "Addisway Tech",
+  },
+  {
+    category: "Marketing",
+    title: " Lorem ipsum dol",
+    date: new Date().toDateString(),
+    location: "Addis Ababa, Ethiopia",
+    subCategory: "Advance",
+    price: "Free",
+    image:
+      "https://images.unsplash.com/photo-1557838923-2985c318be48?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
+    name: "Afro Tech",
+  },
+];
+const InternshipPostCard = () => {
   return (
     <main className="px-10 py-4">
       <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
@@ -41,29 +68,29 @@ export default () => {
           {/* card grid */}
           <Link to="internship_posts_details">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-1 text-left">
-              {posts.map((post) => (
-                <>
+              {Array(5).fill(
+                apiData.map((data, index) => (
                   <div
                     className="border rounded-lg hover:drop-shadow-md overflow-hidden relative dark:bg-transparent bg-white"
-                    key={post.id}
+                    key={index}
                   >
                     {/* image and avatar block */}
                     <div className="cursor-pointer h-48 overflow-hidden">
                       <img
-                        src={post.image}
+                        src={data.image}
                         alt="Profile image for perticular category"
                         sizes="300px"
                         className="w-full h-full hover:scale-125 delay-200 duration-300 ease-in-out"
                       />
                       <span className="absolute top-40 mx-auto w-36 h-8 items-center backdrop-blur bg-white/70 flex justify-center font-medium">
-                        {post.name}
+                        {data.name}
                       </span>
                     </div>
                     {/* card fields section  */}
                     <div className="p-4 space-y-2 relative h-60 text-gray-400">
                       <div>
                         <p className="text-sm font-bold truncate">
-                          {post.category}
+                          {data.category}
                         </p>
                       </div>
                       <div>
@@ -71,36 +98,36 @@ export default () => {
                           style={myStyle}
                           className="font-bold dark:text-slate-400 text-gray-600 overflow-hidden h-12"
                         >
-                          {post.title}
+                          {data.title}
                         </span>
                       </div>
                       <div className="flex gap-2 items-center">
                         <CategoryIcon />
                         <span className="text-sm font-normal">
-                          {post.category}
+                          {data.subCategory}
                         </span>
                       </div>
                       <div className="flex gap-2 items-center">
                         <DateIcon />
-                        <span className="text-sm font-normal">
-                          {post.created}
-                        </span>
+                        <span className="text-sm font-normal">{data.date}</span>
                       </div>
                       <div className="flex gap-2 justify-start items-center">
                         <LocationIcon />
-                        <span className="text-sm font-normal">Remote</span>
+                        <span className="text-sm font-normal">
+                          {data.location}
+                        </span>
                       </div>
                       {/* fix bottom section */}
                       <div className="bottom-2 absolute inset-x-0">
                         <div className="border-t mt-2 mb-2"></div>
                         <span className="dark:text-slate-100 text-xl text-gray-600 pl-4">
-                          {post.is_paid ? `$${post.price}` : "Free"}
+                          {data.price}
                         </span>
                       </div>
                     </div>
                   </div>
-                </>
-              ))}
+                ))
+              )}
             </div>
           </Link>
         </div>
@@ -108,6 +135,8 @@ export default () => {
     </main>
   );
 };
+
+export default InternshipPostCard;
 
 const CategoryIcon = () => (
   <svg
