@@ -65,6 +65,27 @@ export default () => {
           <h1 class="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
             Internship Opportunities
           </h1>
+          <Link to="add_post">
+            <button
+              className="flex px-3.5 py-3.5 relative right-3
+            text-indigo-600 duration-150  bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12 5.25a.75.75 0 01.75.75v5.25H18a.75.75 0 010 1.5h-5.25V18a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Add
+            </button>
+          </Link>
+
           {/* card grid */}
           <Link to="internship_posts_details">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-1 text-left">

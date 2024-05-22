@@ -31,7 +31,7 @@ function WelcomePage() {
               launch your career with confidence. Join us today and secure your
               future success!
             </p>
-            <Link to="/signup">
+            <Link to="/signup_applicant">
               <button className="flex mt-6 items-center gap-2 px-5 py-3 font-semibold border-gray-400 border rounded-md w-3/4 justify-center">
                 <img
                   className="w-5 h-5"
