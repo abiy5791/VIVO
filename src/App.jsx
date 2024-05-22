@@ -18,9 +18,8 @@ import Applicant_profile_component from "./components/ApplicantComponents/applic
 import Applicants_list from "./pages/AdminDashboard/Sidebar_elements/applicants_list";
 import Organizations_list from "./pages/AdminDashboard/Sidebar_elements/organizations_list";
 import Internship_opportunity_card from "./pages/AdminDashboard/Sidebar_elements/internship_opportunity_card";
-import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Internship_post_card";
+import Internship_post_card from "./pages/OrganizationDashboard/Sidebar_elements/Internship_post_card";
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
-import Application_detail from "./components/OrganizationComponents/Application_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
 import System_Coordinator_Progress_page from "./components/SystemCoordinatorComponents/System_Coordinator_Progress_page";
@@ -31,7 +30,6 @@ import Task from "./components/ApplicantComponents/task";
 import Admin_home from "./pages/AdminDashboard/admin_home";
 import Opportunity_details_component from "./components/AdminComponents/opportunity_details_component";
 import Organization_Post_details_component from "./components/OrganizationComponents/Organization_Post_details_component";
-import Organization_Submitted_Tasks_Detail from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
 import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ProLayout from "./pages/AdminDashboard/pro_layout";
 import Apply_form from "./components/apply_form";
@@ -55,6 +53,7 @@ import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sideba
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
 import ApplyComponent from "./components/apply_component";
 import ApplicationDetails from "./components/Application_Details";
+import SubmittedTaskDetails from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
 
 function App() {
   const location = useLocation();
@@ -157,7 +156,7 @@ function App() {
             <Route index element={<Organization_Submitted_tasks />} />
             <Route
               path="Submitted_Tasks_Detail"
-              element={<Organization_Submitted_Tasks_Detail />}
+              element={<SubmittedTaskDetails />}
             />
           </Route>
         </Route>

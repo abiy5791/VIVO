@@ -20,6 +20,7 @@ const apiData = [
     image:
       "https://plus.unsplash.com/premium_photo-1661385965839-f6c4f10838ed?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
     name: "Ethio Tech",
+    status: "approved",
   },
   {
     category: "Data Structure",
@@ -32,6 +33,7 @@ const apiData = [
     image:
       "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
     name: "Habesha Tech",
+    status: "pending",
   },
   {
     category: "Business",
@@ -40,10 +42,11 @@ const apiData = [
     date: new Date().toDateString(),
     location: "Addis Ababa, Ethiopia",
     subCategory: "Intermidate",
-    price: "$52",
+    price: "52 ETB",
     image:
       "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
     name: "Addisway Tech",
+    status: "approved",
   },
   {
     category: "Marketing",
@@ -55,6 +58,7 @@ const apiData = [
     image:
       "https://images.unsplash.com/photo-1557838923-2985c318be48?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
     name: "Afro Tech",
+    status: "pending",
   },
 ];
 export default () => {
@@ -62,74 +66,172 @@ export default () => {
     <main className="px-10 py-4">
       <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
         <div className="container mx-auto">
-          <h1 class="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
+          <h1 class="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-5xl lg:text-5xl">
             Internship Opportunities
           </h1>
-          {/* card grid */}
-          <Link to="internship_posts_details">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-1 text-left">
-              {Array(5).fill(
-                apiData.map((data, index) => (
-                  <div
-                    className="border rounded-lg hover:drop-shadow-md overflow-hidden relative dark:bg-transparent bg-white"
-                    key={index}
-                  >
-                    {/* image and avatar block */}
-                    <div className="cursor-pointer h-48 overflow-hidden">
-                      <img
-                        src={data.image}
-                        alt="Profile image for perticular category"
-                        sizes="300px"
-                        className="w-full h-full hover:scale-125 delay-200 duration-300 ease-in-out"
+          {/* Table of posts */}
+
+          <div class="flex flex-col">
+            <div class="-m-1.5 overflow-x-auto">
+              <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="border rounded-lg divide-y divide-gray-200 dark:border-gray-700 dark:divide-gray-700">
+                  <div class="py-3 px-4">
+                    <div class="relative max-w-xs">
+                      <label class="sr-only">Search</label>
+                      <input
+                        type="text"
+                        name="hs-table-with-pagination-search"
+                        id="hs-table-with-pagination-search"
+                        class="py-2 px-3 ps-9 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                        placeholder="Search for items"
                       />
-                      <span className="absolute top-40 mx-auto w-36 h-8 items-center backdrop-blur bg-white/70 flex justify-center font-medium">
-                        {data.name}
-                      </span>
-                    </div>
-                    {/* card fields section  */}
-                    <div className="p-4 space-y-2 relative h-60 text-gray-400">
-                      <div>
-                        <p className="text-sm font-bold truncate">
-                          {data.category}
-                        </p>
-                      </div>
-                      <div>
-                        <span
-                          style={myStyle}
-                          className="font-bold dark:text-slate-400 text-gray-600 overflow-hidden h-12"
+                      <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
+                        <svg
+                          class="h-4 w-4 text-gray-400"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         >
-                          {data.title}
-                        </span>
-                      </div>
-                      <div className="flex gap-2 items-center">
-                        <CategoryIcon />
-                        <span className="text-sm font-normal">
-                          {data.subCategory}
-                        </span>
-                      </div>
-                      <div className="flex gap-2 items-center">
-                        <DateIcon />
-                        <span className="text-sm font-normal">{data.date}</span>
-                      </div>
-                      <div className="flex gap-2 justify-start items-center">
-                        <LocationIcon />
-                        <span className="text-sm font-normal">
-                          {data.location}
-                        </span>
-                      </div>
-                      {/* fix bottom section */}
-                      <div className="bottom-2 absolute inset-x-0">
-                        <div className="border-t mt-2 mb-2"></div>
-                        <span className="dark:text-slate-100 text-xl text-gray-600 pl-4">
-                          {data.price}
-                        </span>
+                          <circle cx="11" cy="11" r="8" />
+                          <path d="m21 21-4.3-4.3" />
+                        </svg>
                       </div>
                     </div>
                   </div>
-                ))
-              )}
+                  <div class="overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                      <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                          >
+                            PostTitle
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                          >
+                            Company
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                          >
+                            Address
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                          >
+                            Cost
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                          >
+                            Date
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
+                          >
+                            Status
+                          </th>
+                        </tr>
+                      </thead>
+                      {apiData.map((data, index) => (
+                        <tbody
+                          key={index}
+                          class="divide-y divide-gray-200 dark:divide-gray-700"
+                        >
+                          <tr>
+                            <Link to="internship_posts_details">
+                              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                                {data.category}
+                              </td>
+                            </Link>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                              {data.name}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                              {data.location}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                              {data.date}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                              {data.price}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                              {data.status == "approved" ? (
+                                <button
+                                  type="button"
+                                  class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                >
+                                  {data.status}
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                >
+                                  {data.status}
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
+                    </table>
+                  </div>
+                  <div class="py-1 px-4">
+                    <nav class="flex items-center space-x-1">
+                      <button
+                        type="button"
+                        class="p-2.5 inline-flex items-center gap-x-2 text-sm rounded-full text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      >
+                        <span aria-hidden="true">«</span>
+                        <span class="sr-only">Previous</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10"
+                        aria-current="page"
+                      >
+                        1
+                      </button>
+                      <button
+                        type="button"
+                        class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10"
+                      >
+                        2
+                      </button>
+                      <button
+                        type="button"
+                        class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10"
+                      >
+                        3
+                      </button>
+                      <button
+                        type="button"
+                        class="p-2.5 inline-flex items-center gap-x-2 text-sm rounded-full text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      >
+                        <span class="sr-only">Next</span>
+                        <span aria-hidden="true">»</span>
+                      </button>
+                    </nav>
+                  </div>
+                </div>
+              </div>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </main>
