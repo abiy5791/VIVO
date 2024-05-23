@@ -1,60 +1,28 @@
 import React from "react";
-
-import Image01 from "../../../images/user-36-05.jpg";
-import Image02 from "../../../images/user-36-06.jpg";
-import Image03 from "../../../images/user-36-07.jpg";
-import Image04 from "../../../images/user-36-08.jpg";
-import Image05 from "../../../images/user-36-09.jpg";
+import useAuth from "../../../hooks/useAuth";
+import axios from "../../../api/axios";
+import { useState, useEffect } from "react";
+import defaultAvatar from "../../../images/default-avatar.jpg";
 
 function DashboardCard10() {
-  const customers = [
-    {
-      id: "0",
-      image: Image01,
-      name: "Alex Shatov",
-      email: "alexshatov@gmail.com",
-      location: "Adama",
-      spent: "$2,890.66",
-      status: "Approved",
-    },
-    {
-      id: "1",
-      image: Image02,
-      name: "Philip Harbach",
-      email: "philip.h@gmail.com",
-      location: "Addis Ababa",
-      spent: "$2,767.04",
-      status: "Approved",
-    },
-    {
-      id: "2",
-      image: Image03,
-      name: "Mirko Fisuk",
-      email: "mirkofisuk@gmail.com",
-      location: "Adama",
-      spent: "$2,996.00",
-      status: "Pending",
-    },
-    {
-      id: "3",
-      image: Image04,
-      name: "Olga Semklo",
-      email: "olga.s@cool.design",
-      location: "Welega",
-      spent: "$1,220.66",
-      status: "Approved",
-    },
-    {
-      id: "4",
-      image: Image05,
-      name: "Burak Long",
-      email: "longburak@gmail.com",
-      location: "Hawasa",
-      spent: "$1,890.66",
-      status: "Pending",
-    },
-  ];
+  const { user } = useAuth();
+  const [applicants, setApplicants] = useState([]);
 
+  const fetchApplicants = async (user) => {
+    try {
+      if (user.role === "admin") {
+        const res = await axios.get(`applicants`);
+        setApplicants(res.data);
+      }
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchApplicants(user);
+  }, [user]);
+  console.log(applicants);
   return (
     <div className="col-span-full xl:col-span-full bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
@@ -79,7 +47,7 @@ function DashboardCard10() {
                   <div className="font-semibold text-left">Spent</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">City</div>
+                  <div className="font-semibold text-center"> Phone Number</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">Status</div>
@@ -88,41 +56,45 @@ function DashboardCard10() {
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-100 dark:divide-slate-700">
-              {customers.map((customer) => {
+              {applicants.map((applicant) => {
                 return (
-                  <tr key={customer.id}>
+                  <tr key={applicant.id}>
                     <td className="p-2 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                           <img
-                            className="rounded-full"
-                            src={customer.image}
+                            className="rounded-full w-full h-full object-cover"
+                            src={
+                              applicant.avatar
+                                ? applicant.avatar
+                                : defaultAvatar
+                            }
                             width="40"
                             height="40"
-                            alt={customer.name}
+                            alt={`image of ${applicant.first_name}`}
                           />
                         </div>
                         <div className="font-medium text-slate-800 dark:text-slate-100">
-                          {customer.name}
+                          {`${applicant.first_name} ${applicant.last_name}`}
                         </div>
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="text-left">{customer.email}</div>
+                      <div className="text-left">{applicant.email}</div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-left font-medium text-green-500">
-                        {customer.spent}
+                        {applicant.date_joined}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-md text-center">
-                        {customer.location}
+                        {applicant.phone_number}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-center font-medium">
-                        {customer.status}
+                        {`${applicant.is_active}`}
                       </div>
                     </td>
                   </tr>

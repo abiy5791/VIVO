@@ -6,8 +6,46 @@ import Image03 from "../../../images/user-36-07.jpg";
 import Image04 from "../../../images/user-36-08.jpg";
 import Image05 from "../../../images/user-36-09.jpg";
 import { NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import { useState, useEffect } from "react";
+import axios from "../../../api/axios";
 
 function DashboardCard10() {
+  const {
+    user: { organization_id },
+  } = useAuth();
+  const [applications, setApplications] = useState([]);
+
+  const fetchApplications = async (organization_id) => {
+    try {
+      const res = await axios.get(
+        `organizations/${organization_id}/applications`
+      );
+      const filteredApplications = res.data.map((application) => ({
+        id: application.id.toString(),
+        applicant_id: application.applicant.id,
+        image: Image01,
+        name: `${application.applicant.first_name} ${application.applicant.last_name}`,
+        email: application.applicant.email,
+        phone_number: application.applicant.phone_number,
+        gender: application.applicant.gender,
+        post_id: application.post.id,
+        post: application.post.title,
+        status: application.status,
+        application_date: new Date(application.created).toLocaleDateString(),
+      }));
+      setApplications(filteredApplications);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (organization_id) {
+      fetchApplications(organization_id);
+    }
+  }, [organization_id]);
+
   const customers = [
     {
       id: "0",
@@ -89,12 +127,13 @@ function DashboardCard10() {
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-100 dark:divide-slate-700">
-              {customers.map((customer) => {
+              {applications.map((application) => {
                 return (
-                  <tr key={customer.id}>
+                  <tr key={application.id}>
                     <td className="p-2 whitespace-nowrap">
                       <NavLink
                         end
+                        state={application}
                         to="Application_Details"
                         className={({ isActive }) =>
                           "block transition duration-150 truncate " +
@@ -107,29 +146,29 @@ function DashboardCard10() {
                           <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                             <img
                               className="rounded-full"
-                              src={customer.image}
+                              src={application.image}
                               width="40"
                               height="40"
-                              alt={customer.name}
+                              alt={application.name}
                             />
                           </div>
                           <div className="font-medium text-slate-800 dark:text-slate-100">
-                            {customer.name}
+                            {application.name}
                           </div>
                         </div>
                       </NavLink>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="text-left">{customer.Post}</div>
+                      <div className="text-left">{application.post}</div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-left font-medium text-green-500">
-                        {customer.date}
+                        {application.application_date}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-md text-center">
-                        {customer.email}
+                        {application.email}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
@@ -137,14 +176,14 @@ function DashboardCard10() {
                         className="text-center font-medium"
                         style={{
                           color:
-                            customer.status === "Accepted"
+                            application.status === "accepted"
                               ? "green"
-                              : customer.status === "Pending..."
+                              : application.status === "pending"
                               ? "black"
                               : "red",
                         }}
                       >
-                        {customer.status}
+                        {application.status}
                       </div>
                     </td>
                   </tr>

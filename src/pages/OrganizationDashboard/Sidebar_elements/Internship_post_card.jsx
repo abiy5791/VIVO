@@ -1,58 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import axios from "../../../api/axios";
 
-//JSON to generate a dummy database
-const apiData = [
-  {
-    category: "Project Managment",
-    title:
-      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
-    date: "Thu May 23 2024",
-    subCategory: "Easy",
-    price: "Free",
-    image:
-      "https://plus.unsplash.com/premium_photo-1661385965839-f6c4f10838ed?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
-    status: "approved",
-  },
-  {
-    category: "Data Structure",
-    title:
-      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
-    date: "Thu May 24 2024",
+const myStyle = {
+  display: "-webkit-box",
+  WebkitLineClamp: "2",
+  WebkitBoxOrient: "vertical",
+};
 
-    subCategory: "Advance",
-    price: "Free",
-    image:
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
-
-    status: "pending",
-  },
-  {
-    category: "Business",
-    title:
-      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
-    date: "Thu May 25 2024",
-
-    subCategory: "Intermidate",
-    price: "52 ETB",
-    image:
-      "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
-
-    status: "approved",
-  },
-  {
-    category: "Marketing",
-    title: " Lorem ipsum dol",
-    date: "Thu May 26 2024",
-
-    subCategory: "Advance",
-    price: "Free",
-    image:
-      "https://images.unsplash.com/photo-1557838923-2985c318be48?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
-
-    status: "pending",
-  },
-];
 export default () => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -70,6 +26,26 @@ export default () => {
       data.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
       data.date.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const {
+    user: { organization_id },
+  } = useAuth();
+  const [posts, setPosts] = useState([]);
+
+  const fetchPosts = async (organization_id) => {
+    try {
+      const res = await axios.get(`organizations/${organization_id}/posts`);
+      setPosts(res.data);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (organization_id) {
+      fetchPosts(organization_id);
+    }
+  }, [organization_id]);
+
   return (
     <main className="px-10">
       <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
@@ -150,7 +126,7 @@ export default () => {
                           </th>
                         </tr>
                       </thead>
-                      {filteredData.map((data, index) => (
+                      {posts.map((data, index) => (
                         <tbody
                           key={index}
                           className="divide-y divide-gray-200 dark:divide-gray-700"

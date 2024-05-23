@@ -18,7 +18,8 @@ import Applicant_profile_component from "./components/ApplicantComponents/applic
 import Applicants_list from "./pages/AdminDashboard/Sidebar_elements/applicants_list";
 import Organizations_list from "./pages/AdminDashboard/Sidebar_elements/organizations_list";
 import Internship_opportunity_card from "./pages/AdminDashboard/Sidebar_elements/internship_opportunity_card";
-import Internship_post_card from "./pages/OrganizationDashboard/Sidebar_elements/Internship_post_card";
+import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Internship_post_card";
+import InternshipPostCard from "./pages/OrganizationDashboard/Sidebar_elements/Internship_post_card";
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
@@ -50,6 +51,13 @@ import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
+
+import RequireAuth from "./components/RequireAuth";
+import ApplicantSignup from "./pages/AuthPages/ApplicantSignup";
+import ApplyComponent from "./components/apply_component";
+import ApplicationDetails from "./components/Application_Details";
+import Unauthorized from "./components/Unauhtorized";
+
 import Organization_Add_post from "./components/OrganizationComponents/Organization_Add_post";
 import SystemCoordinator_add_post from "./components/SystemCoordinatorComponents/SystemCoordinator_add_post";
 import SubmittedTaskDetails from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
@@ -69,97 +77,135 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Home />}>
-          <Route index element={<LandingPage />} />
-          <Route path="applicant_dashboard" element={<ApplicantDashboard />} />
-          <Route
-            path="posted_opportunity_details"
-            element={<Posted_opportunity_details />}
-          />
-          <Route path="/applyproposal" element={<ApplyComponent />} />
-          <Route path="apply" element={<Apply_form />} />
-          <Route
-            path="applicant_profile"
-            element={<Applicant_profile_component />}
-          />
-          <Route path="settings" element={<Settings_component />} />
-          <Route
-            path="internship_opportunities"
-            element={<Internship_opportunity_card />}
-          />
-        </Route>
-        <Route path="task" element={<Task />} />
+        <Route exact path="/" element={<ProLayout />}>
+          <Route path="/" element={<Home />}>
+            <Route index element={<LandingPage />} />
 
-        <Route exact path="/admin_dashboard" element={<Dashboard />}>
-          <Route index element={<Admin_home />} />
-          <Route path="applicants_list" element={<Applicants_list />} />
-          <Route path="organizations_list" element={<Organizations_list />} />
-
-          <Route path="internship_opportunities" element={<ProLayout />}>
-            <Route index element={<Internship_opportunity_card />} />
             <Route
               path="internship_opportunity_details"
               element={<Opportunity_details_component />}
             />
-          </Route>
-        </Route>
-        <Route exact path="/System_Coordinator" element={<SyscooDashboard />}>
-          <Route index element={<SystemCoordinator />} />
-          <Route path="internship_posts" element={<ProLayout />}>
-            <Route index element={<Internship_post_card />} />
+
             <Route
               path="internship_posts_details"
               element={<Syscoordinator_post_detail />}
             />
             <Route path="add_post" element={<SystemCoordinator_add_post />} />
           </Route>
-          <Route path="Applications" element={<ProLayout />}>
-            <Route index element={<Syscoordinator_Applications />} />
+
+          <Route
+            element={<RequireAuth allowedRoles={["applicant", "student"]} />}
+          >
+            <Route path="/applyproposal" element={<ApplyComponent />} />
+            <Route path="apply" element={<Apply_form />} />
+            <Route path="applyproposal" element={<ApplyComponent />} />
             <Route
-              path="Application_Details"
-              element={<Syscoordinator_Application_detail />}
+              path="applicant_profile"
+              element={<Applicant_profile_component />}
+            />
+            <Route path="settings" element={<Settings_component />} />
+            <Route
+              path="applicant_dashboard"
+              element={<ApplicantDashboard />}
             />
           </Route>
-          <Route path="Applicants" element={<ProLayout />}>
-            <Route index element={<Syscoordinator_Applicants />} />
+
+          <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+            <Route exact path="/admin_dashboard" element={<Dashboard />}>
+              <Route index element={<Admin_home />} />
+              <Route path="applicants_list" element={<Applicants_list />} />
+              <Route
+                path="organizations_list"
+                element={<Organizations_list />}
+              />
+              <Route path="internship_opportunities" element={<ProLayout />}>
+                <Route index element={<Internship_opportunity_card />} />
+                <Route
+                  path="internship_opportunity_details"
+                  element={<Opportunity_details_component />}
+                />
+              </Route>
+            </Route>
           </Route>
-          <Route path="Evaluated_applicant" element={<ProLayout />}>
-            <Route index element={<Evaluated_applicants />} />
+
+          <Route
+            element={<RequireAuth allowedRoles={["system_coordinator"]} />}
+          >
             <Route
-              path="Certifiy_Applicants"
-              element={<Certifiy_Applicants />}
-            />
+              exact
+              path="/System_Coordinator"
+              element={<SyscooDashboard />}
+            >
+              <Route index element={<SystemCoordinator />} />
+              <Route path="internship_posts" element={<ProLayout />}>
+                <Route index element={<Internship_post_card />} />
+                <Route
+                  path="internship_posts_details"
+                  element={<Syscoordinator_post_detail />}
+                />
+              </Route>
+              <Route path="Applications" element={<ProLayout />}>
+                <Route index element={<Syscoordinator_Applications />} />
+                <Route
+                  path="Application_Details"
+                  element={<Syscoordinator_Application_detail />}
+                />
+              </Route>
+              <Route path="Applicants" element={<ProLayout />}>
+                <Route index element={<Syscoordinator_Applicants />} />
+                <Route
+                  path="Applicant_Progress"
+                  element={<System_Coordinator_Progress_page />}
+                />
+              </Route>
+              <Route path="Evaluated_applicant" element={<ProLayout />}>
+                <Route index element={<Evaluated_applicants />} />
+                <Route
+                  path="Certifiy_Applicants"
+                  element={<Certifiy_Applicants />}
+                />
+              </Route>
+            </Route>
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={["organization"]} />}>
+            <Route
+              exact
+              path="/organization"
+              element={<OrganizationDashboard />}
+            >
+              <Route index element={<Organization />} />
+              <Route path="internship_posts" element={<ProLayout />}>
+                <Route index element={<InternshipPostCard />} />
+                <Route
+                  path="internship_posts_details"
+                  element={<Organization_Post_details_component />}
+                />
+              </Route>
+              <Route path="add_post" element={<Organization_Add_post />} />
+              <Route path="Applications" element={<ProLayout />}>
+                <Route index element={<Organization_Applications />} />
+                <Route
+                  path="Application_Details"
+                  element={<ApplicationDetails />}
+                />
+              </Route>
+              <Route path="Applicants" element={<ProLayout />}>
+                <Route index element={<Organization_Applicants />} />
+                <Route path="Applicant_progress" element={<Progress_page />} />
+                <Route path="applicant_progress" element={<Progress_page />} />
+              </Route>
+              <Route path="Submitted_Tasks" element={<ProLayout />}>
+                <Route index element={<Organization_Submitted_tasks />} />
+                <Route
+                  path="Submitted_Tasks_Detail"
+                  element={<Organization_Submitted_Tasks_Detail />}
+                />
+              </Route>
+            </Route>
           </Route>
         </Route>
-        <Route exact path="/Organization" element={<OrganizationDashboard />}>
-          <Route index element={<Organization />} />
-          <Route path="internship_posts" element={<ProLayout />}>
-            <Route index element={<Internship_post_card />} />
-            <Route
-              path="internship_posts_details"
-              element={<Organization_Post_details_component />}
-            />
-          </Route>
-          <Route path="add_post" element={<Organization_Add_post />} />
-          <Route path="Applications" element={<ProLayout />}>
-            <Route index element={<Organization_Applications />} />
-            <Route
-              path="Application_Details"
-              element={<ApplicationDetails />}
-            />
-          </Route>
-          <Route path="Applicants" element={<ProLayout />}>
-            <Route index element={<Organization_Applicants />} />
-            <Route path="applicant_progress" element={<Progress_page />} />
-          </Route>
-          <Route path="Submitted_Tasks" element={<ProLayout />}>
-            <Route index element={<Organization_Submitted_tasks />} />
-            <Route
-              path="Submitted_Tasks_Detail"
-              element={<SubmittedTaskDetails />}
-            />
-          </Route>
-        </Route>
+
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/pagenotfound" element={<ErrorPage />} />
@@ -173,6 +219,7 @@ function App() {
         <Route path="/alert" element={<ErrorAlert />} />
         <Route path="/successpage" element={<SuccessPage />} />
         <Route path="/confetti" element={<Confetti />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </>
   );

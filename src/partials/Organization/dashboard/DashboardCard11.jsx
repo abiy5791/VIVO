@@ -6,50 +6,32 @@ import Image03 from "../../../images/user-36-07.jpg";
 import Image04 from "../../../images/user-36-08.jpg";
 import Image05 from "../../../images/user-36-09.jpg";
 import { NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import axios from "../../../api/axios";
+import { useState, useEffect } from "react";
 
 function DashboardCard11() {
-  const customers = [
-    {
-      id: "0",
-      image: Image01,
-      name: "Alex Shatov",
-      email: "alexshatov@gmail.com",
-      Post: "data structure",
-      date: "Thursday, May 23, 2024",
-    },
-    {
-      id: "1",
-      image: Image02,
-      name: "Philip Harbach",
-      email: "philip.h@gmail.com",
-      Post: "machin learning",
-      date: "Thursday, May 23, 2024",
-    },
-    {
-      id: "2",
-      image: Image03,
-      name: "Mirko Fisuk",
-      email: "mirkofisuk@gmail.com",
-      Post: "web dev",
-      date: "Thursday, May 24, 2024",
-    },
-    {
-      id: "3",
-      image: Image04,
-      name: "Olga Semklo",
-      email: "olga.s@cool.design",
-      Post: "artifical intelligence",
-      date: "Thursday, May 25, 2024",
-    },
-    {
-      id: "4",
-      image: Image05,
-      name: "Burak Long",
-      email: "longburak@gmail.com",
-      Post: "artifical intelligence",
-      date: "Thursday, May 26, 2024",
-    },
-  ];
+  const {
+    user: { organization_id },
+  } = useAuth();
+  const [submittedTasks, setSubmittedTasks] = useState([]);
+
+  const fetchSubmittedTasks = async (organization_id) => {
+    try {
+      const res = await axios.get(
+        `organizations/${organization_id}/submitted_tasks`
+      );
+      setSubmittedTasks(res.data);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (organization_id) {
+      fetchSubmittedTasks(organization_id);
+    }
+  }, [organization_id]);
 
   return (
     <div className="col-span-full xl:col-span-full bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
@@ -81,9 +63,9 @@ function DashboardCard11() {
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-100 dark:divide-slate-700">
-              {customers.map((customer) => {
+              {submittedTasks.map((submitted) => {
                 return (
-                  <tr key={customer.id}>
+                  <tr key={submitted.id}>
                     <td className="p-2 whitespace-nowrap">
                       <NavLink
                         end
@@ -99,29 +81,44 @@ function DashboardCard11() {
                           <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                             <img
                               className="rounded-full"
-                              src={customer.image}
+                              src={submitted.image}
                               width="40"
                               height="40"
-                              alt={customer.name}
+                              alt={submitted.name}
                             />
                           </div>
                           <div className="font-medium text-slate-800 dark:text-slate-100">
-                            {customer.name}
+                            {submitted.name}
                           </div>
                         </div>
                       </NavLink>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="text-left">{customer.Post}</div>
+                      <div className="text-left">{submitted.Post}</div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-left font-medium text-green-500">
-                        {customer.date}
+                        {submitted.spent}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-md text-center">
-                        {customer.email}
+                        {submitted.email}
+                      </div>
+                    </td>
+                    <td className="p-2 whitespace-nowrap">
+                      <div
+                        className="text-center font-medium"
+                        style={{
+                          color:
+                            submitted.status === "Accepted"
+                              ? "green"
+                              : submitted.status === "Pending..."
+                              ? "black"
+                              : "red",
+                        }}
+                      >
+                        {submitted.status}
                       </div>
                     </td>
                   </tr>
