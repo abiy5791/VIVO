@@ -21,10 +21,9 @@ import Internship_opportunity_card from "./pages/AdminDashboard/Sidebar_elements
 import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Internship_post_card";
 import InternshipPostCard from "./pages/OrganizationDashboard/Sidebar_elements/Internship_post_card";
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
-import Application_detail from "./components/OrganizationComponents/Application_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
-import System_Coordinator_Progress_page from "./components/SystemCoordinatorComponents/System_Coordinator_Progress_page";
+
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
@@ -32,8 +31,6 @@ import Task from "./components/ApplicantComponents/task";
 import Admin_home from "./pages/AdminDashboard/admin_home";
 import Opportunity_details_component from "./components/AdminComponents/opportunity_details_component";
 import Organization_Post_details_component from "./components/OrganizationComponents/Organization_Post_details_component";
-import Organization_Submitted_Tasks_Detail from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
-import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ProLayout from "./pages/AdminDashboard/pro_layout";
 import Apply_form from "./components/apply_form";
 import ErrorPage from "./pages/error_page";
@@ -54,11 +51,17 @@ import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
+
 import RequireAuth from "./components/RequireAuth";
 import ApplicantSignup from "./pages/AuthPages/ApplicantSignup";
 import ApplyComponent from "./components/apply_component";
 import ApplicationDetails from "./components/Application_Details";
 import Unauthorized from "./components/Unauhtorized";
+
+import Organization_Add_post from "./components/OrganizationComponents/Organization_Add_post";
+import SystemCoordinator_add_post from "./components/SystemCoordinatorComponents/SystemCoordinator_add_post";
+import SubmittedTaskDetails from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
+
 
 function App() {
   const location = useLocation();
@@ -72,18 +75,23 @@ function App() {
   return (
     <>
       <Routes>
+
         <Route exact path="/" element={<ProLayout />}>
           <Route path="/" element={<Home />}>
             <Route index element={<LandingPage />} />
+
             <Route
-              path="posted_opportunity_details"
-              element={<Posted_opportunity_details />}
+              path="internship_opportunity_details"
+              element={<Opportunity_details_component />}
             />
+
             <Route
-              path="internship_opportunities"
-              element={<Internship_opportunity_card />}
+              path="internship_posts_details"
+              element={<Syscoordinator_post_detail />}
             />
+            <Route path="add_post" element={<SystemCoordinator_add_post />} />
           </Route>
+
 
           <Route
             element={<RequireAuth allowedRoles={["applicant", "student"]} />}
@@ -172,6 +180,7 @@ function App() {
                   path="internship_posts_details"
                   element={<Organization_Post_details_component />}
                 />
+                <Route path="add_post" element={<Organization_Add_post />} />
               </Route>
               <Route path="Applications" element={<ProLayout />}>
                 <Route index element={<Organization_Applications />} />
@@ -192,17 +201,16 @@ function App() {
                 />
               </Route>
             </Route>
+
           </Route>
         </Route>
-
-        <Route path="/task" element={<Task />} />
-        <Route path="/login" element={<SignIn />} />
+      
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route path="/pagenotfound" element={<ErrorPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/signup_company" element={<SignupCompany />} />
         <Route path="/signup_student" element={<SignupStudent />} />
-        <Route path="/signup_applicant" element={<ApplicantSignup />} />
         <Route path="/modal" element={<Modal />} />
         <Route path="/wait" element={<WaitApproval />} />
         <Route path="/loading" element={<LoadingIndicator />} />

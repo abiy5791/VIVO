@@ -1,11 +1,11 @@
-import Applicant_shrink_component from "../../components/ApplicantComponents/applicant_shrink_component";
+import MainTaskPage from "../../components/ApplicantComponents/Main_Task_Page";
 import Steps_component from "../../components/ApplicantComponents/steps_component";
 
 const ApplicantDashboard = () => {
   return (
     <>
       <Steps_component />
-      <Applicant_shrink_component />
+      <MainTaskPage />
     </>
   );
 };

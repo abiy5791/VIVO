@@ -230,73 +230,7 @@ function ApplyComponent() {
         {/*fill info div */}
         <div className="flex rounded-md mt-10 flex-wrap items-start gap-10 bg-white p-4 border-gray-300 border-2 sm:p-6 lg:p-8 w-4/5 mx-auto">
           <h1 className="text-lg font-bold w-full">Fill Some Details</h1>
-          <div class="group relative cursor-pointer border rounded-lg border-gray-400">
-            <div class="flex items-center space-x-5 bg-transparent px-4">
-              <a
-                class="menu-hover my-2 py-2 text-base font-medium text-slate-600 lg:mx-4"
-                onClick=""
-              >
-                Gender
-              </a>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </span>
-            </div>
-
-            <div class="invisible absolute z-50 flex w-full flex-col bg-white py-1 px-4 text-gray-800 shadow-xl group-hover:visible">
-              <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2">
-                Male
-              </a>
-
-              <a class="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2">
-                Female
-              </a>
-            </div>
-          </div>
-          <div className="mx-auto">
-            <label
-              for="Age"
-              class="relative block rounded-md border border-gray-400 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 p-1"
-            >
-              <input
-                type="number"
-                id="Age"
-                class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
-                placeholder="Age"
-              />
-
-              <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs font-bold text-slate-600 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                Age
-              </span>
-            </label>
-            <label
-              for="portfoliolink"
-              class="relative block rounded-md my-4 border border-gray-400 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 p-1"
-            >
-              <input
-                type="text"
-                id="portfoliolink"
-                class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
-                placeholder="portfoliolink"
-              />
-
-              <span class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs font-bold text-slate-600 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                Portfolio Link
-              </span>
-            </label>
+          <div>
             <label
               for="uploadFile1"
               class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-36 p-5 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-400 border-dashed mx-auto font-[sans-serif]"
@@ -323,7 +257,6 @@ function ApplyComponent() {
               </p>
             </label>
           </div>
-
           <div className="w-1/2 mx-auto">
             <label for="message" className="font-medium mb-2 text-slate-600">
               Cover letter

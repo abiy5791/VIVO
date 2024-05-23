@@ -205,10 +205,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   ];
 
   const nestedNav = [
-    { name: "Cards", href: "javascript:void(0)", icon: "" },
-    { name: "Chekouts", href: "javascript:void(0)", icon: "" },
-    { name: "Payments", href: "javascript:void(0)", icon: "" },
-    { name: "Get paid", href: "javascript:void(0)", icon: "" },
+    { name: "Internship", href: "internship_posts", icon: "" },
+    { name: "Volunteer", href: "javascript:void(0)", icon: "" },
   ];
 
   const profileRef = useRef();
@@ -391,15 +389,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-5 h-5 text-gray-500"
+                      className="w-5 h-5"
                     >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+                        d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"
                       />
                     </svg>
-                    Billing
+                    Opportunities
                   </Menu>
                 </li>
               </ul>
