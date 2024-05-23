@@ -1,7 +1,51 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import CircularProgress from "../Circular_Progress";
+import { useLocation } from "react-router-dom";
+import axios from "../../api/axios";
 
 const Progress_page = () => {
+  const location = useLocation();
+  const application = useMemo(() => location.state || {}, [location.state]);
+
+  const [submittedTasks, setSubmittedTasks] = useState([]);
+  const [progressPercent, setProgressPercent] = useState();
+
+  useEffect(() => {
+    const getSubmittedTasks = async () => {
+      try {
+        if (application?.applicant_id && application?.post_id) {
+          const res = await axios.get(
+            `applicants/${application.applicant_id}/submitted_tasks/?post_id=${application.post_id}`
+          );
+          setSubmittedTasks(res.data);
+        }
+      } catch (error) {
+        console.error("Error fetching submitted tasks:", error);
+      }
+    };
+
+    getSubmittedTasks();
+  }, [application]);
+  useEffect(() => {
+    const getProgressPercent = async () => {
+      try {
+        const res = await axios.get(`posts/${application.post_id}`);
+        const task_count = res.data.tasks_count;
+        const completed_submitted_tasks = submittedTasks.filter(
+          (submitted) => submitted.status === "Completed"
+        );
+        const progress = (completed_submitted_tasks.length / task_count) * 100;
+        setProgressPercent(progress.toFixed(1));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (submittedTasks.length > 0) {
+      getProgressPercent();
+    }
+  }, [submittedTasks, application.post_id]);
+
   return (
     <>
       <div>
@@ -20,7 +64,7 @@ const Progress_page = () => {
                 </div>
 
                 <h1 class="text-gray-900 text-center font-bold text-xl leading-8 my-1">
-                  Jane Doe
+                  {application.name}
                 </h1>
                 <h3 class="text-gray-600 text-center font-lg text-semibold leading-6">
                   Owner at Her Company Inc.
@@ -74,43 +118,36 @@ const Progress_page = () => {
                   <div class="grid md:grid-cols-2 text-sm">
                     <div class="grid grid-cols-2">
                       <div class="px-4 py-2 font-semibold">First Name</div>
-                      <div class="px-4 py-2">Jane</div>
+                      <div class="px-4 py-2">
+                        {application?.name.toString().split(" ")[0]}
+                      </div>
                     </div>
                     <div class="grid grid-cols-2">
                       <div class="px-4 py-2 font-semibold">Last Name</div>
-                      <div class="px-4 py-2">Doe</div>
+                      <div class="px-4 py-2">
+                        {application?.name.toString().split(" ")[1]}
+                      </div>
                     </div>
                     <div class="grid grid-cols-2">
                       <div class="px-4 py-2 font-semibold">Gender</div>
-                      <div class="px-4 py-2">Female</div>
+                      <div class="px-4 py-2">{application.gender}</div>
                     </div>
                     <div class="grid grid-cols-2">
                       <div class="px-4 py-2 font-semibold">Contact No.</div>
-                      <div class="px-4 py-2">+11 998001001</div>
+                      <div class="px-4 py-2">{application.phone_number}</div>
                     </div>
                     <div class="grid grid-cols-2">
                       <div class="px-4 py-2 font-semibold">Current Address</div>
                       <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
                     </div>
-                    <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold">
-                        Permanant Address
-                      </div>
-                      <div class="px-4 py-2">
-                        Arlington Heights, IL, Illinois
-                      </div>
-                    </div>
+
                     <div class="grid grid-cols-2">
                       <div class="px-4 py-2 font-semibold">Email.</div>
                       <div class="px-4 py-2">
                         <a class="text-blue-800" href="mailto:jane@example.com">
-                          jane@example.com
+                          {application.email}
                         </a>
                       </div>
-                    </div>
-                    <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold">Birthday</div>
-                      <div class="px-4 py-2">Feb 06, 1998</div>
                     </div>
                   </div>
                 </div>
@@ -130,7 +167,7 @@ const Progress_page = () => {
 
                     {/* <!-- Progress Indicator --> */}
 
-                    <CircularProgress percent={25} />
+                    <CircularProgress percent={progressPercent} />
                   </div>
                   <div>
                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -158,22 +195,16 @@ const Progress_page = () => {
                       <span class="tracking-wide">Submited Tasks</span>
                     </div>
                     <ul class="list-inside space-y-2">
-                      <li>
-                        <div class="text-indigo-500 hover:underline cursor-pointer">
-                          Task 1 Done Submited!
-                        </div>
-                        <div class="text-gray-500 text-xs">
-                          March 2020 - Now
-                        </div>
-                      </li>
-                      <li>
-                        <div class="text-indigo-500 hover:underline cursor-pointer">
-                          Task 2 Done Submited!
-                        </div>
-                        <div class="text-gray-500 text-xs">
-                          March 2020 - Now
-                        </div>
-                      </li>
+                      {submittedTasks.map((submitted, idx) => (
+                        <li key={submitted.id}>
+                          <div class="text-indigo-500 hover:underline cursor-pointer">
+                            Task {idx + 1} {submitted.task.title}
+                          </div>
+                          <div class="text-gray-500 text-xs">
+                            {submitted.created}
+                          </div>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>

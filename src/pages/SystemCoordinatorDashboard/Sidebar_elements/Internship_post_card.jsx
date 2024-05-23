@@ -57,7 +57,7 @@ const apiData = [
     name: "Afro Tech",
   },
 ];
-export default () => {
+const InternshipPostCard = () => {
   return (
     <main className="px-10 py-4">
       <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
@@ -156,6 +156,8 @@ export default () => {
     </main>
   );
 };
+
+export default InternshipPostCard;
 
 const CategoryIcon = () => (
   <svg

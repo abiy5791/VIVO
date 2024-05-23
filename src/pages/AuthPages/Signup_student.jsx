@@ -207,8 +207,8 @@ function SignupStudent() {
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   onChange={(e) => handleChange(e)}
                 >
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
               </div>
 
