@@ -1,4 +1,3 @@
-import CircularProgress from "../Circular_Progress";
 import PostArticleCardComponent from "../post_article_card_component";
 
 const tasksByCategory = [
@@ -10,21 +9,6 @@ const tasksByCategory = [
         taskDesc:
           "Interface with a stock price data feed and set up your system for analysis of the data",
         taskLink: "https://github.com/abiy5791/VIVO",
-        status: "completed",
-      },
-      {
-        taskTitle: "Task 2: Use JPMorgan Chase & Co. frameworks and tools",
-        taskDesc:
-          " Illum hic placeat unde porro, cupiditate nesciunt? Numquam debitis eligendi aspernatur mum.",
-        taskLink: "https://github.com/abiy5791/VIVO",
-        status: "inprogress",
-      },
-      {
-        taskTitle: "Task 3: Display data visually for traders",
-        taskDesc:
-          "Illum hic placeat unde porro, cupiditate nesciunt? Numquam debitis eligendi aspernatur mum.",
-        taskLink: "https://github.com/abiy5791/VIVO",
-        status: "completed",
       },
     ],
   },
@@ -83,16 +67,14 @@ function SubmittedTaskDetails() {
           </div>
 
           {/*Submitted Tasks*/}
-          <div class="mx-auto mt-10 px-4 sm:px-6 lg:px-8 w-5/6">
+          <div class="mx-auto mt-10 w-4/5">
             {tasksByCategory.map((categoryObj, index) => (
               <details
                 key={index}
                 class="group [&_summary::-webkit-details-marker]:hidden mb-2"
               >
                 <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-gray-50 dark:bg-slate-800 p-4 text-gray-900">
-                  <h2 class="font-bold dark:text-slate-300">
-                    {categoryObj.category}
-                  </h2>
+                  <h2 class="font-bold dark:text-slate-300">View Task</h2>
 
                   <svg
                     class="w-5 h-5 shrink-0 transition duration-300 group-open:-rotate-180 dark:text-slate-300"
@@ -110,11 +92,11 @@ function SubmittedTaskDetails() {
                   </svg>
                 </summary>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 px-10">
+                <div class="grid grid-cols-1 px-10">
                   {/*Task List*/}
                   <section className="bg-white dark:bg-slate-900">
                     <div className="container px-4 py-8 mx-auto space-y-8 lg:max-w-3xl">
-                      <h2 className="text-2xl font-bold md:text-3xl">Tasks</h2>
+                      <h2 className="text-2xl font-bold md:text-3xl">Task</h2>
                       <div className="space-y-8">
                         <div>
                           <ul className="space-y-4">
@@ -123,50 +105,6 @@ function SubmittedTaskDetails() {
                                 key={taskIndex}
                                 className="space-y-1 bg-slate-100 p-2 rounded-md dark:bg-slate-700"
                               >
-                                {task.status == "completed" ? (
-                                  <span class="inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke-width="1.5"
-                                      stroke="currentColor"
-                                      class="-ms-1 me-1.5 h-4 w-4"
-                                    >
-                                      <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                      />
-                                    </svg>
-
-                                    <p class="whitespace-nowrap text-sm">
-                                      Completed
-                                    </p>
-                                  </span>
-                                ) : (
-                                  <span class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke-width="1.5"
-                                      stroke="currentColor"
-                                      class="-ms-1 me-1.5 h-4 w-4"
-                                    >
-                                      <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z"
-                                      />
-                                    </svg>
-
-                                    <p class="whitespace-nowrap text-sm">
-                                      In Progress
-                                    </p>
-                                  </span>
-                                )}
-
                                 <div className="flex items-center space-x-2">
                                   <h4 className="ml-7 font-medium">
                                     {task.taskTitle}
@@ -188,16 +126,51 @@ function SubmittedTaskDetails() {
                       </div>
                     </div>
                   </section>
-                  <div className="flex justify-center items-center">
-                    <h1 className="font-bold">Total Progress</h1>
-                    <CircularProgress percent={"85"} />
-                  </div>
                 </div>
               </details>
             ))}
           </div>
         </div>
         <div className="w-4/5 mx-auto">
+          <div className="grid grid-cols-2 gap-10 my-5">
+            <div>
+              <label
+                htmlFor="Skill Learned"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Skill Learned
+              </label>
+
+              <input
+                type="text"
+                id="SkillLearned"
+                name="SkillLearned"
+                placeholder="Problem Solving"
+                className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="Proficiency Level"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Proficiency Level
+              </label>
+
+              <select
+                name="proficiencylevel"
+                id="proficiencylevel"
+                className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                onChange={(e) => handleChange(e)}
+              >
+                <option value="E">Excellent</option>
+                <option value="V">Very Good</option>
+                <option value="S">Satisfactory</option>
+                <option value="P">Poor</option>
+              </select>
+            </div>
+          </div>
           <label for="message" className="font-medium mb-2 text-slate-600">
             Comment
           </label>

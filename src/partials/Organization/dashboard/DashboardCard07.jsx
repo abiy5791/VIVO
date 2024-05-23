@@ -60,6 +60,11 @@ function DashboardCard07() {
   ];
   return (
     <div class="rounded-lg mb-4 overflow-auto border">
+      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+          Applicants
+        </h2>
+      </header>
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
@@ -86,7 +91,7 @@ function DashboardCard07() {
             return (
               <tr id={customer.id} class="text-gray-500">
                 <td class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">
-                  <Link to="Applicant_progress">
+                  <Link to="applicant_progress">
                     <div className="flex items-center">
                       <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                         <img

@@ -15,8 +15,7 @@ function DashboardCard11() {
       name: "Alex Shatov",
       email: "alexshatov@gmail.com",
       Post: "data structure",
-      spent: "$2,890.66",
-      status: "Pending...",
+      date: "Thursday, May 23, 2024",
     },
     {
       id: "1",
@@ -24,8 +23,7 @@ function DashboardCard11() {
       name: "Philip Harbach",
       email: "philip.h@gmail.com",
       Post: "machin learning",
-      spent: "$2,767.04",
-      status: "Accepted",
+      date: "Thursday, May 23, 2024",
     },
     {
       id: "2",
@@ -33,8 +31,7 @@ function DashboardCard11() {
       name: "Mirko Fisuk",
       email: "mirkofisuk@gmail.com",
       Post: "web dev",
-      spent: "$2,996.00",
-      status: "Declined",
+      date: "Thursday, May 24, 2024",
     },
     {
       id: "3",
@@ -42,8 +39,7 @@ function DashboardCard11() {
       name: "Olga Semklo",
       email: "olga.s@cool.design",
       Post: "artifical intelligence",
-      spent: "$1,220.66",
-      status: "Accepted",
+      date: "Thursday, May 25, 2024",
     },
     {
       id: "4",
@@ -51,8 +47,7 @@ function DashboardCard11() {
       name: "Burak Long",
       email: "longburak@gmail.com",
       Post: "artifical intelligence",
-      spent: "$1,890.66",
-      status: "Declined",
+      date: "Thursday, May 26, 2024",
     },
   ];
 
@@ -81,9 +76,6 @@ function DashboardCard11() {
                 </th>
                 <th className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">email</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">Status</div>
                 </th>
               </tr>
             </thead>
@@ -124,27 +116,12 @@ function DashboardCard11() {
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-left font-medium text-green-500">
-                        {customer.spent}
+                        {customer.date}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-md text-center">
                         {customer.email}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div
-                        className="text-center font-medium"
-                        style={{
-                          color:
-                            customer.status === "Accepted"
-                              ? "green"
-                              : customer.status === "Pending..."
-                              ? "black"
-                              : "red",
-                        }}
-                      >
-                        {customer.status}
                       </div>
                     </td>
                   </tr>

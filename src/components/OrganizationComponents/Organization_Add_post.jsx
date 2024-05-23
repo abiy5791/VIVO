@@ -2,10 +2,14 @@ export default () => {
   return (
     <section class="text-gray-600 body-font overflow-scroll">
       <div class="px-4 py-12 mx-auto max-w-9xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
+        <h1 className="text-slate-500 text-center text-2xl mb-5 font-extrabold sm:text-3xl">
+          Make a Post
+        </h1>
+
         <div class="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle w-full">
           <input
             type="text"
-            class="peer block min-h-[auto] w-full rounded"
+            className="border-slate-300 peer block min-h-[auto] w-full rounded"
             id="exampleFormControlInput5"
             placeholder="Enter Post Title"
             aria-label="Disabled input example"
@@ -165,9 +169,14 @@ export default () => {
             </div>
           </div>
 
-          <button className="px-3 py-2 rounded-md text-black border-2 border-blue-500 duration-150 hover:bg-indigo-700 active:shadow-lg">
-            Post
-          </button>
+          <div class="z-50 mt-6 rounded-lg">
+            <a
+              type="highlight"
+              class="items-center w-1/3 mx-auto mt-10 block px-10 py-3.5 text-base font-medium text-center cursor-pointer text-slate-100 transition duration-500 ease-in-out transform border-2 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 bg-indigo-500"
+            >
+              Post
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -15,12 +15,12 @@ export default () => {
 
           <DashboardCard06 />
 
-          <DashboardCard07 />
+          {/* <DashboardCard07 /> */}
 
           {/* Cards */}
-          <div className="grid grid-cols-12 gap-6">
+          {/* <div className="grid grid-cols-12 gap-6">
             <DashboardCard10 />
-          </div>
+          </div> */}
         </div>
       </main>
 

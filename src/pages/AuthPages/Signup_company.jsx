@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import websitelogo from "../../assets/logo.png";
 import signupillustration from "../../assets/company.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -85,7 +85,7 @@ function SignupCompany() {
                 to="/"
               >
                 <span className="sr-only">Home</span>
-                <img src={logo} alt="website logo" />
+                <img src={websitelogo} alt="website logo" />
               </Link>
 
               <h1 className="mt-2 text-2xl font-bold text-blue-300 sm:text-3xl md:text-5xl">
@@ -297,7 +297,7 @@ function SignupCompany() {
               <h1 className="col-span-full font-bold text-xl">
                 Enter Company Supervisor Information
               </h1>
-              <br className="col-span-full" />
+
               <div className="col-span-full">
                 <div className="col-span-6 sm:col-span-3">
                   <label
@@ -317,7 +317,7 @@ function SignupCompany() {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-3">
+                <div className="col-span-6 sm:col-span-3 my-4">
                   <label
                     htmlFor="lastname"
                     className="block text-sm font-medium text-gray-700"
@@ -352,7 +352,7 @@ function SignupCompany() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                <div className="col-span-6 sm:col-span-3">
+                <div className="col-span-6 sm:col-span-3 my-4">
                   <label
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700"
@@ -386,7 +386,7 @@ function SignupCompany() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                <div className="col-span-6 sm:col-span-3">
+                <div className="col-span-6 sm:col-span-3 my-4">
                   <h1 className="block text-sm font-medium text-gray-700">
                     Profile Image
                   </h1>

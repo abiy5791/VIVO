@@ -15,7 +15,7 @@ function DashboardCard10() {
       name: "Alex Shatov",
       email: "alexshatov@gmail.com",
       Post: "data structure",
-      spent: "$2,890.66",
+      date: "Thursday, May 23, 2024",
       status: "Pending...",
     },
     {
@@ -24,8 +24,8 @@ function DashboardCard10() {
       name: "Philip Harbach",
       email: "philip.h@gmail.com",
       Post: "machin learning",
-      spent: "$2,767.04",
-      status: "Accepted",
+      date: "Thursday, May 23, 2024",
+      status: "Pending...",
     },
     {
       id: "2",
@@ -33,8 +33,8 @@ function DashboardCard10() {
       name: "Mirko Fisuk",
       email: "mirkofisuk@gmail.com",
       Post: "web dev",
-      spent: "$2,996.00",
-      status: "Declined",
+      date: "Thursday, May 23, 2024",
+      status: "Pending...",
     },
     {
       id: "3",
@@ -42,7 +42,7 @@ function DashboardCard10() {
       name: "Olga Semklo",
       email: "olga.s@cool.design",
       Post: "artifical intelligence",
-      spent: "$1,220.66",
+      date: "Thursday, May 23, 2024",
       status: "Accepted",
     },
     {
@@ -51,8 +51,8 @@ function DashboardCard10() {
       name: "Burak Long",
       email: "longburak@gmail.com",
       Post: "artifical intelligence",
-      spent: "$1,890.66",
-      status: "Declined",
+      date: "Thursday, May 23, 2024",
+      status: "Decliend",
     },
   ];
 
@@ -124,7 +124,7 @@ function DashboardCard10() {
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-left font-medium text-green-500">
-                        {customer.spent}
+                        {customer.date}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">

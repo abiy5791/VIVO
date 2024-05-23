@@ -53,6 +53,9 @@ import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_ele
 import Organization_Add_post from "./components/OrganizationComponents/Organization_Add_post";
 import SystemCoordinator_add_post from "./components/SystemCoordinatorComponents/SystemCoordinator_add_post";
 import SubmittedTaskDetails from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
+import ApplicationDetails from "./components/OrganizationComponents/Application_Details";
+import Progress_page from "./components/OrganizationComponents/Progress_page";
+import ApplyComponent from "./components/apply_component";
 
 function App() {
   const location = useLocation();
@@ -73,6 +76,7 @@ function App() {
             path="posted_opportunity_details"
             element={<Posted_opportunity_details />}
           />
+          <Route path="/applyproposal" element={<ApplyComponent />} />
           <Route path="apply" element={<Apply_form />} />
           <Route
             path="applicant_profile"
@@ -135,17 +139,18 @@ function App() {
               path="internship_posts_details"
               element={<Organization_Post_details_component />}
             />
-            <Route path="add_post" element={<Organization_Add_post />} />
           </Route>
+          <Route path="add_post" element={<Organization_Add_post />} />
           <Route path="Applications" element={<ProLayout />}>
             <Route index element={<Organization_Applications />} />
             <Route
               path="Application_Details"
-              element={<Application_detail />}
+              element={<ApplicationDetails />}
             />
           </Route>
           <Route path="Applicants" element={<ProLayout />}>
             <Route index element={<Organization_Applicants />} />
+            <Route path="applicant_progress" element={<Progress_page />} />
           </Route>
           <Route path="Submitted_Tasks" element={<ProLayout />}>
             <Route index element={<Organization_Submitted_tasks />} />

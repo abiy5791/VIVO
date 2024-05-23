@@ -1,4 +1,4 @@
-import PostArticleCardComponent from "./post_article_card_component";
+import PostArticleCardComponent from "../post_article_card_component";
 
 function ApplicationDetails() {
   return (

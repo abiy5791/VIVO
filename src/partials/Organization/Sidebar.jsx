@@ -30,8 +30,8 @@ const Menu = (props) => {
         <ul className="mx-4 px-2 border-l text-sm font-medium">
           {items.map((item, idx) => (
             <li key={idx}>
-              <a
-                href={item.href}
+              <Link
+                to={item.href}
                 className="flex items-center gap-x-2 text-gray-600 dark:text-slate-400 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
               >
                 {item.icon ? (
@@ -40,7 +40,7 @@ const Menu = (props) => {
                   ""
                 )}
                 {item.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -114,8 +114,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       ),
     },
     {
-      href: "internship_posts",
-      name: "Posts",
+      href: "add_post",
+      name: "Post",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
