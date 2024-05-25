@@ -318,7 +318,7 @@ export default () => {
                   <>
                     <li>
                       <Link
-                        to="/login"
+                        to="/signin"
                         className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
                       >
                         Log in

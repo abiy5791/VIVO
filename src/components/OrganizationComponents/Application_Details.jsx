@@ -1,6 +1,9 @@
 import PostArticleCardComponent from "../post_article_card_component";
-
+import { useLocation } from "react-router-dom";
+import { useMemo } from "react";
 function ApplicationDetails() {
+  const location = useLocation();
+  const application = useMemo(() => location.state || {}, [location.state]);
   return (
     <>
       <div>
@@ -11,7 +14,7 @@ function ApplicationDetails() {
         </div>
         <div>
           <PostArticleCardComponent
-            title={"Job details"}
+            title={application.post}
             sub_title={"Publish my android App to consoles"}
             postedAt={"Posted May15,2024"}
             description={

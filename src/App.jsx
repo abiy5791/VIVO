@@ -54,16 +54,14 @@ import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_ele
 
 import RequireAuth from "./components/RequireAuth";
 import ApplicantSignup from "./pages/AuthPages/ApplicantSignup";
-import ApplyComponent from "./components/apply_component";
-import ApplicationDetails from "./components/Application_Details";
 import Unauthorized from "./components/Unauhtorized";
 
 import Organization_Add_post from "./components/OrganizationComponents/Organization_Add_post";
 import SystemCoordinator_add_post from "./components/SystemCoordinatorComponents/SystemCoordinator_add_post";
 import SubmittedTaskDetails from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
-import ApplicationDetails from "./components/OrganizationComponents/Application_Details";
 import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ApplyComponent from "./components/apply_component";
+import ApplicationDetails from "./components/OrganizationComponents/Application_Details";
 
 function App() {
   const location = useLocation();
@@ -153,10 +151,10 @@ function App() {
               </Route>
               <Route path="Applicants" element={<ProLayout />}>
                 <Route index element={<Syscoordinator_Applicants />} />
-                <Route
+                {/* <Route
                   path="Applicant_Progress"
                   element={<System_Coordinator_Progress_page />}
-                />
+                /> */}
               </Route>
               <Route path="Evaluated_applicant" element={<ProLayout />}>
                 <Route index element={<Evaluated_applicants />} />
@@ -199,13 +197,13 @@ function App() {
                 <Route index element={<Organization_Submitted_tasks />} />
                 <Route
                   path="Submitted_Tasks_Detail"
-                  element={<Organization_Submitted_Tasks_Detail />}
+                  element={<Organization_Submitted_tasks />}
                 />
               </Route>
             </Route>
           </Route>
         </Route>
-
+        <Route path="/task" element={<Task />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/pagenotfound" element={<ErrorPage />} />
