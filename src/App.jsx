@@ -62,6 +62,7 @@ import SubmittedTaskDetails from "./components/OrganizationComponents/Organizati
 import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ApplyComponent from "./components/apply_component";
 import ApplicationDetails from "./components/OrganizationComponents/Application_Details";
+import CreateTask from "./components/CreateTask";
 
 function App() {
   const location = useLocation();
@@ -102,10 +103,10 @@ function App() {
               element={<Applicant_profile_component />}
             />
             <Route path="settings" element={<Settings_component />} />
-            <Route
-              path="applicant_dashboard"
-              element={<ApplicantDashboard />}
-            />
+            <Route path="applicant_dashboard" element={<Home />}>
+              <Route index element={<ApplicantDashboard />} />
+              <Route path="task" element={<Task />} />
+            </Route>
           </Route>
 
           <Route element={<RequireAuth allowedRoles={["admin"]} />}>
@@ -203,7 +204,7 @@ function App() {
             </Route>
           </Route>
         </Route>
-        <Route path="/task" element={<Task />} />
+        <Route path="/create_task" element={<CreateTask />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/pagenotfound" element={<ErrorPage />} />

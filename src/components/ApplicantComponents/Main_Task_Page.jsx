@@ -140,7 +140,7 @@ function MainTaskPage() {
             </section>
           </div>
           <Link
-            to="/task"
+            to="task"
             class="ml-14 inline-flex items-center gap-2 rounded border border-indigo-600 bg-indigo-600 px-14 py-3 text-white active:text-black"
           >
             <span class="text-sm font-medium"> Continue </span>

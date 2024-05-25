@@ -3,8 +3,6 @@ import Landing_page_navbar from "../LandingPageComponents/landing_page_navbar";
 export default () => {
   return (
     <>
-      <Landing_page_navbar />
-
       <section class="text-gray-600 body-font overflow-hidden">
         <div class="container px-5 mx-auto">
           <div class="-my-8 divide-y-2 divide-gray-100">
@@ -272,7 +270,7 @@ export default () => {
                       </div>
                       <div class="py-2 flex-grow prose text-center sm:text-left sm:mt-0 prose-md">
                         <h2 className="font-medium text-lg text-indigo-500 mb-2">
-                          What you'll learn
+                          What you&apos;ll learn
                         </h2>
 
                         <ul className="list-disc dark:text-slate-400">
@@ -304,7 +302,7 @@ export default () => {
                       </div>
                       <div class="py-2 flex-grow prose text-center sm:text-left sm:mt-0 prose-md">
                         <h2 className="font-medium text-lg text-indigo-500 mb-2">
-                          What you'll do
+                          What you&apos;ll do
                         </h2>
 
                         <ul className="list-disc dark:text-slate-400">
@@ -323,7 +321,7 @@ export default () => {
                     <div class="flex flex-col w-full prose text-left max-w-max lg:max-w-2xl">
                       <div class="w-full mx-auto">
                         <h2 className="text-2xl font-semibold text-slate-700 mb-2 dark:text-slate-400">
-                          Here's some background information
+                          Here&apos;s some background information
                         </h2>
                         <p className="dark:text-slate-500">
                           One of the Managing Directors in your team Anna, has a
