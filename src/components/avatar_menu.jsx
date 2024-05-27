@@ -1,13 +1,27 @@
 import { useEffect, useRef, useState } from "react";
+import useAuth from "../hooks/useAuth";
 
 // Avtar with darpdown menu
 export default () => {
   const [state, setState] = useState(false);
   const profileRef = useRef();
+  const { logout, user } = useAuth();
+
+  const getDashboardPath = (role) => {
+    const paths = {
+      organization: "/organization",
+      admin: "/admin_dashboard",
+      applicant: "/applicant_dashboard",
+      student: "/applicant_dashboard",
+      system_coordinator: "/System_Coordinator",
+    };
+    return paths[role] || "/";
+  };
 
   const navigation = [
     { title: "Profile", path: "/applicant_profile" },
     { title: "Settings", path: "/settings" },
+    { title: "Dashboard", path: getDashboardPath(user.role) },
   ];
 
   return (
@@ -40,7 +54,10 @@ export default () => {
           </li>
         ))}
 
-        <button className="block w-full text-justify text-gray-600 dark:text-slate-300 hover:text-gray-900 border-t py-3 lg:hover:bg-gray-50 lg:p-3">
+        <button
+          onClick={logout}
+          className="block w-full text-justify text-gray-600 dark:text-slate-300 hover:text-gray-900 border-t py-3 lg:hover:bg-gray-50 lg:p-3"
+        >
           Logout
         </button>
       </ul>

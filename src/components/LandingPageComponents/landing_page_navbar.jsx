@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Avatar_menu from "../avatar_menu";
 import ThemeToggle from "../AdminComponents/ThemeToggle";
 import Notifications from "../../components/AdminComponents/DropdownNotifications";
+import useAuth from "../../hooks/useAuth";
 
 const dropdownNavs = [
   {
@@ -134,7 +135,7 @@ export default () => {
     isActive: false,
     idx: null,
   });
-  const user = true;
+  const { user } = useAuth();
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [

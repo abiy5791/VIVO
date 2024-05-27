@@ -16,6 +16,7 @@ export default () => {
         >
           {steps.stepsItems.map((item, idx) => (
             <li
+              key={idx}
               aria-current={steps.currentStep == idx + 1 ? "step" : false}
               className="flex-1 last:flex-none flex gap-x-2 md:items-center"
             >
@@ -218,7 +219,7 @@ export default () => {
               <div>
                 <label className="font-medium">Full Name</label>
                 <input
-                  type="email"
+                  type="text"
                   required
                   className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
