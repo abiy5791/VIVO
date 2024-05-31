@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { Table, Collapse, Button } from "antd";
-import { useNavigate } from "react-router-dom"; // Step 2
+import { Table, Collapse, Button, Divider } from "antd";
+import { useNavigate } from "react-router-dom";
+import { DeleteOutlined } from "@ant-design/icons";
+
 const students = [
   {
     id: 8,
@@ -152,7 +154,7 @@ const Supervisor = [
     department: "Marketing",
     teamSize: 20,
     Students: [],
-    imgsrc: "",
+    imgsrc: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
   },
   {
     id: 72,
@@ -161,7 +163,8 @@ const Supervisor = [
     department: "Finance",
     teamSize: 15,
     Students: [],
-    imgsrc: "",
+    imgsrc:
+      "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
   },
   {
     id: 973,
@@ -170,7 +173,7 @@ const Supervisor = [
     department: "Operations",
     teamSize: 30,
     Students: [],
-    imgsrc: "",
+    imgsrc: "https://randomuser.me/api/portraits/men/86.jpg",
   },
   {
     id: 64,
@@ -179,7 +182,7 @@ const Supervisor = [
     department: "Human Resources",
     teamSize: 25,
     Students: [],
-    imgsrc: "",
+    imgsrc: "https://randomuser.me/api/portraits/women/79.jpg",
   },
   {
     id: 235,
@@ -198,7 +201,7 @@ const Supervisor = [
     department: "IT",
     teamSize: 10,
     Students: [],
-    imgsrc: "",
+    imgsrc: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
   },
   {
     id: 79,
@@ -207,7 +210,8 @@ const Supervisor = [
     department: "Engineering",
     teamSize: 40,
     Students: [],
-    imgsrc: "",
+    imgsrc:
+      "https://images.unsplash.com/photo-1439911767590-c724b615299d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
   },
   {
     id: 86,
@@ -216,7 +220,8 @@ const Supervisor = [
     department: "Customer Service",
     teamSize: 25,
     Students: [],
-    imgsrc: "",
+    imgsrc:
+      "https://images.unsplash.com/photo-1439911767590-c724b615299d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
   },
   {
     id: 79,
@@ -225,7 +230,8 @@ const Supervisor = [
     department: "Product Management",
     teamSize: 20,
     Students: [],
-    imgsrc: "",
+    imgsrc:
+      "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
   },
   {
     id: 610,
@@ -238,54 +244,57 @@ const Supervisor = [
       "https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
   },
 ];
-// other boss data...
 
 export default function AssignSupervisor() {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedStudentsByBoss, setSelectedStudentsByBoss] = useState({});
+  const [studentsList, setStudentsList] = useState(students);
   const navigate = useNavigate();
-
-  const [Students, setStudents] = useState(students);
-  useEffect(() => {}, [selectedStudentsByBoss]);
-  const handleChange = (pagination, filters, sorter) => {
-    setSortedInfo(sorter);
-  };
-  console.log(selectedStudentsByBoss);
 
   const handleRowClick = (record) => {
     const index = selectedRows.findIndex((row) => row.id === record.id);
-
     if (index === -1) {
       setSelectedRows([...selectedRows, record]);
     } else {
       setSelectedRows(selectedRows.filter((row) => row.id !== record.id));
     }
   };
-  const HandleClick = () => {
-    navigate("/UvCoordinator/AssignSupervisor/Editassignament", {
-      state: { Supervisor: Supervisor, students: students },
-    });
-  };
-  const handleButtonClick = (boss) => {
-    // Get the IDs of selected students
-    const selectedStudentIDs = selectedRows.map((student) => student.id);
 
-    // Filter out the selected students from the Students array
-    const remainingStudents = Students.filter(
+  const handleButtonClick = (boss) => {
+    const selectedStudentIDs = selectedRows.map((student) => student.id);
+    const remainingStudents = studentsList.filter(
       (student) => !selectedStudentIDs.includes(student.id)
     );
 
-    // Update the selected students for the boss
     setSelectedStudentsByBoss({
       ...selectedStudentsByBoss,
-      [boss.id]: selectedRows,
+      [boss.id]: [
+        ...(selectedStudentsByBoss[boss.id] || []),
+        ...selectedRows.map((student) => ({ ...student, Bossid: boss.id })),
+      ],
     });
 
-    // Update the Students state with the remaining students
-    setStudents(remainingStudents);
-
-    // Clear the selected rows
+    setStudentsList(remainingStudents);
     setSelectedRows([]);
+  };
+
+  const handleDeleteStudent = (bossId, student) => {
+    const updatedSelectedStudents = selectedStudentsByBoss[bossId].filter(
+      (s) => s.id !== student.id
+    );
+
+    setSelectedStudentsByBoss({
+      ...selectedStudentsByBoss,
+      [bossId]: updatedSelectedStudents,
+    });
+
+    setStudentsList([...studentsList, { ...student, Bossid: null }]);
+  };
+
+  const handleEditClick = () => {
+    navigate("/UvCoordinator/AssignSupervisor/Editassignament", {
+      state: { Supervisor, students: studentsList },
+    });
   };
 
   const columns = [
@@ -324,9 +333,24 @@ export default function AssignSupervisor() {
     },
   ];
 
+  const selectedColumns = [
+    ...columns.slice(0, -1), // Exclude the "Select" column
+    {
+      title: "Action",
+      dataIndex: "action",
+      width: 100,
+      render: (_, record) => (
+        <Button
+          icon={<DeleteOutlined />}
+          onClick={() => handleDeleteStudent(record.Bossid, record)}
+        />
+      ),
+    },
+  ];
+
   return (
     <>
-      <div className="container px-5 py-24 w-3/4 mx-auto">
+      <div className="container px-5 py-16 w-3/4 mx-auto">
         <div className="flex flex-col text-center w-full mb-8">
           <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
             Assign Supervisor with respective Students
@@ -337,97 +361,89 @@ export default function AssignSupervisor() {
             haven't heard of them man bun deep.
           </p>
         </div>
-        <div className="container px-1 py-24 mx-auto">
+        <div className="container px-1 py-12 mx-auto">
           {Supervisor.map((boss) => {
-            const updatedStudents = Students.map((worker) => {
-              return {
-                ...worker,
-                Bossid: boss.id,
-              };
-            });
+            const updatedStudents = studentsList.map((worker) => ({
+              ...worker,
+              Bossid: boss.id,
+            }));
 
             return (
               <Collapse
                 key={boss.id}
                 defaultActiveKey={["selected", "unselected"]}
                 ghost
-                items={boss}
-                className=" "
+                className=" py-0 my-0 "
               >
                 <Collapse.Panel
                   header={
-                    <div className="m-0 flex bg-gray-100 items-center justify-evenly gap-x-3 py-3 px-6 whitespace-nowrap ">
-                      <img
-                        src={boss.imgsrc}
-                        alt="Boss"
-                        className="w-10 h-10 rounded-full"
-                      />
-                      <span className="block text-gray-700 text-sm font-medium">
-                        {boss.name}
-                      </span>
-                      <span className="block text-gray-700 text-xs">
-                        {boss.department}
-                      </span>
+                    <div className="m-0  flex  items-center  gap-x-3  px-6 whitespace-nowrap ">
+                      <div className="ml-1 ">
+                        <img
+                          src={boss.imgsrc}
+                          alt="Boss"
+                          className="flex-none w-12 h-12 rounded-full"
+                        />
+                      </div>
+                      <div className="w-full flex justify-evenly ">
+                        <span className="block text-gray-700 text-sm font-medium">
+                          {boss.name}
+                        </span>
+                        <span className="block text-gray-700 text-xs">
+                          {boss.department}
+                        </span>
+                      </div>
                     </div>
                   }
                   key={boss.name}
                 >
                   <div style={{ height: "100%", width: "100%" }}>
-                    {console.log(typeof selectedStudentsByBoss[boss.id])}
-
-                    <div
-                      style={{
-                        display: selectedStudentsByBoss[boss.id]
-                          ? "none"
-                          : "block",
-                      }}
-                    >
-                      <div>
-                        <Table
-                          className="mx-3"
-                          columns={columns}
-                          dataSource={updatedStudents}
-                          pagination={false}
-                          onChange={handleChange}
-                          sortDirections={["ascend", "descend"]}
-                          onRow={(record) => ({
-                            onClick: () => {
-                              handleRowClick(record, boss);
-                            },
-                            style: {
-                              backgroundColor: selectedRows.find(
-                                (row) => row.id === record.id
-                              )
-                                ? "#f0f0f0"
-                                : "inherit",
-                            },
-                          })}
-                        />
-                      </div>
-                      <div style={{ textAlign: "right", marginTop: "10px" }}>
-                        <Button onClick={() => handleButtonClick(boss)}>
-                          Done
-                        </Button>
-                      </div>
+                    <div>
+                      <Divider />
+                      <Table
+                        className="mx-3"
+                        columns={columns}
+                        dataSource={updatedStudents}
+                        pagination={false}
+                        onRow={(record) => ({
+                          onClick: () => handleRowClick(record, boss),
+                          style: {
+                            backgroundColor: selectedRows.find(
+                              (row) => row.id === record.id
+                            )
+                              ? "#f0f0f0"
+                              : "inherit",
+                          },
+                        })}
+                      />
+                    </div>
+                    <div style={{ textAlign: "right", marginTop: "10px" }}>
+                      <Button
+                        type="primary"
+                        className="float-right mr-20"
+                        onClick={() => handleButtonClick(boss)}
+                      >
+                        Done
+                      </Button>
                     </div>
                     <div style={{ marginTop: "10px" }}>
-                      <h3>Selected Students:</h3>
-
+                      <div className="w-full flex justify-center mx-auto">
+                        <h3 className=" mx-auto text-gray-800 text-xl font-semibold">
+                          Selected Students:
+                        </h3>
+                      </div>
                       <Table
-                        columns={columns.slice(0, -1)} // Exclude the first column (checkbox column)
+                        columns={selectedColumns}
                         dataSource={selectedStudentsByBoss[boss.id]}
                         pagination={false}
-                        onChange={handleChange}
-                        sortDirections={["ascend", "descend"]}
                         onRow={(record) => ({
-                          onClick: () => {
-                            handleRowClick(record, boss);
-                          },
+                          onClick: () => handleRowClick(record, boss),
                         })}
                       />
                     </div>
                   </div>
                 </Collapse.Panel>
+                <Divider />
               </Collapse>
             );
           })}
@@ -435,7 +451,7 @@ export default function AssignSupervisor() {
             <Button
               type="primary"
               className="float-right mr-20"
-              onClick={() => HandleClick()}
+              onClick={handleEditClick}
             >
               Edit
             </Button>

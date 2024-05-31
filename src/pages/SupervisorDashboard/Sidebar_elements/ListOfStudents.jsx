@@ -13,42 +13,42 @@ const data = [
         description: "This is a Step 1.",
         duration: "2 hours",
         skillGained: "Basic Coding",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 9,
       },
       {
         title: "Task 2",
         description: "This is a Step 1.",
         duration: "2 hours",
         skillGained: "Basic Coding",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 8,
       },
       {
         title: "Task 3",
         description: "This is a Step 1.",
         duration: "2 hours",
         skillGained: "Basic Coding",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 8,
       },
       {
         title: "Task 4",
         description: "This is a Step 1.",
         duration: "2 hours",
         skillGained: "Basic Coding",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 6,
       },
       {
         title: "Task 5",
         description: "This is a Step 1.",
         duration: "2 hours",
         skillGained: "Basic Coding",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 9,
       },
       {
         title: "Task 6",
         description: "This is a Step 1.",
         duration: "2 hours",
         skillGained: "Basic Coding",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 9,
       },
     ],
     email: "jane.cooper@example.com",
@@ -64,7 +64,7 @@ const data = [
         description: "This is a Step 2.",
         duration: "3 hours",
         skillGained: "Problem Solving",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 9,
       },
 
       {
@@ -72,7 +72,7 @@ const data = [
         description: "This is a Step 2.",
         duration: "3 hours",
         skillGained: "Problem Solving",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 5,
       },
 
       {
@@ -80,7 +80,7 @@ const data = [
         description: "This is a Step 2.",
         duration: "3 hours",
         skillGained: "Problem Solving",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 9,
       },
 
       {
@@ -88,7 +88,7 @@ const data = [
         description: "This is a Step 2.",
         duration: "3 hours",
         skillGained: "Problem Solving",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 7,
       },
 
       {
@@ -96,7 +96,7 @@ const data = [
         description: "This is a Step 2.",
         duration: "3 hours",
         skillGained: "Problem Solving",
-        proficiencyLevel: "Beginner",
+        proficiencyLevel: 7,
       },
     ],
     email: "john.Doe@example.com",
@@ -111,7 +111,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
 
       {
@@ -119,7 +119,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 7,
       },
 
       {
@@ -127,7 +127,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 10,
       },
 
       {
@@ -135,7 +135,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 6,
       },
 
       {
@@ -143,7 +143,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
 
       {
@@ -151,7 +151,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
 
       {
@@ -159,7 +159,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 9,
       },
 
       {
@@ -167,7 +167,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
 
       {
@@ -175,7 +175,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 9,
       },
 
       {
@@ -183,7 +183,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
 
       {
@@ -191,7 +191,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 9,
       },
 
       {
@@ -199,7 +199,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 7,
       },
 
       {
@@ -207,7 +207,7 @@ const data = [
         description: "This is a Step 3.",
         duration: "4 hours",
         skillGained: "Algorithm Design",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 9,
       },
     ],
     email: "alice.smith@example.com",
@@ -222,63 +222,63 @@ const data = [
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
       {
         title: "Task 2",
-        description: "This is a Step 4.",
+        description: "Personal Portfolio",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 9,
       },
       {
         title: "Task 3",
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
       {
         title: "Task 4",
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 6,
       },
       {
         title: "Task 5",
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 9,
       },
       {
         title: "Task 6",
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 9,
       },
       {
         title: "Task 7",
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 6,
       },
       {
         title: "Task 8",
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
       {
         title: "Task 9",
         description: "This is a Step 4.",
         duration: "1.5 hours",
         skillGained: "Data Structures",
-        proficiencyLevel: "Intermediate",
+        proficiencyLevel: 8,
       },
     ],
     email: " bob.brown@example.com",
@@ -317,6 +317,17 @@ export default function ListOfStudents() {
 
   return (
     <div className="w-9/12 mx-auto">
+      <div className="flex flex-col text-center w-full mb-8">
+        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+          Well Come, Dear Supervisor.
+        </h1>
+        <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+          Here is the list of students assigned to you. Please manage and
+          support them during their internships by providing guidance,
+          resources, and feedback. Ensure you oversee their projects and address
+          any concerns to help them succeed.
+        </p>
+      </div>
       <List
         itemLayout="horizontal"
         dataSource={data}

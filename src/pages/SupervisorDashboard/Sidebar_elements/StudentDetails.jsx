@@ -1,5 +1,6 @@
 import { Steps } from "antd";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function StudentDetails() {
   const {
@@ -10,6 +11,10 @@ export default function StudentDetails() {
     setSelectedTasks,
   } = useOutletContext();
   const navigate = useNavigate();
+
+  const [commentVisible, setCommentVisible] = useState(false);
+  const [comment, setComment] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const rowHeightPercentage = 100 / (selectedTasks.length || 1);
 
@@ -39,9 +44,72 @@ export default function StudentDetails() {
     navigate("/Supervisor/ListOfStudents/StudentListDetail/Evaluation");
   };
 
+  const handleAddCommentClick = () => {
+    setCommentVisible(true);
+    setIsEditing(true);
+  };
+
+  const handleSaveCommentClick = () => {
+    setIsEditing(false);
+  };
+
+  const handleEditCommentClick = () => {
+    setIsEditing(true);
+  };
+
   return (
     <>
-      <div className="flex m-1 flex-row border-b p-y-2 ">
+      <div className="flex flex-col text-center w-full mb-8">
+        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+          Here General Description about the Intership
+        </h1>
+        <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+          Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
+          gentrify, subway tile poke farm-to-table. Franzen you probably haven't
+          heard of them man bun deep.
+        </p>{" "}
+        <div className="mt-4 mb-4 w-full">
+          {commentVisible && (
+            <textarea
+              className={`p-2 border-slate-400 rounded w-full ${
+                !isEditing && "border-none"
+              }`}
+              rows="4"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              readOnly={!isEditing}
+            />
+          )}
+          <div className="mt-2 ">
+            {!commentVisible && (
+              <button
+                className="bg-blue-500 float-right hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleAddCommentClick}
+              >
+                Add Comment
+              </button>
+            )}
+            {commentVisible && isEditing && (
+              <button
+                className="bg-green-500 float-right hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleSaveCommentClick}
+              >
+                Save
+              </button>
+            )}
+            {commentVisible && !isEditing && (
+              <button
+                className="bg-yellow-500 float-right hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleEditCommentClick}
+              >
+                Edit
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex  mt-4 flex-row border-b p-y-2 ">
         <div className="w-1/3 content-center text-center">
           <span>List Of Tasks</span>
         </div>
@@ -59,7 +127,6 @@ export default function StudentDetails() {
           </div>
         </div>
       </div>
-
       <div className="flex flex-row">
         <div className="w-1/3 flex">
           <Steps
@@ -102,8 +169,9 @@ export default function StudentDetails() {
           })}
         </div>
       </div>
+
       <button
-        className="bg-blue-500 float-right mt-8 mr-20 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 float-right mb-16 mt-8 mr-20 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleRegisterClick}
       >
         Download Document

@@ -36,15 +36,13 @@ export default function ViewSuperVisors() {
 
   return (
     <>
-      <div className="container px-5 py-24 mx-auto">
+      <div className="container px-5 py-16 pb-6 mx-auto">
         <div className="flex flex-col text-center w-full mb-12">
           <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-            Master Cleanse Reliac Heirloom
+            Here are all the supervisors
           </h1>
           <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-            Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-            gentrify, subway tile poke farm-to-table. Franzen you probably
-            haven't heard of them man bun deep.
+            Dear Coordinator, You can see and manage the Supervisors here.
           </p>
         </div>
       </div>
@@ -53,11 +51,8 @@ export default function ViewSuperVisors() {
         <div className="items-start justify-between sm:flex">
           <div>
             <h4 className="text-gray-800 text-xl font-semibold">
-              Here are all the supervisors
+              List of supervisors
             </h4>
-            <p className="mt-2 text-gray-600 text-base sm:text-sm">
-              Dear Coordinator, You can see and manage the Supervisors here.
-            </p>
           </div>
           <a
             href="/UvCoordinator/AddSupervisor"
@@ -101,10 +96,7 @@ export default function ViewSuperVisors() {
                   </span>
                 </div>
               </div>
-              <a
-                href="javascript:void(0)"
-                className="text-gray-700 text-sm border rounded-lg px-3 py-2 duration-150 bg-white hover:bg-gray-100"
-              >
+              <a className="text-gray-700 text-sm border rounded-lg px-3 py-2 duration-150 bg-white hover:bg-gray-100">
                 Manage
               </a>
             </li>
