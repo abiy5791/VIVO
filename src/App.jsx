@@ -13,7 +13,6 @@ import Organization from "./pages/OrganizationDashboard/Organization";
 import LandingPage from "./pages/landingpage";
 import ApplicantDashboard from "./pages/ApplicantDashboard/applicant_dashboard";
 import SignIn from "./pages/AuthPages/SignIn";
-import SignUp from "./pages/AuthPages/SignUp";
 import Applicant_profile_component from "./components/ApplicantComponents/applicant_profile_component";
 import Applicants_list from "./pages/AdminDashboard/Sidebar_elements/applicants_list";
 import Organizations_list from "./pages/AdminDashboard/Sidebar_elements/organizations_list";
@@ -62,7 +61,7 @@ import SubmittedTaskDetails from "./components/OrganizationComponents/Organizati
 import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ApplyComponent from "./components/apply_component";
 import ApplicationDetails from "./components/OrganizationComponents/Application_Details";
-import CreateTask from "./components/CreateTask";
+import AddTask from "./components/OrganizationComponents/AddTask";
 
 function App() {
   const location = useLocation();
@@ -87,7 +86,7 @@ function App() {
 
             <Route
               path="internship_posts_details"
-              element={<Syscoordinator_post_detail />}
+              element={<Posted_opportunity_details />}
             />
             <Route path="add_post" element={<SystemCoordinator_add_post />} />
           </Route>
@@ -181,7 +180,10 @@ function App() {
                   element={<Organization_Post_details_component />}
                 />
               </Route>
-              <Route path="add_post" element={<Organization_Add_post />} />
+              <Route path="add_post" element={<ProLayout />}>
+                <Route index element={<Organization_Add_post />} />
+                <Route path="add_task" element={<AddTask />} />
+              </Route>
               <Route path="Applications" element={<ProLayout />}>
                 <Route index element={<Organization_Applications />} />
                 <Route
@@ -198,15 +200,14 @@ function App() {
                 <Route index element={<Organization_Submitted_tasks />} />
                 <Route
                   path="Submitted_Tasks_Detail"
-                  element={<Organization_Submitted_tasks />}
+                  element={<SubmittedTaskDetails />}
                 />
               </Route>
             </Route>
           </Route>
         </Route>
-        <Route path="/create_task" element={<CreateTask />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<ApplicantSignup />} />
         <Route path="/pagenotfound" element={<ErrorPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/signup_company" element={<SignupCompany />} />
