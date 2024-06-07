@@ -70,8 +70,8 @@ const data = [
       {
         title: "Task 2",
         description: "This is a Step 2.",
-        duration: "3 hours",
-        skillGained: "Problem Solving",
+        duration: "4 years",
+        skillGained: "ziget",
         proficiencyLevel: 5,
       },
 
@@ -79,8 +79,8 @@ const data = [
         title: "Task 3",
         description: "This is a Step 2.",
         duration: "3 hours",
-        skillGained: "Problem Solving",
-        proficiencyLevel: 9,
+        skillGained: "",
+        proficiencyLevel: "",
       },
 
       {

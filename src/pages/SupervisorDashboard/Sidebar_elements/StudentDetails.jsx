@@ -72,6 +72,9 @@ export default function StudentDetails() {
           heard of them man bun deep.
         </p>{" "}
         <div className="mt-4 mb-4 w-full">
+          <h2 className="sm:text-2xl text-1xl text-gray-900 font-medium text-center">
+            Supervisor's Comment
+          </h2>
           {commentVisible && (
             <textarea
               className={`p-2 border-slate-400 rounded w-full ${
@@ -145,7 +148,7 @@ export default function StudentDetails() {
         </div>
 
         <div className="w-10/12 flex flex-col rounded border">
-          {selectedTasks.map((taskTitle, index) => {
+          {/* {selectedTasks.map((taskTitle, index) => {
             const task = selectedStudent.tasks.find(
               (task) => task.title === taskTitle
             );
@@ -169,15 +172,34 @@ export default function StudentDetails() {
                 </div>
               </div>
             );
-          })}
+          })} */}
 
-          <div
-            className="border-b flex justify-between items-center"
-            style={{
-              height: `${rowHeightPercentage}%`,
-              padding: "8px",
-            }}
-          ></div>
+          {selectedStudent.tasks.map((selectedTasks, index) => {
+            return (
+              <div
+                key={index}
+                className="border-b flex justify-between items-center"
+                style={{
+                  height: `${rowHeightPercentage}%`,
+                  padding: "8px",
+                }}
+              >
+                {/* This is task {selectedTasks[index]}
+                {console.log("here it is")}
+                {console.log(selectedTasks.duration)} */}
+
+                <div className="w-1/3 text-center">
+                  <p>{selectedTasks.duration}</p>
+                </div>
+                <div className="w-1/3 text-center">
+                  <p>{selectedTasks.skillGained}</p>
+                </div>
+                <div className="w-1/3 text-center">
+                  <p>{selectedTasks.proficiencyLevel}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
