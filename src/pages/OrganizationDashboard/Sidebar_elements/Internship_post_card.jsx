@@ -17,6 +17,7 @@ export default () => {
     setSearchTerm(event.target.value);
   };
 
+  const apiData = [];
   // Filtered data based on search term
   const filteredData = apiData.filter(
     (data) =>

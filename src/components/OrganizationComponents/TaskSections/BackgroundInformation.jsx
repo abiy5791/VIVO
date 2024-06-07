@@ -9,7 +9,7 @@ const BackgroundInformation = ({ content, handleContent }) => {
       <CreateTask
         content={content}
         handleContent={handleContent}
-        section={"backgroundInformation"}
+        section={"background_info"}
       />
     </>
   );

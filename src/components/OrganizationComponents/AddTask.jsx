@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Stepper } from "react-form-stepper";
-import { json, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import TaskTitle from "./TaskSections/TaskTitle";
 import VideoInstruction from "./TaskSections/VideoInstruction";
@@ -8,17 +8,23 @@ import BackgroundInformation from "./TaskSections/BackgroundInformation";
 import TaskBrief from "./TaskSections/TaskBrief";
 import TaskResource from "./TaskSections/TaskResource";
 import SubmitTask from "./TaskSections/SubmitTask";
-import ExampleSolution from "./TaskSections/ExampleSolution";
-import LoadingIndicator from "../../components/loading_indicator";
+import Loading from "../../components/loading_spinner";
+
+import {
+  VideoInstructionInitial,
+  BackgroundInformationInitial,
+  TaskBriefInitial,
+  TaskResourceInitial,
+  TaskSubmitInitial,
+} from "./TaskSections/InitialContent";
 
 // Define the initial content for each editor
 const initialContent = {
-  videoInstruction: "<p>Initial content for Video Instruction</p>",
-  backgroundInformation: "<p>Initial content for Background Information</p>",
-  taskBrief: "<p>Initial content for Task Brief</p>",
-  taskResource: "<p>Initial content for Task Resource</p>",
-  submitTask: "<p>Initial content for Submit Task</p>",
-  exampleSolution: "<p>Initial content for Example Solution</p>",
+  video_instruction: VideoInstructionInitial,
+  background_info: BackgroundInformationInitial,
+  task_brief: TaskBriefInitial,
+  task_resource: TaskResourceInitial,
+  submit_task: TaskSubmitInitial,
 };
 
 const AddTask = () => {
@@ -27,17 +33,30 @@ const AddTask = () => {
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
   const [content, setContent] = useState(initialContent);
-  const [videoFiles, setVideoFiles] = useState({});
+  const [video, setVideo] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [checkboxStates, setCheckboxStates] = useState({
-    submitTask: {
+    submit_task: {
       file: false,
       url: false,
       writing: false,
     },
   });
 
-  const id = location.state?.id;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(content);
+  }, [content]);
+
+  useEffect(() => {
+    console.log(video);
+  }, [video]);
+
+  const location = useLocation();
+  console.log(location);
+  const post_id = location.state?.postId;
+
   const handleTitleChange = (newTitle) => {
     setTitle(newTitle);
   };
@@ -53,18 +72,12 @@ const AddTask = () => {
     }));
   };
 
-  const handleVideoChange = (section, file) => {
-    setVideoFiles((prevVideos) => ({
-      ...prevVideos,
-      [section]: file,
-    }));
+  const handleVideoChange = (video) => {
+    setVideo(video);
   };
 
-  const handleCheckboxChange = (section, newCheckboxState) => {
-    setCheckboxStates((prevStates) => ({
-      ...prevStates,
-      [section]: newCheckboxState,
-    }));
+  const handleCheckboxChange = (updatedCheckboxStates) => {
+    setCheckboxStates(updatedCheckboxStates);
   };
 
   const handleNext = async () => {
@@ -75,7 +88,7 @@ const AddTask = () => {
         const response = await axios.post("/tasks/", {
           title,
           duration,
-          post: id,
+          post: post_id,
         });
         setTaskId(response.data.id); // Store the created task ID
         setIsLoading(false);
@@ -94,7 +107,6 @@ const AddTask = () => {
     setIsLoading(true);
 
     try {
-      // Initialize an array to store data for each section
       const requestData = [];
 
       // Iterate over each section and prepare data
@@ -104,7 +116,10 @@ const AddTask = () => {
           title: section,
           content: content[section],
         };
-
+        if (section === "videoInstruction") {
+          // Add video file if exists
+          data.video = video;
+        }
         if (section === "submitTask") {
           // Add checkbox states to the data if section is "submitTask"
           data.is_file = checkboxStates[section].file;
@@ -112,18 +127,20 @@ const AddTask = () => {
           data.is_text = checkboxStates[section].writing;
         }
 
-        // Add video data only for the "videoInstruction" section
-        if (section === "videoInstruction") {
-          // Add video file if exists
-          data.video = videoFiles[section];
-        }
-
         // Add data to requestData array
         requestData.push(data);
       }
 
-      // Send one request with all data
-      const response = await axios.post("/api/create_task", requestData);
+      // Send the FormData
+      const response = await axios.post(
+        `tasks/${taskId}/sections/`,
+        requestData
+      );
+
+      if (response.status == 201) {
+        navigate(-1);
+      }
+
       console.log("Response:", response.data);
     } catch (error) {
       console.error("Error creating task:", error);
@@ -139,7 +156,6 @@ const AddTask = () => {
     { label: "Task Brief" },
     { label: "Task Resource" },
     { label: "Submit Task" },
-    { label: "Example Solution" },
   ];
 
   function getSectionComponent() {
@@ -156,7 +172,7 @@ const AddTask = () => {
       case 1:
         return (
           <VideoInstruction
-            content={content.videoInstruction}
+            content={content.video_instruction}
             handleContent={handleContentChange}
             handleVideoChange={handleVideoChange}
           />
@@ -164,41 +180,34 @@ const AddTask = () => {
       case 2:
         return (
           <BackgroundInformation
-            content={content.backgroundInformation}
+            content={content.background_info}
             handleContent={handleContentChange}
           />
         );
       case 3:
         return (
           <TaskBrief
-            content={content.taskBrief}
+            content={content.task_brief}
             handleContent={handleContentChange}
           />
         );
       case 4:
         return (
           <TaskResource
-            content={content.taskResource}
+            content={content.task_resource}
             handleContent={handleContentChange}
           />
         );
       case 5:
         return (
           <SubmitTask
-            content={content.submitTask}
+            content={content.submit_task}
+            checkboxStates={checkboxStates}
             handleContent={handleContentChange}
-            handleCheckboxChange={(newCheckboxState) =>
-              handleCheckboxChange("submitTask", newCheckboxState)
-            }
+            handleCheckboxChange={handleCheckboxChange}
           />
         );
-      case 6:
-        return (
-          <ExampleSolution
-            content={content.exampleSolution}
-            handleContent={handleContentChange}
-          />
-        );
+
       default:
         return null;
     }
@@ -255,9 +264,9 @@ const AddTask = () => {
               ) : (
                 <div className="w-1/2">
                   {isLoading ? (
-                    <div className="flex justify-center w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-400 hover:bg-gray-600 font-medium">
-                      <LoadingIndicator />
-                    </div>
+                    <button className="w-40 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-800 hover:bg-gray-600 font-medium">
+                      <Loading />
+                    </button>
                   ) : (
                     <button
                       className="w-40 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-800 hover:bg-gray-600 font-medium"
