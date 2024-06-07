@@ -16,7 +16,9 @@ export default function StudentDetails() {
   const [comment, setComment] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const rowHeightPercentage = 100 / (selectedTasks.length || 1);
+  // const rowHeightPercentage = 100 / (selectedTasks.length || 1);
+  const rowHeightPercentage = 100 / selectedStudent.tasks.length;
+  console.log(selectedStudent);
 
   const handleStepClick = (index) => {
     if (selectedStudent) {
@@ -39,6 +41,7 @@ export default function StudentDetails() {
       }
     }
   };
+  console.log(selectedStudent.tasks.length);
 
   const handleRegisterClick = () => {
     navigate("/Supervisor/ListOfStudents/StudentListDetail/Evaluation");
@@ -167,6 +170,14 @@ export default function StudentDetails() {
               </div>
             );
           })}
+
+          <div
+            className="border-b flex justify-between items-center"
+            style={{
+              height: `${rowHeightPercentage}%`,
+              padding: "8px",
+            }}
+          ></div>
         </div>
       </div>
 

@@ -293,10 +293,14 @@ export default function AssignSupervisor() {
 
   const handleEditClick = () => {
     navigate("/UvCoordinator/AssignSupervisor/Editassignament", {
-      state: { Supervisor, students: studentsList },
+      state: {
+        Supervisor,
+        students: studentsList,
+        selectedStudentsByBoss: selectedStudentsByBoss,
+      },
     });
   };
-
+  console.log(selectedStudentsByBoss);
   const columns = [
     {
       title: "Name",
@@ -398,33 +402,41 @@ export default function AssignSupervisor() {
                   key={boss.name}
                 >
                   <div style={{ height: "100%", width: "100%" }}>
-                    <div>
-                      <Divider />
-                      <Table
-                        className="mx-3"
-                        columns={columns}
-                        dataSource={updatedStudents}
-                        pagination={false}
-                        onRow={(record) => ({
-                          onClick: () => handleRowClick(record, boss),
-                          style: {
-                            backgroundColor: selectedRows.find(
-                              (row) => row.id === record.id
-                            )
-                              ? "#f0f0f0"
-                              : "inherit",
-                          },
-                        })}
-                      />
-                    </div>
-                    <div style={{ textAlign: "right", marginTop: "10px" }}>
-                      <Button
-                        type="primary"
-                        className="float-right mr-20"
-                        onClick={() => handleButtonClick(boss)}
-                      >
-                        Done
-                      </Button>
+                    <div
+                      style={{
+                        display: selectedStudentsByBoss[boss.id]
+                          ? "none"
+                          : "block",
+                      }}
+                    >
+                      <div>
+                        <Divider />
+                        <Table
+                          className="mx-3"
+                          columns={columns}
+                          dataSource={updatedStudents}
+                          pagination={false}
+                          onRow={(record) => ({
+                            onClick: () => handleRowClick(record, boss),
+                            style: {
+                              backgroundColor: selectedRows.find(
+                                (row) => row.id === record.id
+                              )
+                                ? "#f0f0f0"
+                                : "inherit",
+                            },
+                          })}
+                        />
+                      </div>
+                      <div style={{ textAlign: "right", marginTop: "10px" }}>
+                        <Button
+                          type="primary"
+                          className="float-right mr-20"
+                          onClick={() => handleButtonClick(boss)}
+                        >
+                          Done
+                        </Button>
+                      </div>
                     </div>
                     <div style={{ marginTop: "10px" }}>
                       <div className="w-full flex justify-center mx-auto">
