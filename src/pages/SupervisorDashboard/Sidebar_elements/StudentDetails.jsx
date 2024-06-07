@@ -68,12 +68,12 @@ export default function StudentDetails() {
         </h1>
         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
           Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-          gentrify, subway tile poke farm-to-table. Franzen you probably haven't
+          gentrify, subway tile poke farm-to-table. Franzen you probably havent
           heard of them man bun deep.
         </p>{" "}
         <div className="mt-4 mb-4 w-full">
           <h2 className="sm:text-2xl text-1xl text-gray-900 font-medium text-center">
-            Supervisor's Comment
+            Supervisors Comment
           </h2>
           {commentVisible && (
             <textarea

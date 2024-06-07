@@ -220,36 +220,43 @@ function App() {
               </Route>
             </Route>
           </Route>
-
-          <Route exact path="/UvCoordinator" element={<UvCoordDashboard />}>
-            <Route index element={<ViewStudents />} />
-            <Route path="AddSupervisor" element={<ProLayout />}>
-              <Route index element={<AddSupervisor />} />
-            </Route>
-            <Route path="ViewSupervisors" element={<ProLayout />}>
-              <Route index element={<ViewSuperVisors />} />
-              <Route path="Supervisordetail" element={<SuperVisorDetail />} />
-            </Route>
-            <Route path="AssignSupervisor" element={<ProLayout />}>
-              <Route index element={<AssignSupervisor />} />
-              <Route path="Editassignament" element={<EditAssignamet />} />
-            </Route>
-
-            <Route path="ViewStudents" element={<ProLayout />}>
+          <Route
+            element={<RequireAuth allowedRoles={["university_coordinator"]} />}
+          >
+            <Route exact path="/UvCoordinator" element={<UvCoordDashboard />}>
               <Route index element={<ViewStudents />} />
-              <Route path="StudentDetail" element={<StudentDetail />} />
+              <Route path="AddSupervisor" element={<ProLayout />}>
+                <Route index element={<AddSupervisor />} />
+              </Route>
+              <Route path="ViewSupervisors" element={<ProLayout />}>
+                <Route index element={<ViewSuperVisors />} />
+                <Route path="Supervisordetail" element={<SuperVisorDetail />} />
+              </Route>
+              <Route path="AssignSupervisor" element={<ProLayout />}>
+                <Route index element={<AssignSupervisor />} />
+                <Route path="Editassignament" element={<EditAssignamet />} />
+              </Route>
+
+              <Route path="ViewStudents" element={<ProLayout />}>
+                <Route index element={<ViewStudents />} />
+                <Route path="StudentDetail" element={<StudentDetail />} />
+              </Route>
             </Route>
           </Route>
 
-          <Route exact path="/Supervisor" element={<Supervisor />}>
-            <Route index element={<ListOfStudents />} />
-            <Route path="ListOfStudents" element={<ProLayout />}>
+          <Route
+            element={<RequireAuth allowedRoles={["university_supervisor"]} />}
+          >
+            <Route exact path="/Supervisor" element={<Supervisor />}>
               <Route index element={<ListOfStudents />} />
-              <Route path="StudentListDetail" element={<StudentList />}>
-                <Route index element={<StudentDetails />} />
+              <Route path="ListOfStudents" element={<ProLayout />}>
+                <Route index element={<ListOfStudents />} />
+                <Route path="StudentListDetail" element={<StudentList />}>
+                  <Route index element={<StudentDetails />} />
+                </Route>
               </Route>
+              <Route path="EvaluateStudent" element={<StudentEvaluation />} />
             </Route>
-            <Route path="EvaluateStudent" element={<StudentEvaluation />} />
           </Route>
         </Route>
         <Route path="/signin" element={<SignIn />} />
