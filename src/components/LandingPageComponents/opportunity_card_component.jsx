@@ -63,7 +63,7 @@ export default () => {
           Popular Opportunities
         </h1>
         {/* card grid */}
-        <Link to="/posted_opportunity_details">
+        <Link to="/posted_opportunity_detail">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-10 text-left mx-5 xl:mx-10">
             {Array(1).fill(
               apiData.map((data, index) => (

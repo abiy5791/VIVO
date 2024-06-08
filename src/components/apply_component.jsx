@@ -1,5 +1,9 @@
 import TagButtonComponent from "./Tag_button_component";
-import PostArticleCardComponent from "./post_article_card_component";
+import React from "react";
+import { InboxOutlined } from "@ant-design/icons";
+import { message, Upload } from "antd";
+import { Link } from "react-router-dom";
+const { Dragger } = Upload;
 
 const members = [
   {
@@ -12,6 +16,26 @@ const members = [
     path: "javascript:void(0)",
   },
 ];
+
+const props = {
+  name: "file",
+  multiple: true,
+  action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+  onChange(info) {
+    const { status } = info.file;
+    if (status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+    if (status === "done") {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+  onDrop(e) {
+    console.log("Dropped files", e.dataTransfer.files);
+  },
+};
 
 function ApplyComponent() {
   return (
@@ -230,32 +254,19 @@ function ApplyComponent() {
         {/*fill info div */}
         <div className="flex rounded-md mt-10 flex-wrap items-start gap-10 bg-white p-4 border-gray-300 border-2 sm:p-6 lg:p-8 w-4/5 mx-auto">
           <h1 className="text-lg font-bold w-full">Fill Some Details</h1>
-          <div>
-            <label
-              for="uploadFile1"
-              class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-36 p-5 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-400 border-dashed mx-auto font-[sans-serif]"
-            >
-              Upload Your Resume
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-11 mb-2 fill-gray-500"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
-                  data-original="#000000"
-                />
-                <path
-                  d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
-                  data-original="#000000"
-                />
-              </svg>
-              Upload file
-              <input type="file" id="uploadFile1" class="hidden" />
-              <p class="text-xs font-medium text-slate-600 mt-2">
-                PNG, JPG SVG, WEBP, and GIF are Allowed.
+          <div className="w-1/2 mx-auto">
+            <Dragger {...props}>
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
               </p>
-            </label>
+              <p className="ant-upload-text">
+                Click or drag file to upload your Resume
+              </p>
+              <p className="ant-upload-hint">
+                Support for a pdf,docx files. Strictly prohibited from uploading
+                company data or other banned files.
+              </p>
+            </Dragger>
           </div>
           <div className="w-1/2 mx-auto">
             <label for="message" className="font-medium mb-2 text-slate-600">
@@ -272,12 +283,13 @@ function ApplyComponent() {
         </div>
         {/*submit button */}
         <div class="z-50 mt-6 rounded-lg">
-          <a
+          <Link
+            to="/applicant_dashboard/task"
             type="highlight"
             class="items-center w-1/3 mx-auto mt-10 block px-10 py-3.5 text-base font-medium text-center cursor-pointer text-slate-100 transition duration-500 ease-in-out transform border-2 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 bg-indigo-500"
           >
             Submit Application
-          </a>
+          </Link>
         </div>
       </section>
     </>

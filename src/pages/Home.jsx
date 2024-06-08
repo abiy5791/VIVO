@@ -3,7 +3,7 @@ import Footer_component from "../components/LandingPageComponents/footer_compone
 import Landing_page_announcement_banner from "../components/LandingPageComponents/landing_page_announcement_banner";
 import Landing_page_navbar from "../components/LandingPageComponents/landing_page_navbar";
 
-export default () => {
+export default ({ footer }) => {
   return (
     <>
       <Landing_page_announcement_banner />
@@ -11,7 +11,7 @@ export default () => {
 
       <Outlet />
 
-      <Footer_component />
+      {footer ? <Footer_component /> : <></>}
     </>
   );
 };

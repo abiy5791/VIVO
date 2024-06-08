@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import "./css/style.css";
 
@@ -22,7 +22,6 @@ import InternshipPostCard from "./pages/OrganizationDashboard/Sidebar_elements/I
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
-
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
 import Home from "./pages/Home";
 import Settings_component from "./components/ApplicantComponents/settings_component";
@@ -50,18 +49,20 @@ import Organization_Submitted_tasks from "./pages/OrganizationDashboard/Sidebar_
 import Syscoordinator_Applications from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applications";
 import Syscoordinator_Applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Syscoordinator_Applicants";
 import Evaluated_applicants from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Evaluated_applicants";
-
 import RequireAuth from "./components/RequireAuth";
 import ApplicantSignup from "./pages/AuthPages/ApplicantSignup";
 import Unauthorized from "./components/Unauhtorized";
-
 import Organization_Add_post from "./components/OrganizationComponents/Organization_Add_post";
-import SystemCoordinator_add_post from "./components/SystemCoordinatorComponents/SystemCoordinator_add_post";
 import SubmittedTaskDetails from "./components/OrganizationComponents/Organization_Submitted_Tasks_Detail";
 import Progress_page from "./components/OrganizationComponents/Progress_page";
 import ApplyComponent from "./components/apply_component";
 import ApplicationDetails from "./components/OrganizationComponents/Application_Details";
 import AddTask from "./components/OrganizationComponents/AddTask";
+import TaskSection1 from "./components/TaskSectionComponents/task_section_1";
+import TaskSection2 from "./components/TaskSectionComponents/task_section_2";
+import TaskSection3 from "./components/TaskSectionComponents/task_section_3";
+import TaskSection4 from "./components/TaskSectionComponents/task_section_4";
+import TaskSection5 from "./components/TaskSectionComponents/task_section_5";
 
 function App() {
   const location = useLocation();
@@ -76,7 +77,7 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<ProLayout />}>
-          <Route path="/" element={<Home />}>
+          <Route path="/" element={<Home footer={true} />}>
             <Route index element={<LandingPage />} />
 
             <Route
@@ -85,26 +86,33 @@ function App() {
             />
 
             <Route
-              path="internship_posts_details"
+              path="posted_opportunity_detail"
               element={<Posted_opportunity_details />}
             />
-            <Route path="add_post" element={<SystemCoordinator_add_post />} />
+            <Route path="applyproposal" element={<ApplyComponent />} />
           </Route>
 
           <Route
             element={<RequireAuth allowedRoles={["applicant", "student"]} />}
           >
-            <Route path="/applyproposal" element={<ApplyComponent />} />
-            <Route path="apply" element={<Apply_form />} />
-            <Route path="applyproposal" element={<ApplyComponent />} />
+            {/* <Route path="apply" element={<Apply_form />} /> */}
+            {/* <Route path="applyproposal" element={<ApplyComponent />} /> */}
             <Route
               path="applicant_profile"
               element={<Applicant_profile_component />}
             />
             <Route path="settings" element={<Settings_component />} />
-            <Route path="applicant_dashboard" element={<Home />}>
+            <Route path="applicant_dashboard" element={<Home footer={false} />}>
               <Route index element={<ApplicantDashboard />} />
-              <Route path="task" element={<Task />} />
+
+              <Route path="task" element={<Task />}>
+                <Route index element={<Navigate to="1/section/1" />} />
+                <Route path=":taskId/section/1" element={<TaskSection1 />} />
+                <Route path=":taskId/section/2" element={<TaskSection2 />} />
+                <Route path=":taskId/section/3" element={<TaskSection3 />} />
+                <Route path=":taskId/section/4" element={<TaskSection4 />} />
+                <Route path=":taskId/section/5" element={<TaskSection5 />} />
+              </Route>
             </Route>
           </Route>
 
