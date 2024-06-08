@@ -1,24 +1,20 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import CreateTask from "./CreateTask";
 
-const SubmitTask = ({ content, handleContent, handleCheckboxChange }) => {
-  const [checkboxes, setCheckboxes] = useState({
-    file: false,
-    url: false,
-    writing: false,
-  });
-
-  const handleCheckboxChangeLocal = (e) => {
-    const { id, checked } = e.target;
-    setCheckboxes((prev) => ({
-      ...prev,
-      [id]: checked,
-    }));
+const SubmitTask = ({
+  content,
+  checkboxStates,
+  handleContent,
+  handleCheckboxChange,
+}) => {
+  const handleCheckbox = (e) => {
+    const { name, checked } = e.target;
+    console.log(`Checkbox changed: ${name} - ${checked}`); // Debugging
+    handleCheckboxChange({
+      ...checkboxStates,
+      [name]: checked,
+    });
   };
-
-  useEffect(() => {
-    handleCheckboxChange(checkboxes);
-  }, [checkboxes, handleCheckboxChange]);
 
   return (
     <>
@@ -28,10 +24,10 @@ const SubmitTask = ({ content, handleContent, handleCheckboxChange }) => {
       <CreateTask
         content={content}
         handleContent={handleContent}
-        section={"submitTask"}
+        section={"submit_task"}
       />
       <div className="flex flex-col justify-content w-full mt-6">
-        <label className="">How Should the file be submitted ?</label>
+        <label className="">How Should the file be submitted?</label>
         <label
           htmlFor="file"
           className="flex cursor-pointer items-start gap-4 mb-4 mt-4 rounded-lg border border-gray-200 p-4 transition hover:bg-gray-50"
@@ -42,21 +38,19 @@ const SubmitTask = ({ content, handleContent, handleCheckboxChange }) => {
               type="checkbox"
               className="size-4 rounded border-gray-300"
               id="file"
-              checked={checkboxes.file}
-              onChange={handleCheckboxChangeLocal}
+              name="file"
+              checked={checkboxStates.file || false}
+              onChange={handleCheckbox}
             />
           </div>
-
           <div>
             <strong className="font-medium text-gray-900">File</strong>
-
             <p className="mt-1 text-sm text-gray-700">
               Do you want applicants to submit this task as a file? e.g., txt,
               pdf, patch, doc
             </p>
           </div>
         </label>
-
         <label
           htmlFor="url"
           className="flex cursor-pointer items-start mb-4 gap-4 rounded-lg border border-gray-200 p-4 transition hover:bg-gray-50"
@@ -67,21 +61,19 @@ const SubmitTask = ({ content, handleContent, handleCheckboxChange }) => {
               type="checkbox"
               className="size-4 rounded border-gray-300"
               id="url"
-              checked={checkboxes.url}
-              onChange={handleCheckboxChangeLocal}
+              name="url"
+              checked={checkboxStates.url || false}
+              onChange={handleCheckbox}
             />
           </div>
-
           <div>
             <strong className="font-medium text-gray-900">URL</strong>
-
             <p className="mt-1 text-sm text-gray-700">
               Do you want applicants to submit this task as a URL for the
               solution? e.g., GitHub link, Google Drive link
             </p>
           </div>
         </label>
-
         <label
           htmlFor="writing"
           className="flex cursor-pointer items-start gap-4 rounded-lg border border-gray-200 p-4 transition hover:bg-gray-50"
@@ -92,14 +84,13 @@ const SubmitTask = ({ content, handleContent, handleCheckboxChange }) => {
               type="checkbox"
               className="size-4 rounded border-gray-300"
               id="writing"
-              checked={checkboxes.writing}
-              onChange={handleCheckboxChangeLocal}
+              name="writing"
+              checked={checkboxStates.writing || false}
+              onChange={handleCheckbox}
             />
           </div>
-
           <div>
             <strong className="font-medium text-gray-900">Writing</strong>
-
             <p className="mt-1 text-sm text-gray-700">
               Do you want applicants to submit this task by writing their
               answer?

@@ -43,7 +43,7 @@ const tasksByCategory = [
 
 function MainTaskPage() {
   return (
-    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 mb-6 sm:px-6 lg:px-8">
       {tasksByCategory.map((categoryObj, index) => (
         <details
           key={index}
