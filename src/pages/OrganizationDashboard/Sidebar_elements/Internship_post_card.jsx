@@ -42,16 +42,6 @@ export default () => {
       data.date.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Filtered data based on search term
-  const filteredData = posts.filter(
-    (data) =>
-      data.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.subCategory.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.price.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.date.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   useEffect(() => {
     if (organization_id) {
       fetchPosts(organization_id);
