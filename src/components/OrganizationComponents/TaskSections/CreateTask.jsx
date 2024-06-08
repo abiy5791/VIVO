@@ -1,6 +1,7 @@
 import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import "./CKEditorStyle.css";
 
 const editorConfiguration = {
   toolbar: [
@@ -18,7 +19,6 @@ const editorConfiguration = {
     "undo",
     "redo",
     "|",
-    "uploadVideo",
   ],
 };
 

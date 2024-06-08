@@ -14,6 +14,8 @@ export default () => {
       applicant: "/applicant_dashboard",
       student: "/applicant_dashboard",
       system_coordinator: "/System_Coordinator",
+      university_coordinator: "/UvCoordinator",
+      university_supervisor: "/Supervisor",
     };
     return paths[role] || "/";
   };
