@@ -17,16 +17,6 @@ export default () => {
     setSearchTerm(event.target.value);
   };
 
-  const apiData = [];
-  // Filtered data based on search term
-  const filteredData = apiData.filter(
-    (data) =>
-      data.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.subCategory.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.price.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.date.toLowerCase().includes(searchTerm.toLowerCase())
-  );
   const {
     user: { organization_id },
   } = useAuth();
@@ -34,12 +24,24 @@ export default () => {
 
   const fetchPosts = async (organization_id) => {
     try {
-      const res = await axios.get(`organizations/${organization_id}/posts`);
+      const res = await axios.get(
+        `organizations/${organization_id}/posts/?type=Internship`
+      );
       setPosts(res.data);
     } catch (error) {
       console.error("Error fetching applications:", error);
     }
   };
+
+  // Filtered data based on search term
+  const filteredData = posts.filter(
+    (data) =>
+      data.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      data.subCategory.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      data.price.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      data.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      data.date.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     if (organization_id) {
@@ -47,9 +49,11 @@ export default () => {
     }
   }, [organization_id]);
 
+  console.log(posts);
+
   return (
     <main className="px-10">
-      <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
+      <div className="dark:bg-slate-900 bg-white flex items-center">
         <div className="container mx-auto">
           <h1 className="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-5xl lg:text-5xl">
             Internship Opportunities
@@ -117,7 +121,7 @@ export default () => {
                             scope="col"
                             className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                           >
-                            Cost
+                            Category
                           </th>
                           <th
                             scope="col"
@@ -135,33 +139,33 @@ export default () => {
                           <tr>
                             <Link to="internship_posts_details">
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
-                                {data.category}
+                                {data.title}
                               </td>
                             </Link>
 
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                              {data.subCategory}
+                              {data.level}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                              {data.date}
+                              {data.created}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                              {data.price}
+                              {data.category}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                              {data.status === "approved" ? (
+                              {data.is_approved ? (
                                 <button
                                   type="button"
                                   className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                                 >
-                                  {data.status}
+                                  Approved
                                 </button>
                               ) : (
                                 <button
                                   type="button"
                                   className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                                 >
-                                  {data.status}
+                                  Pending
                                 </button>
                               )}
                             </td>

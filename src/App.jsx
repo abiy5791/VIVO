@@ -77,6 +77,7 @@ import ListOfStudents from "./pages/SupervisorDashboard/Sidebar_elements/ListOfS
 import StudentDetails from "./pages/SupervisorDashboard/Sidebar_elements/StudentDetails";
 import StudentList from "./pages/SupervisorDashboard/Sidebar_elements/StudentList";
 import StudentEvaluation from "./pages/SupervisorDashboard/Sidebar_elements/StudentEvaluation";
+import Volunteer_post_card from "./pages/OrganizationDashboard/Sidebar_elements/volunteer_post_card";
 
 function App() {
   const location = useLocation();
@@ -190,6 +191,13 @@ function App() {
               <Route index element={<Organization />} />
               <Route path="internship_posts" element={<ProLayout />}>
                 <Route index element={<InternshipPostCard />} />
+                <Route
+                  path="internship_posts_details"
+                  element={<Organization_Post_details_component />}
+                />
+              </Route>
+              <Route path="volunteer_posts" element={<ProLayout />}>
+                <Route index element={<Volunteer_post_card />} />
                 <Route
                   path="internship_posts_details"
                   element={<Organization_Post_details_component />}
