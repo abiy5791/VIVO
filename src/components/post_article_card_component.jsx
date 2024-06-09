@@ -1,15 +1,10 @@
 import TagButtonComponent from "./Tag_button_component";
 
-function PostArticleCardComponent({
-  title,
-  sub_title,
-  description,
-  time,
-  postedAt,
-  level,
-  price,
-  expertise,
-}) {
+function PostArticleCardComponent({ post }) {
+  const skillsArray = post.skills_gained
+    ? post.skills_gained.split(",").map((skill) => skill.trim())
+    : [];
+
   return (
     <article className="flex rounded-md bg-white p-4 border-gray-300 border-2 sm:p-6 lg:p-8 w-4/5 mx-auto">
       <div className=" flex items-start sm:gap-8 pr-10">
@@ -33,22 +28,18 @@ function PostArticleCardComponent({
 
           <h3 className="mt-4 text-lg font-bold sm:text-xl">
             <a href="#" className="hover:underline">
-              {title}
+              {post.title}
             </a>
           </h3>
 
-          <p className="mt-1 text-sm font-semibold text-gray-700">
+          {/* <p className="mt-1 text-sm font-semibold text-gray-700">
             {sub_title}
-          </p>
+          </p> */}
           <div className="flex items-center">
             <TagButtonComponent TagName={"Mobile App Development"} />
-
-            <div className="text-center text-slate-400 p-2 px-5 mt-3">
-              <h1 className="font-medium text-sm">{postedAt}</h1>
-            </div>
           </div>
           <div className="mt-6 leading-7 font-light">
-            <h1>{description}</h1>
+            <h1>{post.description}</h1>
           </div>
 
           <div className="mt-4 sm:flex sm:items-center sm:gap-2">
@@ -68,22 +59,12 @@ function PostArticleCardComponent({
                 ></path>
               </svg>
 
-              <p className="text-xs font-medium">{time}</p>
+              <p className="text-xs font-medium">{post.created}</p>
             </div>
 
             <span className="hidden sm:block" aria-hidden="true">
               &middot;
             </span>
-
-            <p className="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
-              Post{" "}
-              <a
-                href=""
-                className="underline text-blue-500 hover:text-gray-700"
-              >
-                View job posting
-              </a>
-            </p>
           </div>
 
           <span className="flex items-center">
@@ -92,8 +73,8 @@ function PostArticleCardComponent({
           <div>
             <h1>Skills and expertise</h1>
             <div className="flex flex-wrap gap-3">
-              {expertise.map((expert) => (
-                <TagButtonComponent TagName={expert} />
+              {skillsArray.map((expert) => (
+                <TagButtonComponent key={expert.id} TagName={expert} />
               ))}
             </div>
           </div>
@@ -118,7 +99,7 @@ function PostArticleCardComponent({
           </svg>
           <div>
             <h3 className="font-semibold">Level</h3>
-            <p className="text-sm">{level}</p>
+            <p className="text-sm">{post.level}</p>
           </div>
         </div>
 
@@ -138,8 +119,14 @@ function PostArticleCardComponent({
             />
           </svg>
           <div>
-            <h3 className="font-semibold">Fee</h3>
-            <p className="text-sm">{price}</p>
+            {post.is_paid ? (
+              <>
+                <h3 className="font-semibold">Fee</h3>
+                <p className="text-sm">{post.price}</p>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
