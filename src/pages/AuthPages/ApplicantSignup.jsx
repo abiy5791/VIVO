@@ -1,5 +1,5 @@
 import logo from "../../assets/logo.png";
-import signupillustration from "../../assets/student.svg";
+import signupillustration from "../../assets/intern.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "../../api/axios";

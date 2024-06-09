@@ -2,24 +2,24 @@ export default () => {
   const testimonials = [
     {
       avatar: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-      name: "Martin escobar",
-      title: "Founder of meta",
+      name: "Abel Ketema",
+      title: "Founder of Zala",
       quote:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et est hendrerit, porta nunc vitae.",
-    },
-    {
-      avatar: "https://randomuser.me/api/portraits/men/46.jpg",
-      name: "Simon andrew",
-      title: "Software engineer",
-      quote:
-        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+        "Working as a virtual intern through this platform has been an exceptional experience! The flexibility allowed me to balance my studies while gaining invaluable real-world skills. I'm grateful for the opportunity to collaborate with a diverse team of professionals and contribute to meaningful projects. Highly recommended!",
     },
     {
       avatar: "https://randomuser.me/api/portraits/men/86.jpg",
-      name: "Micheal worin",
+      name: "Biruk Werku",
       title: "Product designer",
       quote:
-        "There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain.",
+        "I had an amazing experience as a virtual intern through this platform. The internship was well-structured, and I received continuous support from both the platform and the company I interned with. The remote format allowed me to participate from anywhere, making it convenient to balance with my other commitments. I'm grateful for the opportunity and would highly recommend it to anyone seeking valuable real-world experience.",
+    },
+    {
+      avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+      name: "Lema Tesfaye",
+      title: "Software engineer",
+      quote:
+        "This platform has provided me with a transformative opportunity to kickstart my career. The virtual internship I participated in was well-structured, and I received mentorship from industry experts every step of the way. The skills and connections I've gained have been instrumental in securing future opportunities. Thank you for this incredible experience!",
     },
   ];
 
@@ -29,12 +29,12 @@ export default () => {
       <div className="relative z-10 max-w-screen-xl mx-auto px-4 md:px-8">
         <div className="max-w-xl sm:text-center md:mx-auto">
           <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl dark:text-slate-100 ">
-            Hear from our customers
+            Hear from our users
           </h3>
           <p className="mt-3 text-gray-600 dark:text-slate-400 ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et est
-            hendrerit, porta nunc vitae, gravida justo. Nunc fermentum magna
-            lorem, euismod volutpat arcu volutpat et.
+            Candid Testimonials Sharing the Transformative Experiences and
+            Unforgettable Moments of Joy, Success, and Growth with Our
+            Exceptional Services
           </p>
         </div>
         <div className="mt-12">
@@ -59,7 +59,7 @@ export default () => {
                 </div>
                 <figure>
                   <blockquote>
-                    <p className="text-gray-800 text-lg font-semibold px-4 py-1 dark:text-slate-400 ">
+                    <p className="text-gray-800 text-sm font-semibold px-4 py-1 dark:text-slate-400 ">
                       {item.quote}
                     </p>
                   </blockquote>

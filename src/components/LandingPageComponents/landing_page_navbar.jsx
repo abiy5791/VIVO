@@ -8,26 +8,20 @@ import useAuth from "../../hooks/useAuth";
 
 const dropdownNavs = [
   {
-    label: "Products",
+    label: "opportunities",
     navs: [
       {
-        title: "Analytics",
-        desc: "Duis aute irure dolor in reprehenderit",
-        path: "javascript:void(0)",
+        title: "For Universities",
+        desc: "Explore best Universities",
+        path: "/Signup_UVCoordinator",
         icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
+            fill="currentColor"
             className="w-6 h-6"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
-            />
+            <path d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z" />
           </svg>
         ),
       },
@@ -58,11 +52,17 @@ const dropdownNavs = [
         icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            fill="none"
             viewBox="0 0 24 24"
-            fill="currentColor"
+            strokeWidth={1.5}
+            stroke="currentColor"
             className="w-6 h-6"
           >
-            <path d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
+            />
           </svg>
         ),
       },
@@ -140,18 +140,23 @@ export default () => {
   // Replace javascript:void(0) paths with your paths
   const navigation = [
     {
-      title: "Opportunities",
+      title: "Explore",
       path: "javascript:void(0)",
       isDrapdown: true,
       navs: dropdownNavs,
     },
     {
       title: "Internship",
-      path: "/internship_opportunities",
+      path: "/internships",
       isDrapdown: false,
     },
-    { title: "Volunteer", path: "javascript:void(0)", isDrapdown: false },
-    { title: "Pricing", path: "javascript:void(0)", isDrapdown: false },
+    { title: "Volunteer", path: "/volunteers", isDrapdown: false },
+    {
+      title: "For Universities",
+      path: "/Signup_UVCoordinator",
+      isDrapdown: false,
+    },
+    { title: "For Organizations", path: "/signup_company", isDrapdown: false },
   ];
 
   useEffect(() => {
@@ -326,7 +331,7 @@ export default () => {
                     </li>
                     <li>
                       <Link
-                        to="/signup"
+                        to="/welcome"
                         className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
                       >
                         Sign Up

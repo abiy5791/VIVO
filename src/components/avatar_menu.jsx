@@ -21,8 +21,8 @@ export default () => {
   };
 
   const navigation = [
-    { title: "Profile", path: "/applicant_profile" },
-    { title: "Settings", path: "/settings" },
+    { title: "Profile", path: "profile" },
+    { title: "Settings", path: "settings" },
     { title: "Dashboard", path: getDashboardPath(user.role) },
   ];
 
