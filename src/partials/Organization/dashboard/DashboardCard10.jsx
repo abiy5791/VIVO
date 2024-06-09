@@ -28,6 +28,10 @@ function DashboardCard10() {
         post_id: application.post.id,
         post: application.post.title,
         status: application.status,
+        skills: application.skills,
+        cover_letter: application.cover_letter,
+        availability: application.availability,
+        other: application.other,
         application_date: new Date(application.created).toLocaleDateString(),
       }));
       setApplications(filteredApplications);
