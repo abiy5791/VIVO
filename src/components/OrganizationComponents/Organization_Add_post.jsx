@@ -160,6 +160,7 @@ const AddPost = () => {
                   onChange={handleChange}
                   className="rounded-md border-2 border-blue-200 py-1.5 pl-3 text-sm font-medium"
                 >
+                  <option value=""></option>
                   <option value="Internship">Internship</option>
                   <option value="VolunteerWork">Volunteer Work</option>
                 </select>
@@ -173,6 +174,7 @@ const AddPost = () => {
                   onChange={handleChange}
                   className="rounded-md border-2 border-blue-200 py-1.5 pl-3 text-sm font-medium"
                 >
+                  <option value=""></option>
                   <option value="Entry">Entry Level</option>
                   <option value="Mid">Mid Level</option>
                   <option value="Senior">Senior Level</option>
@@ -187,6 +189,7 @@ const AddPost = () => {
                   onChange={handleChange}
                   className="rounded-md border-2 border-blue-200 py-1.5 pl-3 text-sm font-medium"
                 >
+                  <option value=""></option>
                   <option value="Banking">Banking</option>
                   <option value="Business">Business</option>
                   <option value="Marketing">Marketing</option>

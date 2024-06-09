@@ -17,8 +17,8 @@ export default () => {
           />
         </svg>
       ),
-      title: "Fast Refresh",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus.",
+      title: "Student Tracking and Monitoring",
+      desc: "Track student applications, progress, and performance throughout their internships.",
     },
     {
       icon: (
@@ -37,8 +37,8 @@ export default () => {
           />
         </svg>
       ),
-      title: "Analytics",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus.",
+      title: "Centralized Internship Management",
+      desc: "Easily post and manage internship opportunities in one place.",
     },
     {
       icon: (
@@ -57,8 +57,8 @@ export default () => {
           />
         </svg>
       ),
-      title: "Datacenter security",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus.",
+      title: "Diverse Internship Listings",
+      desc: "Browse and apply to a wide range of internship opportunities across various industries.",
     },
     {
       icon: (
@@ -77,8 +77,8 @@ export default () => {
           />
         </svg>
       ),
-      title: "Build on your terms",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus.",
+      title: "Talent Discovery",
+      desc: "Access a pool of highly skilled interns from top universities",
     },
     {
       icon: (
@@ -97,8 +97,8 @@ export default () => {
           />
         </svg>
       ),
-      title: "Safe to use",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus.",
+      title: "Application Management",
+      desc: "Streamline the application review and selection process.",
     },
     {
       icon: (
@@ -117,8 +117,8 @@ export default () => {
           />
         </svg>
       ),
-      title: "Flexible",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus.",
+      title: "Flexible Scheduling",
+      desc: "Balance internships with academic commitments through flexible, remote opportunities.",
     },
   ];
 
@@ -128,12 +128,17 @@ export default () => {
 
       <div className="max-w-screen-xl mx-auto px-4 text-center text-gray-600 md:px-8">
         <div className="max-w-2xl mx-auto">
-          <h3 className="dark:text-slate-100  text-gray-800 text-3xl font-semibold sm:text-4xl">
-            The fastest way to launch a product
-          </h3>
+          <h2 className="text-4xl text-gray-800 dark:text-slate-100 font-extrabold mx-auto md:text-5xl">
+            Revolutionizing Internships for{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#20B2AA] to-[#FF6F61]">
+              Students, Universities, and Companies
+            </span>
+          </h2>
+
           <p className="mt-3 dark:text-slate-400 ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            congue, nisl eget molestie varius, enim ex faucibus purus.
+            Embark on a journey of innovation with our cutting-edge platform,
+            where students, universities, and companies converge to redefine the
+            internship experience.
           </p>
         </div>
         <div className="mt-12">
