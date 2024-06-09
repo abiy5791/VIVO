@@ -32,7 +32,7 @@ export default function StudentListDetails() {
             <List.Item.Meta
               avatar={<Avatar src={item.imgsrc} />}
               title={
-                <a className="font-semibold text-lg" href="#">
+                <a className="font-semibold text-lg" href="">
                   {item.name}
                 </a>
               }

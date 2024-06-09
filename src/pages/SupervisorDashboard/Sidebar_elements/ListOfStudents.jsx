@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { List, Avatar, Steps, Divider } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
-
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 const data = [
   {
     id: "",
@@ -288,9 +290,40 @@ const data = [
 
 export default function ListOfStudents() {
   const [current, setCurrent] = useState(0);
+  const [Data, setData] = useState([]);
   const [clickedItem, setClickedItem] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedTasks, setSelectedTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const {
+    user: { user_id, email, role, university_supervisor_id },
+  } = useAuth();
+  console.log(user_id);
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Fetch assignments data
+        const response = await axios.get(
+          `UvSupervisors/${university_supervisor_id}/students`
+        );
+        const fetchedData = response.data || [];
+        setData(fetchedData);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [university_supervisor_id]);
+
+  console.log(Data);
   const navigate = useNavigate();
 
   const handleItemClick = (item) => {
@@ -335,7 +368,7 @@ export default function ListOfStudents() {
           <List.Item onClick={() => handleItemClick(item)}>
             <List.Item.Meta
               avatar={<Avatar src={item.imgsrc} />}
-              title={<a href="#">{item.name}</a>}
+              title={<a href="">{item.name}</a>}
               description={item.email}
             />
             <Steps

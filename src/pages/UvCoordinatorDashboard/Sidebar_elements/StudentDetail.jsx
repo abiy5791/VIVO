@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+import useAuth from "../../../hooks/useAuth";
 const StudentDetail = () => {
+  const {
+    user: { user_id, email, role, university_coordinator_id },
+  } = useAuth();
   const location = useLocation();
   const { items } = location.state;
 
-  //   console.log(items);
+  console.log(items);
   //   const items = {
   //     avatar:
   //       "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
@@ -42,15 +45,15 @@ const StudentDetail = () => {
             <div className="font-bold text-xl mb-2">{items.name}</div>
             <p className="text-gray-700 text-base">
               <span>Name: </span>
-              {items.name}
+              {items.first_name} {items.last_name}
             </p>
             <p className="text-gray-700 text-base">
               <span>Id: </span>
-              {items.id}
+              {items.university_id_number}
             </p>
             <p className="text-gray-700 text-base">
               <span>Departemet: </span>
-              {items.departemet}
+              {items.department}
             </p>
           </div>
         </div>
@@ -66,7 +69,7 @@ const StudentDetail = () => {
         </div>
         <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
           <dl className="sm:divide-y sm:divide-gray-200">
-            {["HostingOrgName", "email", "phoneNumber", "address"].map(
+            {/* {["HostingOrgName", "email", "phoneNumber", "address"].map(
               (field, index) => (
                 <div
                   key={index}
@@ -92,13 +95,13 @@ const StudentDetail = () => {
                   </dd>
                 </div>
               )
-            )}
+            )} */}
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">
                 Internship Description
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {items.internshipDescription}
+                {/* {items.internshipDescription} */}
               </dd>
             </div>
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
