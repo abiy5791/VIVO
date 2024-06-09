@@ -79,6 +79,9 @@ import StudentDetails from "./pages/SupervisorDashboard/Sidebar_elements/Student
 import StudentList from "./pages/SupervisorDashboard/Sidebar_elements/StudentList";
 import StudentEvaluation from "./pages/SupervisorDashboard/Sidebar_elements/StudentEvaluation";
 import Volunteer_post_card from "./pages/OrganizationDashboard/Sidebar_elements/volunteer_post_card";
+import Internships from "./components/LandingPageComponents/internships";
+import Volunteers from "./components/LandingPageComponents/volunteer";
+import SignupUVcoordinator from "./pages/AuthPages/Signup_UVcoordinator";
 
 function App() {
   const location = useLocation();
@@ -96,10 +99,8 @@ function App() {
           <Route path="/" element={<Home footer={true} />}>
             <Route index element={<LandingPage />} />
 
-            <Route
-              path="internship_opportunity_details"
-              element={<Opportunity_details_component />}
-            />
+            <Route path="internships" element={<Internships />} />
+            <Route path="volunteers" element={<Volunteers />} />
 
             <Route
               path="posted_opportunity_detail"
@@ -113,10 +114,7 @@ function App() {
           >
             {/* <Route path="apply" element={<Apply_form />} /> */}
             {/* <Route path="applyproposal" element={<ApplyComponent />} /> */}
-            <Route
-              path="applicant_profile"
-              element={<Applicant_profile_component />}
-            />
+            <Route path="profile" element={<Applicant_profile_component />} />
             <Route path="settings" element={<Settings_component />} />
             <Route path="applicant_dashboard" element={<Home footer={false} />}>
               <Route index element={<ApplicantDashboard />} />
@@ -281,6 +279,7 @@ function App() {
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/signup_company" element={<SignupCompany />} />
         <Route path="/signup_student" element={<SignupStudent />} />
+        <Route path="/Signup_UVCoordinator" element={<SignupUVcoordinator />} />
         <Route path="/modal" element={<Modal />} />
         <Route path="/wait" element={<WaitApproval />} />
         <Route path="/loading" element={<LoadingIndicator />} />

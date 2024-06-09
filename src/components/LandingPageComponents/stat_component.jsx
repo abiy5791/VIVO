@@ -1,20 +1,20 @@
 export default () => {
   const stats = [
     {
-      data: "35K",
-      title: "Customers",
+      data: "3K",
+      title: "Interns",
     },
     {
-      data: "10K+",
-      title: "Downloads",
+      data: "1K+",
+      title: "Volunteers",
     },
     {
       data: "40+",
-      title: "Countries",
+      title: "Organizations",
     },
     {
-      data: "30M+",
-      title: "Total revenue",
+      data: "10+",
+      title: "Universities",
     },
   ];
 
@@ -31,11 +31,11 @@ export default () => {
         <div className="mt-6 gap-12 sm:mt-0 md:flex lg:block">
           <div className="max-w-2xl">
             <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl dark:text-slate-100 ">
-              We do our best to make customers always happy
+              Ensuring Customer Happiness is Our Top Priority
             </h3>
             <p className="mt-3 max-w-xl">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-              venenatis sollicitudin quam ut tincidunt.
+              Explore the diverse backgrounds and interests of our platform's
+              users.
             </p>
           </div>
           <div className="flex-none mt-6 md:mt-0 lg:mt-6">
