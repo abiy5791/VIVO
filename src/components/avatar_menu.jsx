@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useAuth from "../hooks/useAuth";
+import axios from "../api/axios";
 
 // Avtar with darpdown menu
 export default () => {
@@ -26,6 +27,43 @@ export default () => {
     { title: "Dashboard", path: getDashboardPath(user.role) },
   ];
 
+  const getUserEndpoint = (user) => {
+    if (user.admin_id) {
+      return `/admins/${user.admin_id}`;
+    } else if (user.system_coordinator_id) {
+      return `/systemCoordinators/${user.system_coordinator_id}`;
+    } else if (user.student_id) {
+      return `/students/${user.student_id}`;
+    } else if (user.organization_id) {
+      return `/organizations/${user.organization_id}`;
+    } else if (user.applicant_id) {
+      return `/applicants/${user.applicant_id}`;
+    } else if (user.university_coordinator_id) {
+      return `/UvCoordinators/${user.university_coordinator_id}`;
+    } else if (user.university_supervisor_id) {
+      return `/UvSupervisors/${user.university_supervisor_id}`;
+    } else {
+      return null;
+    }
+  };
+
+  const [userAvatar, setUserAvatar] = useState([]);
+  useEffect(() => {
+    const endpoint = getUserEndpoint(user);
+
+    if (endpoint) {
+      axios
+        .get(endpoint)
+        .then((response) => {
+          setUserAvatar(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data: ", error);
+        });
+    }
+  }, [user]);
+  console.log(userAvatar);
+
   return (
     <div className="relative border-t lg:border-none">
       <div className="">
@@ -34,10 +72,24 @@ export default () => {
           className="hidden w-10 h-10 outline-none rounded-full ring-offset-2 ring-indigo-400 lg:focus:ring-2 lg:block"
           onClick={() => setState(!state)}
         >
-          <img
-            src="https://cdn.theforage.com/pajrEXDRjHWNANStX/profile/picture-679a2"
-            className="w-full h-full rounded-full"
-          />
+          {userAvatar ? (
+            <img
+              className="w-full h-full rounded-full"
+              src={
+                userAvatar.avatar ||
+                userAvatar.logo ||
+                "https://cdn.theforage.com/pajrEXDRjHWNANStX/profile/picture-679a2"
+              }
+              alt="Avatar"
+            />
+          ) : (
+            <img
+              src={
+                "https://cdn.theforage.com/pajrEXDRjHWNANStX/profile/picture-679a2"
+              }
+              className="w-full h-full rounded-full"
+            />
+          )}
         </button>
       </div>
       <ul

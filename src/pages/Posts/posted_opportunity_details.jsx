@@ -1,7 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Review_component from "./review_component";
+import axios from "../../api/axios";
+import LoadingIndicator from "../../components/loading_indicator";
+import { useEffect, useMemo, useState } from "react";
 
 export default () => {
+  const location = useLocation();
+  const post = useMemo(() => location.state || {}, [location.state]);
+  const [tasks, setTasks] = useState([]);
+
+  const { id } = post;
+  // console.log(post);
+  useEffect(() => {
+    if (id) {
+      const fetchTask = async () => {
+        try {
+          const res = await axios.get(`posts/${id}/tasks`);
+          console.log(res);
+          setTasks(res.data);
+        } catch (error) {
+          console.error("Error fetching post:", error);
+        }
+      };
+      fetchTask();
+    } else {
+      console.error("Post ID is missing");
+    }
+  }, [id]);
+  console.log(tasks);
+
+  if (!id) {
+    return <LoadingIndicator />;
+  }
   return (
     <>
       <div className="relative">
@@ -12,6 +42,7 @@ export default () => {
               "linear-gradient(143.6deg, rgba(192, 132, 252, 0) 20.79%, rgba(232, 121, 249, 0.26) 40.92%, rgba(204, 171, 238, 0) 70.35%)",
           }}
         ></div>
+
         <div className="relative">
           <section>
             <div className="max-w-screen-xl mx-auto px-4 py-9 gap-12 dark:text-slate-400 text-gray-600 overflow-hidden md:px-8 md:flex">
@@ -40,18 +71,21 @@ export default () => {
                   </p>
                 </a>
                 <h1 className="text-2xl dark:text-slate-200 text-gray-800 font-extrabold sm:text-5xl">
-                  Quantitative Research
+                  {post.title}
                 </h1>
-                <p>Discover quantitative research at JPMorgan Chase & Co.</p>
+                <p>{post.description}</p>
                 <div class="items-center justify-center grid grid-cols-3 divide-x divide-slate-400">
-                  <p>Banking & Financial Services</p>
-                  <p className="text-center">Free</p>
-                  <p className="text-center">1200+ 5 Star Reviews</p>
+                  <p>{post.category}</p>
+                  <p className="text-center">
+                    {post.price ? post.price : "Free"}
+                  </p>
+                  <p className="text-center">{post.level}</p>
                 </div>
 
                 <div className="flex items-center gap-x-3 sm:text-sm">
                   <Link
                     to="/applyproposal"
+                    state={post}
                     className="flex items-center justify-center gap-x-1 py-3 px-4 dark:bg-slate-700 dark:text-white text-white font-medium bg-gray-800 duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg md:inline-flex"
                   >
                     Start The Program
@@ -73,8 +107,11 @@ export default () => {
               <div className="flex-1 hidden md:block">
                 {/* Replace with your image */}
                 <img
-                  src="https://raw.githubusercontent.com/sidiDev/remote-assets/c86a7ae02ac188442548f510b5393c04140515d7/undraw_progressive_app_m-9-ms_oftfv5.svg"
-                  className="max-w-xl"
+                  src={
+                    post.image ||
+                    "https://raw.githubusercontent.com/sidiDev/remote-assets/c86a7ae02ac188442548f510b5393c04140515d7/undraw_progressive_app_m-9-ms_oftfv5.svg"
+                  }
+                  className="max-w-xl rounded-2xl"
                 />
               </div>
             </div>
@@ -89,9 +126,7 @@ export default () => {
               Why complete our Job Simulation
             </h1>
             <p class="text-base leading-relaxed dark:text-slate-400 xl:w-2/4 lg:w-3/4 mx-auto">
-              A risk-free way to experience work on the job with us at JPMorgan
-              Chase & Co. Practice your skills with example tasks and build your
-              confidence to ace your applications.
+              {post.description}
             </p>
           </div>
           <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
@@ -109,7 +144,9 @@ export default () => {
                   <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
                   <path d="M22 4L12 14.01l-3-3"></path>
                 </svg>
-                <span class="title-font font-medium">Self-paced 6-7 hours</span>
+                <span class="title-font font-medium">
+                  Self-paced {post.duration}
+                </span>
               </div>
             </div>
             <div class="p-2 sm:w-1/2 w-full">
@@ -143,7 +180,7 @@ export default () => {
                   <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
                   <path d="M22 4L12 14.01l-3-3"></path>
                 </svg>
-                <span class="title-font font-medium">No assessments</span>
+                <span class="title-font font-medium">{post.skills_gained}</span>
               </div>
             </div>
             <div class="p-2 sm:w-1/2 w-full">
@@ -160,7 +197,7 @@ export default () => {
                   <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
                   <path d="M22 4L12 14.01l-3-3"></path>
                 </svg>
-                <span class="title-font font-medium">Intermediate</span>
+                <span class="title-font font-medium">{post.level}</span>
               </div>
             </div>
             <div class="p-2 sm:w-1/2 w-full">
@@ -300,6 +337,7 @@ export default () => {
           </div>
         </div>
       </section>
+
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <section>
           <div class="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-24 max-w-6xl">
@@ -363,7 +401,7 @@ export default () => {
             </div>
           </div>
         </section>
-
+        {/* {tasks.map((task)=>{})} */}
         <section className="dark:bg-slate-900">
           <div className="container mb-5 rounded-lg  px-8 py-8 mx-auto space-y-8 lg:max-w-3xl">
             <h2 className="text-2xl font-bold md:text-3xl">

@@ -8,15 +8,56 @@ import { universities } from "../../utils/universities";
 
 function SignupUVcoordinator() {
   const [user, setUser] = useState({});
-  const [avatar, setAvatar] = useState();
+  const [document, setDocument] = useState();
   const [logo, setLogo] = useState();
+  const [errors, setErrors] = useState({});
   const { login } = useAuth();
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  async function registerCompany(user, avatar, logo) {
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!user.first_name) newErrors.first_name = "First Name is required";
+    if (!user.last_name) newErrors.last_name = "Last Name is required";
+
+    if (!user.email) {
+      newErrors.email = "Email is required";
+    } else if (user.email && !isValidEmail(user.email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!user.password) {
+      newErrors.password = "Password is required";
+    } else if (user.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+    }
+
+    if (!user.phone_number) {
+      newErrors.phone_number = "Phone Number is required";
+    } else if (user.phone_number.length < 13) {
+      newErrors.phone_number = "Please insert correct PhoneNumber";
+    } else if (!/^\+2519|^\+2517/.test(user.phone_number)) {
+      newErrors.phone_number =
+        "Phone number must start with '+2519' or '+2517'";
+    }
+
+    if (!user.university) newErrors.university = "University is required";
+    if (!document) newErrors.document = "Legaldocument is required";
+    if (!logo) newErrors.logo = "Profile Image is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  async function registerCompany(user, document, logo) {
     try {
       const formData = new FormData();
       const supervisorKeys = [
@@ -37,7 +78,7 @@ function SignupUVcoordinator() {
         }
       }
       formData.append("logo", logo[0]);
-      formData.append("supervisor.avatar", avatar[0]);
+      formData.append("supervisor.avatar", document[0]);
       const formDataObject = Object.fromEntries(formData);
       console.log("formDataObject", formDataObject);
 
@@ -58,13 +99,16 @@ function SignupUVcoordinator() {
 
         login(data, "/organization");
       }
-    } catch {
-      console.log("catched");
+    } catch (error) {
+      console.log("catched", error);
     }
   }
+
   const handleClick = (e) => {
     e.preventDefault();
-    registerCompany(user, avatar, logo);
+    if (validateFields()) {
+      registerCompany(user, document, logo);
+    }
   };
 
   return (
@@ -88,7 +132,9 @@ function SignupUVcoordinator() {
                 <span className="sr-only">Home</span>
                 <img src={websitelogo} alt="website logo" />
               </Link>
-
+              <h1 className="font-light text-blue-300 text-lg">
+                University Coordinator Signup
+              </h1>
               <h1 className="mt-2 text-2xl font-bold text-blue-300 sm:text-3xl md:text-5xl">
                 Welcome to VIVO
               </h1>
@@ -106,92 +152,113 @@ function SignupUVcoordinator() {
                   htmlFor="FirstName"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  First Name
+                  First Name <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="FirstName"
-                  name="name"
+                  name="first_name"
                   onChange={(e) => handleChange(e)}
                   placeholder="Abebe"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.first_name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.first_name}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="Last Name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Last Name
+                  Last Name <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="Last Name"
-                  name="organization_type"
+                  name="last_name"
                   onChange={(e) => handleChange(e)}
                   placeholder="Tesema"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.last_name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.last_name}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="Email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email
+                  Email <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="email"
                   id="Email"
-                  name="organization_email"
+                  name="email"
                   onChange={(e) => handleChange(e)}
                   placeholder="abcd123@gmail.com"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Password
+                  Password <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="abcd123@gmail.com"
+                  placeholder="Password"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   onChange={(e) => handleChange(e)}
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="PhoneNumber"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone Number
+                  Phone Number <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="PhoneNumber"
-                  name="organization_phone_number"
+                  name="phone_number"
                   onChange={(e) => handleChange(e)}
                   placeholder="+251911121314"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.phone_number && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.phone_number}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="university"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  University
+                  University <span className="text-red-500">*</span>
                 </label>
                 <select
                   name="university"
@@ -205,18 +272,23 @@ function SignupUVcoordinator() {
                     </option>
                   ))}
                 </select>
+                {errors.university && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.university}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <h1 className="block mb-2 text-sm font-medium text-gray-700">
-                  Legal Document
+                  Legal Document <span className="text-red-500">*</span>
                 </h1>
                 <label
-                  for="avatar"
-                  class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
+                  htmlFor="document"
+                  className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-11 mb-2 fill-gray-500"
+                    className="w-11 mb-2 fill-gray-500"
                     viewBox="0 0 32 32"
                   >
                     <path
@@ -231,27 +303,32 @@ function SignupUVcoordinator() {
                   Upload file
                   <input
                     type="file"
-                    id="avatar"
-                    class="hidden"
-                    name="avatar"
-                    onChange={(e) => setAvatar(e.target.files)}
+                    id="document"
+                    className="hidden"
+                    name="document"
+                    onChange={(e) => setDocument(e.target.files)}
                   />
-                  <p class="text-xs font-medium text-gray-400 mt-2">
+                  {errors.document && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.document}
+                    </p>
+                  )}
+                  <p className="text-xs font-medium text-gray-400 mt-2">
                     PNG, JPG SVG, WEBP, and GIF are Allowed.
                   </p>
                 </label>
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <h1 className="block text-sm mb-2 font-medium text-gray-700">
-                  Profile Image
+                  Profile Image <span className="text-red-500">*</span>
                 </h1>
                 <label
-                  for="uploadFile1"
-                  class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
+                  htmlFor="uploadFile1"
+                  className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-11 mb-2 fill-gray-500"
+                    className="w-11 mb-2 fill-gray-500"
                     viewBox="0 0 32 32"
                   >
                     <path
@@ -267,11 +344,14 @@ function SignupUVcoordinator() {
                   <input
                     type="file"
                     id="uploadFile1"
-                    class="hidden"
-                    name="logo"
+                    className="hidden"
+                    name="avatar"
                     onChange={(e) => setLogo(e.target.files)}
                   />
-                  <p class="text-xs font-medium text-gray-400 mt-2">
+                  {errors.logo && (
+                    <p className="text-red-500 text-xs mt-1">{errors.logo}</p>
+                  )}
+                  <p className="text-xs font-medium text-gray-400 mt-2">
                     PNG, JPG SVG, WEBP, and GIF are Allowed.
                   </p>
                 </label>
@@ -288,7 +368,8 @@ function SignupUVcoordinator() {
 
                   <span className="text-sm text-gray-700">
                     I want to receive emails about events, product updates and
-                    company announcements.
+                    company announcements.{" "}
+                    <span className="text-red-500">*</span>
                   </span>
                 </label>
               </div>

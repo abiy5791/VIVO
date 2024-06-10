@@ -5,7 +5,7 @@ import Achievements from "../../components/ApplicantComponents/Achievements";
 import Steps_component from "../../components/ApplicantComponents/steps_component";
 
 const ApplicantDashboard = () => {
-  const [currentStep, setCurrentStep] = useState("achievements");
+  const [currentStep, setCurrentStep] = useState("Progress");
   console.log(currentStep);
   // const handleStepChange = (step) => {
   //   setCurrentStep(step);
@@ -17,9 +17,9 @@ const ApplicantDashboard = () => {
         setCurrentStep={setCurrentStep}
       />
       <div>
+        {currentStep === "Progress" && <MainTaskPage />}
         {currentStep === "achievements" && <Achievements />}
         {currentStep === "apply" && <Apply />}
-        {currentStep === "Progress" && <MainTaskPage />}
       </div>
     </>
   );

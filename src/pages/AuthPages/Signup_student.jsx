@@ -10,10 +10,60 @@ function SignupStudent() {
   const [user, setUser] = useState({});
   const [avatar, setAvatar] = useState();
   const [resume, setResume] = useState();
+  const [errors, setErrors] = useState({});
   const { login } = useAuth();
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!user.first_name) newErrors.first_name = "First Name is required";
+    if (!user.last_name) newErrors.last_name = "Last Name is required";
+    if (!user.email) {
+      newErrors.email = "Email is required";
+    } else if (!isValidEmail(user.email)) {
+      newErrors.email = "Invalid email address";
+    }
+    if (!user.password) {
+      newErrors.password = "Password is required";
+    } else if (user.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+    }
+    if (!user.phone_number) {
+      newErrors.phone_number = "Phone Number is required";
+    } else if (user.phone_number.length < 13) {
+      newErrors.phone_number = "Please insert correct PhoneNumber";
+    } else if (!/^\+2519|^\+2517/.test(user.phone_number)) {
+      newErrors.phone_number =
+        "Phone number must start with '+2519' or '+2517'";
+    }
+
+    if (!user.age) {
+      newErrors.age = "Age is required";
+    } else if (user.age && (user.age < 18 || user.age > 100)) {
+      newErrors.age = "Age must be between 18 and 80";
+    }
+    if (!user.gender) newErrors.gender = "Gender is required";
+    if (!user.portfolio_link)
+      newErrors.portfolio_link = "Portfolio Link is required";
+    if (!user.university) newErrors.university = "University is required";
+    if (!user.university_id_number)
+      newErrors.university_id_number = "University ID number is required";
+    if (!user.department) newErrors.department = "Department is required";
+    if (!user.batch) newErrors.batch = "Batch is required";
+    if (!avatar) newErrors.avatar = "Profile Image is required";
+    if (!resume) newErrors.resume = "Resume is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   async function registerStudent(user, resume, avatar) {
@@ -42,14 +92,18 @@ function SignupStudent() {
         console.log("success", data);
         login(data, "/applcant_dashboard");
       }
-    } catch {
-      console.log("catched");
+    } catch (error) {
+      console.log("catched", error);
     }
   }
+
   const handleClick = (e) => {
     e.preventDefault();
-    registerStudent(user, resume, avatar);
+    if (validateFields()) {
+      registerStudent(user, resume, avatar);
+    }
   };
+
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -71,7 +125,9 @@ function SignupStudent() {
                 <span className="sr-only">Home</span>
                 <img src={logo} alt="website logo" />
               </Link>
-
+              <h1 className="font-light text-blue-300 text-lg">
+                Student Signup
+              </h1>
               <h1 className="mt-2 text-2xl font-bold text-blue-300 sm:text-3xl md:text-5xl">
                 Welcome to VIVO
               </h1>
@@ -92,7 +148,7 @@ function SignupStudent() {
                   htmlFor="firstname"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  First Name
+                  First Name <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -101,8 +157,13 @@ function SignupStudent() {
                   name="first_name"
                   placeholder="John"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 />
+                {errors.first_name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.first_name}
+                  </p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -110,7 +171,7 @@ function SignupStudent() {
                   htmlFor="lastname"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Last Name
+                  Last Name <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -119,8 +180,13 @@ function SignupStudent() {
                   name="last_name"
                   placeholder="Doe"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 />
+                {errors.last_name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.last_name}
+                  </p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -128,7 +194,7 @@ function SignupStudent() {
                   htmlFor="Email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email
+                  Email <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -137,15 +203,18 @@ function SignupStudent() {
                   name="email"
                   placeholder="abcd123@gmail.com"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Password
+                  Password <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -154,25 +223,33 @@ function SignupStudent() {
                   name="password"
                   placeholder="abcd123@gmail.com"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="PhoneNumber"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone Number
+                  Phone Number <span className="text-red-500">*</span>
                 </label>
 
                 <input
-                  type="number"
+                  type="text"
                   id="PhoneNumber"
                   name="phone_number"
                   placeholder="+251911121314"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 />
+                {errors.phone_number && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.phone_number}
+                  </p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -180,7 +257,7 @@ function SignupStudent() {
                   htmlFor="age"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Age
+                  Age <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -189,8 +266,11 @@ function SignupStudent() {
                   name="age"
                   placeholder="21"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 />
+                {errors.age && (
+                  <p className="text-red-500 text-xs mt-1">{errors.age}</p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -198,18 +278,21 @@ function SignupStudent() {
                   htmlFor="gender"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Gender
+                  Gender <span className="text-red-500">*</span>
                 </label>
 
                 <select
                   name="gender"
                   id="gender"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
+                {errors.gender && (
+                  <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -217,7 +300,7 @@ function SignupStudent() {
                   htmlFor="portfoliolink"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Portfolio Link
+                  Portfolio Link <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -226,21 +309,26 @@ function SignupStudent() {
                   name="portfolio_link"
                   placeholder="https://www.example.com"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 />
+                {errors.portfolio_link && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.portfolio_link}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="university"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  University
+                  University <span className="text-red-500">*</span>
                 </label>
                 <select
                   name="university"
                   id="university"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                 >
                   {universities.map((uv) => (
                     <option key={uv} value={uv}>
@@ -248,13 +336,18 @@ function SignupStudent() {
                     </option>
                   ))}
                 </select>
+                {errors.university && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.university}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="university_id_number"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  University ID number
+                  University ID number <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -262,56 +355,69 @@ function SignupStudent() {
                   id="university_id_number"
                   name="university_id_number"
                   placeholder="UGR/19895/12"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.university_id_number && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.university_id_number}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="Department"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Department
+                  Department <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="Department"
                   name="department"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   placeholder="CSE"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.department && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.department}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="Batch"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Batch
+                  Batch <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="Batch"
                   name="batch"
-                  onChange={(e) => handleChange(e)}
-                  placeholder="https://www.linkedin.com/in/abcd"
+                  onChange={handleChange}
+                  placeholder="2021"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.batch && (
+                  <p className="text-red-500 text-xs mt-1">{errors.batch}</p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
                 <h1 className="block text-sm font-medium text-gray-700">
-                  Profile Image
+                  Profile Image <span className="text-red-500">*</span>
                 </h1>
                 <label
-                  for="avatar"
-                  class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
+                  htmlFor="avatar"
+                  className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-11 mb-2 fill-gray-500"
+                    className="w-11 mb-2 fill-gray-500"
                     viewBox="0 0 32 32"
                   >
                     <path
@@ -327,26 +433,29 @@ function SignupStudent() {
                   <input
                     type="file"
                     id="avatar"
-                    class="hidden"
+                    className="hidden"
                     name="avatar"
                     onChange={(e) => setAvatar(e.target.files)}
                   />
-                  <p class="text-xs font-medium text-gray-400 mt-2">
+                  {errors.avatar && (
+                    <p className="text-red-500 text-xs mt-1">{errors.avatar}</p>
+                  )}
+                  <p className="text-xs font-medium text-gray-400 mt-2">
                     PNG, JPG SVG, WEBP, and GIF are Allowed.
                   </p>
                 </label>
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <h1 className="block text-sm font-medium text-gray-700">
-                  Resume
+                  Resume <span className="text-red-500">*</span>
                 </h1>
                 <label
-                  for="resume"
-                  class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
+                  htmlFor="resume"
+                  className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-11 mb-2 fill-gray-500"
+                    className="w-11 mb-2 fill-gray-500"
                     viewBox="0 0 32 32"
                   >
                     <path
@@ -362,13 +471,16 @@ function SignupStudent() {
                   <input
                     type="file"
                     id="resume"
-                    class="hidden"
+                    className="hidden"
                     name="resume"
                     onChange={(e) => {
                       setResume(e.target.files);
                     }}
                   />
-                  <p class="text-xs font-medium text-gray-400 mt-2">
+                  {errors.resume && (
+                    <p className="text-red-500 text-xs mt-1">{errors.resume}</p>
+                  )}
+                  <p className="text-xs font-medium text-gray-400 mt-2">
                     PDF,.. are Allowed.
                   </p>
                 </label>
@@ -385,7 +497,8 @@ function SignupStudent() {
 
                   <span className="text-sm text-gray-700">
                     I want to receive emails about events, product updates and
-                    company announcements.
+                    company announcements.{" "}
+                    <span className="text-red-500">*</span>
                   </span>
                 </label>
               </div>

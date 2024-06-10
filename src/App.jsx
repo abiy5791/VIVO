@@ -101,12 +101,11 @@ function App() {
 
             <Route path="internships" element={<Internships />} />
             <Route path="volunteers" element={<Volunteers />} />
-
+            <Route path="wait" element={<WaitApproval />} />
             <Route
               path="posted_opportunity_detail"
               element={<Posted_opportunity_details />}
             />
-            <Route path="applyproposal" element={<ApplyComponent />} />
           </Route>
 
           <Route
@@ -114,8 +113,10 @@ function App() {
           >
             {/* <Route path="apply" element={<Apply_form />} /> */}
             {/* <Route path="applyproposal" element={<ApplyComponent />} /> */}
+
             <Route path="profile" element={<Applicant_profile_component />} />
             <Route path="settings" element={<Settings_component />} />
+            <Route path="applyproposal" element={<ApplyComponent />} />
             <Route path="applicant_dashboard" element={<Home footer={false} />}>
               <Route index element={<ApplicantDashboard />} />
 
@@ -275,13 +276,12 @@ function App() {
         </Route>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<ApplicantSignup />} />
-        <Route path="/pagenotfound" element={<ErrorPage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/signup_company" element={<SignupCompany />} />
         <Route path="/signup_student" element={<SignupStudent />} />
         <Route path="/Signup_UVCoordinator" element={<SignupUVcoordinator />} />
+        <Route path="/pagenotfound" element={<ErrorPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/modal" element={<Modal />} />
-        <Route path="/wait" element={<WaitApproval />} />
         <Route path="/loading" element={<LoadingIndicator />} />
         <Route path="/successalert" element={<SuccessfulAlert />} />
         <Route path="/alert" element={<ErrorAlert />} />

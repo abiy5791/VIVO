@@ -284,7 +284,7 @@ function ApplyComponent() {
         {/*submit button */}
         <div class="z-50 mt-6 rounded-lg">
           <Link
-            to="/applicant_dashboard/task"
+            to="/wait"
             type="highlight"
             class="items-center w-1/3 mx-auto mt-10 block px-10 py-3.5 text-base font-medium text-center cursor-pointer text-slate-100 transition duration-500 ease-in-out transform border-2 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 bg-indigo-500"
           >

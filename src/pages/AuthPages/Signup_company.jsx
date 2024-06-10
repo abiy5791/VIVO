@@ -9,10 +9,70 @@ function SignupCompany() {
   const [user, setUser] = useState({});
   const [avatar, setAvatar] = useState();
   const [logo, setLogo] = useState();
+  const [errors, setErrors] = useState({});
   const { login } = useAuth();
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!user.name) newErrors.name = "Organization Name is required";
+    if (!user.organization_email) {
+      newErrors.organization_email = "Email is required";
+    } else if (!isValidEmail(user.organization_email)) {
+      newErrors.organization_email = "Invalid email address";
+    }
+    if (!user.organization_phone_number) {
+      newErrors.organization_phone_number = "Phone Number is required";
+    } else if (user.organization_phone_number.length < 13) {
+      newErrors.organization_phone_number = "Please insert correct PhoneNumber";
+    } else if (!/^\+2519|^\+2517/.test(user.organization_phone_number)) {
+      newErrors.organization_phone_number =
+        "Phone number must start with '+2519' or '+2517'";
+    }
+    if (!user.organization_type)
+      newErrors.organization_type = "Organization Category is required";
+    if (!user.website) newErrors.website = "Website Link is required";
+    if (!user.location_city)
+      newErrors.location_city = "Location City is required";
+    if (!user.location_state)
+      newErrors.location_state = "Location State is required";
+    if (!user.linkein_url) newErrors.linkein_url = "LinkedIn Url is required";
+    if (!user.description) newErrors.description = "Description is required";
+    if (!logo) newErrors.logo = "Company Logo is required";
+
+    if (!user.first_name) newErrors.first_name = "First Name is required";
+    if (!user.last_name) newErrors.last_name = "Last Name is required";
+    if (!user.email) {
+      newErrors.email = "Supervisor Email is required";
+    } else if (!isValidEmail(user.email)) {
+      newErrors.email = "Invalid supervisor email address";
+    }
+    if (!user.password) {
+      newErrors.password = "Password is required";
+    } else if (user.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+    }
+    if (!user.phone_number) {
+      newErrors.phone_number = "Supervisor Phone Number is required";
+    } else if (user.phone_number.length < 13) {
+      newErrors.phone_number = "Please insert correct PhoneNumber";
+    } else if (!/^\+2519|^\+2517/.test(user.phone_number)) {
+      newErrors.phone_number =
+        "Phone number must start with '+2519' or '+2517'";
+    }
+    if (!avatar) newErrors.avatar = "Profile Image is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   async function registerCompany(user, avatar, logo) {
@@ -54,16 +114,18 @@ function SignupCompany() {
         };
         console.log("success", data);
         // make login to organization dashboard
-
         login(data, "/organization");
       }
-    } catch {
-      console.log("catched");
+    } catch (error) {
+      console.log("catched", error);
     }
   }
+
   const handleClick = (e) => {
     e.preventDefault();
-    registerCompany(user, avatar, logo);
+    if (validateFields()) {
+      registerCompany(user, avatar, logo);
+    }
   };
 
   return (
@@ -87,7 +149,9 @@ function SignupCompany() {
                 <span className="sr-only">Home</span>
                 <img src={websitelogo} alt="website logo" />
               </Link>
-
+              <h1 className="font-light text-blue-300 text-lg">
+                Organization Signup
+              </h1>
               <h1 className="mt-2 text-2xl font-bold text-blue-300 sm:text-3xl md:text-5xl">
                 Welcome to VIVO
               </h1>
@@ -105,17 +169,20 @@ function SignupCompany() {
                   htmlFor="OrganizationName"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Organization Name
+                  Organization Name <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="OrganizationName"
                   name="name"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   placeholder="XYZ IT Solution"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.name && (
+                  <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -123,34 +190,45 @@ function SignupCompany() {
                   htmlFor="Email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email
+                  Email <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="email"
                   id="Email"
                   name="organization_email"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   placeholder="abcd123@gmail.com"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.organization_email && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.organization_email}
+                  </p>
+                )}
               </div>
+
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="PhoneNumber"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone Number
+                  Phone Number <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="PhoneNumber"
                   name="organization_phone_number"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   placeholder="+251911121314"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.organization_phone_number && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.organization_phone_number}
+                  </p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -158,17 +236,22 @@ function SignupCompany() {
                   htmlFor="Organization Category"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Organization Category
+                  Organization Category <span className="text-red-500">*</span>
                 </label>
 
                 <input
                   type="text"
                   id="Organization Category"
                   name="organization_type"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   placeholder="IT Solution"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.organization_type && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.organization_type}
+                  </p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -183,10 +266,13 @@ function SignupCompany() {
                   type="text"
                   id="Website Link"
                   name="website"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   placeholder="https://www.example.com"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.website && (
+                  <p className="text-red-500 text-xs mt-1">{errors.website}</p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -194,7 +280,7 @@ function SignupCompany() {
                   htmlFor="Location City"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Location City
+                  Location City <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -202,9 +288,14 @@ function SignupCompany() {
                   id="Location City"
                   name="location_city"
                   placeholder="Adama"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.location_city && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.location_city}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
@@ -219,9 +310,14 @@ function SignupCompany() {
                   id="Location State"
                   name="location_state"
                   placeholder="Oromia"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.location_state && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.location_state}
+                  </p>
+                )}
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
@@ -235,23 +331,28 @@ function SignupCompany() {
                   type="text"
                   id="LinkedIn Url"
                   name="linkein_url"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   placeholder="https://www.linkedin.com/in/abcd"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.linkein_url && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.linkein_url}
+                  </p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
                 <h1 className="block text-sm font-medium text-gray-700">
-                  Company Logo
+                  Company Logo <span className="text-red-500">*</span>
                 </h1>
                 <label
-                  for="uploadFile1"
-                  class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
+                  htmlFor="uploadFile1"
+                  className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-11 mb-2 fill-gray-500"
+                    className="w-11 mb-2 fill-gray-500"
                     viewBox="0 0 32 32"
                   >
                     <path
@@ -267,11 +368,14 @@ function SignupCompany() {
                   <input
                     type="file"
                     id="uploadFile1"
-                    class="hidden"
+                    className="hidden"
                     name="logo"
                     onChange={(e) => setLogo(e.target.files)}
                   />
-                  <p class="text-xs font-medium text-gray-400 mt-2">
+                  {errors.logo && (
+                    <p className="text-red-500 text-xs mt-1">{errors.logo}</p>
+                  )}
+                  <p className="text-xs font-medium text-gray-400 mt-2">
                     PNG, JPG SVG, WEBP, and GIF are Allowed.
                   </p>
                 </label>
@@ -281,7 +385,7 @@ function SignupCompany() {
                   htmlFor="Email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Description
+                  Description <span className="text-red-500">*</span>
                 </label>
 
                 <textarea
@@ -289,9 +393,14 @@ function SignupCompany() {
                   placeholder="Message"
                   id="Description"
                   name="description"
-                  onChange={(e) => handleChange(e)}
+                  onChange={handleChange}
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {errors.description && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.description}
+                  </p>
+                )}
               </div>
               <br className="col-span-full" />
               <h1 className="col-span-full font-bold text-xl">
@@ -304,7 +413,7 @@ function SignupCompany() {
                     htmlFor="firstname"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    First Name
+                    First Name <span className="text-red-500">*</span>
                   </label>
 
                   <input
@@ -313,8 +422,13 @@ function SignupCompany() {
                     name="first_name"
                     placeholder="John"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
                   />
+                  {errors.first_name && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.first_name}
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-span-6 sm:col-span-3 my-4">
@@ -322,7 +436,7 @@ function SignupCompany() {
                     htmlFor="lastname"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Last Name
+                    Last Name <span className="text-red-500">*</span>
                   </label>
 
                   <input
@@ -331,8 +445,13 @@ function SignupCompany() {
                     name="last_name"
                     placeholder="Doe"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
                   />
+                  {errors.last_name && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.last_name}
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-span-6 sm:col-span-3">
@@ -340,7 +459,7 @@ function SignupCompany() {
                     htmlFor="supervisor_email"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Email
+                    Email <span className="text-red-500">*</span>
                   </label>
 
                   <input
@@ -349,32 +468,39 @@ function SignupCompany() {
                     name="email"
                     placeholder="abcd123@gmail.com"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
                 </div>
                 <div className="col-span-6 sm:col-span-3 my-4">
                   <label
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Password
+                    Password <span className="text-red-500">*</span>
                   </label>
 
                   <input
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="abcd123@gmail.com"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
                   />
+                  {errors.password && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.password}
+                    </p>
+                  )}
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="supervisor_phone_number"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Phone Number
+                    Phone Number <span className="text-red-500">*</span>
                   </label>
 
                   <input
@@ -383,20 +509,25 @@ function SignupCompany() {
                     name="phone_number"
                     placeholder="+251911121314"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
                   />
+                  {errors.phone_number && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.phone_number}
+                    </p>
+                  )}
                 </div>
                 <div className="col-span-6 sm:col-span-3 my-4">
                   <h1 className="block text-sm font-medium text-gray-700">
-                    Profile Image
+                    Profile Image <span className="text-red-500">*</span>
                   </h1>
                   <label
-                    for="avatar"
-                    class="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
+                    htmlFor="avatar"
+                    className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-28 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class="w-11 mb-2 fill-gray-500"
+                      className="w-11 mb-2 fill-gray-500"
                       viewBox="0 0 32 32"
                     >
                       <path
@@ -412,11 +543,16 @@ function SignupCompany() {
                     <input
                       type="file"
                       id="avatar"
-                      class="hidden"
+                      className="hidden"
                       name="avatar"
                       onChange={(e) => setAvatar(e.target.files)}
                     />
-                    <p class="text-xs font-medium text-gray-400 mt-2">
+                    {errors.avatar && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.avatar}
+                      </p>
+                    )}
+                    <p className="text-xs font-medium text-gray-400 mt-2">
                       PNG, JPG SVG, WEBP, and GIF are Allowed.
                     </p>
                   </label>
@@ -433,7 +569,8 @@ function SignupCompany() {
 
                   <span className="text-sm text-gray-700">
                     I want to receive emails about events, product updates and
-                    company announcements.
+                    company announcements.{" "}
+                    <span className="text-red-500">*</span>
                   </span>
                 </label>
               </div>

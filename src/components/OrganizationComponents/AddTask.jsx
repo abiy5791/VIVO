@@ -35,6 +35,7 @@ const AddTask = () => {
   const [content, setContent] = useState(initialContent);
   const [video, setVideo] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [Key, setKey] = useState(Date.now());
   const [checkboxStates, setCheckboxStates] = useState({
     submit_task: {
       file: false,
@@ -138,7 +139,11 @@ const AddTask = () => {
       );
 
       if (response.status == 201) {
-        navigate(-1);
+        setKey(Date.now());
+        navigate(location.pathname, {
+          replace: true,
+          state: { post_id: post_id },
+        });
       }
 
       console.log("Response:", response.data);
