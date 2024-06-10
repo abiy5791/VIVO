@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Form, Input, Button, Select, Cascader, Upload, Image } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import axios from "../../../api/axios";
+
+import useAuth from "../../../hooks/useAuth";
 
 const { Option } = Select;
 const residences = [
@@ -64,6 +67,14 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 const AddSupervisor = () => {
+  const {
+    user: { user_id, email, role, university_coordinator_id },
+  } = useAuth();
+  // const main = useAuth();
+  // console.log(main);
+  // console.log(email);
+  // console.log(role);
+  // console.log(university_coordinator_id);
   const [form] = Form.useForm();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -81,7 +92,9 @@ const AddSupervisor = () => {
     if (file) {
       const preview = await getBase64(file.originFileObj);
       setPreviewImage(preview);
-      setUploadedImage(file);
+      setUploadedImage();
+
+      console.log(file);
       // Set the value of the Image field in the form
       form.setFieldsValue({ Image: file.name });
     } else {
@@ -98,7 +111,6 @@ const AddSupervisor = () => {
     }
   };
 
-  console.log("hell");
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -107,14 +119,68 @@ const AddSupervisor = () => {
   );
 
   const normFile = (e) => {
-    console.log("Upload event:", e);
+    // console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
     return e?.fileList;
   };
 
-  const onFinish = (values) => {
+  const validatePassword = (_, value) => {
+    if (!value) {
+      return Promise.reject(new Error("Please input your password!"));
+    }
+
+    const passwordRules = [
+      {
+        regex: /.{8,}/,
+        message: "Password must be at least 8 characters long",
+      },
+      {
+        regex: /[A-Z]/,
+        message: "Password must include at least one uppercase letter",
+      },
+      {
+        regex: /[a-z]/,
+        message: "Password must include at least one lowercase letter",
+      },
+      { regex: /\d/, message: "Password must include at least one number" },
+      {
+        regex: /[^A-Za-z0-9]/,
+        message: "Password must include at least one special character",
+      },
+    ];
+
+    for (let rule of passwordRules) {
+      if (!rule.regex.test(value)) {
+        return Promise.reject(new Error(rule.message));
+      }
+    }
+
+    return Promise.resolve();
+  };
+
+  const onFinish = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append("first_name", values.firstName);
+      formData.append("last_name", values.lastName);
+      formData.append("email", values.email);
+      formData.append("phone_number", values.phone);
+      formData.append("password", values.password);
+      formData.append("department", values.Department);
+      formData.append("coordinator", 13);
+      formData.append("specialization", values.SpecializationField);
+
+      const response = await axios.post("/UvSupervisors/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
     console.log("Received values of form:", values);
   };
 
@@ -310,9 +376,7 @@ const AddSupervisor = () => {
                 <Form.Item
                   name="password"
                   label="Password"
-                  rules={[
-                    { required: true, message: "Please input your password!" },
-                  ]}
+                  rules={[{ required: true }, { validator: validatePassword }]}
                   hasFeedback
                 >
                   <Input.Password />

@@ -1,32 +1,62 @@
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-const members = [
-  {
-    avatar: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-    name: "John lorin",
-    email: "john@example.com",
-  },
-  {
-    avatar: "https://randomuser.me/api/portraits/men/86.jpg",
-    name: "Chris bondi",
-    email: "chridbondi@example.com",
-  },
-  {
-    avatar:
-      "https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-    name: "yasmine",
-    email: "yasmine@example.com",
-  },
-  {
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=a72ca28288878f8404a795f39642a46f",
-    name: "Joseph",
-    email: "joseph@example.com",
-  },
-];
+import { useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 
 export default function ViewSuperVisors() {
+  const [Supervisor, setSupervisor] = useState([]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const {
+    user: { user_id, email, role, university_coordinator_id },
+  } = useAuth();
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Fetch assignments data
+
+        const superviorsResponse = await axios.get(`UvSupervisors/`);
+        const fetchedSupervisors = superviorsResponse.data || [];
+
+        const Supervsr = filterSupervisorsByCoordinator(
+          fetchedSupervisors,
+          university_coordinator_id
+        );
+
+        setSupervisor(Supervsr);
+
+        // const Supervsr = filterSupervisorsByCoordinator(
+        //   fetchedSupervisors,
+        //   university_coordinator_id
+        // );
+
+        // setSupervisor(Supervsr);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [university_coordinator_id]);
+
+  function filterSupervisorsByCoordinator(supervisors, coordinatorId) {
+    return supervisors.filter(
+      (supervisor) => supervisor.coordinator === coordinatorId
+    );
+  }
+
+  console.log(Supervisor);
+  console.log("it is not working");
+
   function handleClick(item) {
     console.log(item);
     navigate("/UvCoordinator/ViewSuperVisors/Supervisordetail", {
@@ -76,7 +106,7 @@ export default function ViewSuperVisors() {
           </a>
         </div>
         <ul className="mt-12 divide-y">
-          {members.map((item, idx) => (
+          {Supervisor.map((item, idx) => (
             <li
               key={idx}
               onClick={() => handleClick(item)}
@@ -89,7 +119,7 @@ export default function ViewSuperVisors() {
                 />
                 <div>
                   <span className="block text-sm text-gray-700 font-semibold">
-                    {item.name}
+                    {item.first_name}
                   </span>
                   <span className="block text-sm text-gray-600">
                     {item.email}
