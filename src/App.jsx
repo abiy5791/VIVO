@@ -86,6 +86,7 @@ import Applicant_progress from "./components/SystemCoordinatorComponents/Applica
 import Internships from "./components/LandingPageComponents/internships";
 import Volunteers from "./components/LandingPageComponents/volunteer";
 import SignupUVcoordinator from "./pages/AuthPages/Signup_UVcoordinator";
+import Organization_volunteer_detail from "./components/OrganizationComponents/organization_volunteer_detail";
 import SystemCoordinator_Submitted_tasks from "./pages/SystemCoordinatorDashboard/Sidebar_elements/SystemCoordinator_Submitted_tasks";
 import Sys_coordinator_submitted_Task_Details from "./components/SystemCoordinatorComponents/Sys_coordinator_submitted_Task_Details";
 
@@ -233,7 +234,7 @@ function App() {
                 <Route index element={<Volunteer_post_card />} />
                 <Route
                   path="internship_posts_details"
-                  element={<Organization_Post_details_component />}
+                  element={<Organization_volunteer_detail />}
                 />
               </Route>
               <Route path="add_post" element={<ProLayout />}>
