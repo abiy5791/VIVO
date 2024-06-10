@@ -20,6 +20,8 @@ import Internship_opportunity_card from "./pages/AdminDashboard/Sidebar_elements
 import Internship_post_card from "./pages/SystemCoordinatorDashboard/Sidebar_elements/Internship_post_card";
 import InternshipPostCard from "./pages/OrganizationDashboard/Sidebar_elements/Internship_post_card";
 import Syscoordinator_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_post_detail";
+import System_coordinator_add_post from "./components/SystemCoordinatorComponents/System_coordinator_add_post";
+import System_coordinator_addTask from "./components/SystemCoordinatorComponents/System_coordinator_addTask";
 import Syscoordinator_Application_detail from "./components/SystemCoordinatorComponents/Syscoordinator_Application_detail";
 import Certifiy_Applicants from "./components/SystemCoordinatorComponents/Certifiy_Applicants";
 import Posted_opportunity_details from "./pages/Posts/posted_opportunity_details";
@@ -79,9 +81,14 @@ import StudentDetails from "./pages/SupervisorDashboard/Sidebar_elements/Student
 import StudentList from "./pages/SupervisorDashboard/Sidebar_elements/StudentList";
 import StudentEvaluation from "./pages/SupervisorDashboard/Sidebar_elements/StudentEvaluation";
 import Volunteer_post_card from "./pages/OrganizationDashboard/Sidebar_elements/volunteer_post_card";
+import Syscoordinator_volunteer_post_detail from "./components/SystemCoordinatorComponents/Syscoordinator_volunteer_post_detail";
+import Applicant_progress from "./components/SystemCoordinatorComponents/Applicant_progress";
 import Internships from "./components/LandingPageComponents/internships";
 import Volunteers from "./components/LandingPageComponents/volunteer";
 import SignupUVcoordinator from "./pages/AuthPages/Signup_UVcoordinator";
+import Organization_volunteer_detail from "./components/OrganizationComponents/organization_volunteer_detail";
+import SystemCoordinator_Submitted_tasks from "./pages/SystemCoordinatorDashboard/Sidebar_elements/SystemCoordinator_Submitted_tasks";
+import Sys_coordinator_submitted_Task_Details from "./components/SystemCoordinatorComponents/Sys_coordinator_submitted_Task_Details";
 
 function App() {
   const location = useLocation();
@@ -116,10 +123,14 @@ function App() {
 
             <Route path="profile" element={<Applicant_profile_component />} />
             <Route path="settings" element={<Settings_component />} />
+<<<<<<< HEAD
             <Route path="applyproposal" element={<ApplyComponent />} />
+=======
+
+>>>>>>> 14d79347838633cbbc080d9d0ab733048269bfe7
             <Route path="applicant_dashboard" element={<Home footer={false} />}>
               <Route index element={<ApplicantDashboard />} />
-
+              <Route path="applyproposal" element={<ApplyComponent />} />
               <Route path="task" element={<Task />}>
                 <Route index element={<Navigate to="1/section/1" />} />
                 <Route path=":taskId/section/1" element={<TaskSection1 />} />
@@ -165,6 +176,13 @@ function App() {
                   element={<Syscoordinator_post_detail />}
                 />
               </Route>
+              <Route path="volunteer_posts" element={<ProLayout />}>
+                <Route index element={<Volunteer_post_card />} />
+                <Route
+                  path="volunteer_posts_details"
+                  element={<Syscoordinator_volunteer_post_detail />}
+                />
+              </Route>
               <Route path="Applications" element={<ProLayout />}>
                 <Route index element={<Syscoordinator_Applications />} />
                 <Route
@@ -174,10 +192,24 @@ function App() {
               </Route>
               <Route path="Applicants" element={<ProLayout />}>
                 <Route index element={<Syscoordinator_Applicants />} />
-                {/* <Route
-                  path="Applicant_Progress"
-                  element={<System_Coordinator_Progress_page />}
-                /> */}
+                <Route
+                  path="applicant_progress"
+                  element={<Applicant_progress />}
+                />
+              </Route>
+              <Route path="add_post" element={<ProLayout />}>
+                <Route index element={<System_coordinator_add_post />} />
+                <Route
+                  path="add_task"
+                  element={<System_coordinator_addTask />}
+                />
+              </Route>
+              <Route path="Submitted_Tasks" element={<ProLayout />}>
+                <Route index element={<SystemCoordinator_Submitted_tasks />} />
+                <Route
+                  path="Submitted_Tasks_Detail"
+                  element={<SubmittedTaskDetails />}
+                />
               </Route>
               <Route path="Evaluated_applicant" element={<ProLayout />}>
                 <Route index element={<Evaluated_applicants />} />
@@ -207,7 +239,7 @@ function App() {
                 <Route index element={<Volunteer_post_card />} />
                 <Route
                   path="internship_posts_details"
-                  element={<Organization_Post_details_component />}
+                  element={<Organization_volunteer_detail />}
                 />
               </Route>
               <Route path="add_post" element={<ProLayout />}>
@@ -224,13 +256,12 @@ function App() {
               <Route path="Applicants" element={<ProLayout />}>
                 <Route index element={<Organization_Applicants />} />
                 <Route path="Applicant_progress" element={<Progress_page />} />
-                <Route path="applicant_progress" element={<Progress_page />} />
               </Route>
               <Route path="Submitted_Tasks" element={<ProLayout />}>
                 <Route index element={<Organization_Submitted_tasks />} />
                 <Route
                   path="Submitted_Tasks_Detail"
-                  element={<SubmittedTaskDetails />}
+                  element={<Sys_coordinator_submitted_Task_Details />}
                 />
               </Route>
             </Route>

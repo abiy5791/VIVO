@@ -4,8 +4,8 @@ import { Outlet } from "react-router-dom";
 
 export default function StudentListDetails() {
   const location = useLocation();
-  const { studentData } = location.state;
-  console.log(studentData);
+  const { studentData, postDetails } = location.state;
+  console.log(postDetails);
 
   const navigate = useNavigate();
   // Define the context object containing the student data
@@ -18,9 +18,6 @@ export default function StudentListDetails() {
     onChange: () => {}, // Dummy onChange function, adjust if needed
     setSelectedTasks: () => {}, // Dummy setSelectedTasks function, adjust if needed
   };
-  const handleRegisterClick = () => {
-    navigate("/Supervisor/ListOfStudents/StudentListDetail/Evaluation");
-  };
 
   return (
     <div className="w-9/12 mx-auto">
@@ -32,16 +29,19 @@ export default function StudentListDetails() {
             <List.Item.Meta
               avatar={<Avatar src={item.imgsrc} />}
               title={
-                <a className="font-semibold text-lg" href="#">
-                  {item.name}
+                <a className="font-semibold text-lg" href="">
+                  {item.first_name}
                 </a>
               }
               description={
                 <>
                   <div className="font-semibold text-slate-600">
-                    <div className="">Id: {item.email} </div>
-                    <div>Address: {item.Name} </div>
-                    <div>Year: {item.email} </div>
+                    <div className="">
+                      Name: {item.first_name} {item.last_name}{" "}
+                    </div>
+                    <div className="">Id: {item.university_id_number} </div>
+                    <div>Email: {item.email} </div>
+                    <div>Year: {item.batch} </div>
                   </div>
                 </>
               }

@@ -9,7 +9,7 @@ const myStyle = {
   WebkitBoxOrient: "vertical",
 };
 
-const InternshipPostCard = () => {
+const Volunteer_post_card = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Function to handle search input change
@@ -25,7 +25,7 @@ const InternshipPostCard = () => {
   const fetchPosts = async (system_coordinator_id) => {
     try {
       const res = await axios.get(
-        `systemCoordinators/${system_coordinator_id}/posts/?type=Internship`
+        `systemCoordinators/${system_coordinator_id}/posts/?type=VolunteerWork`
       );
       setPosts(res.data);
     } catch (error) {
@@ -55,7 +55,7 @@ const InternshipPostCard = () => {
       <div className="dark:bg-slate-900 bg-white flex items-center">
         <div className="container mx-auto">
           <h1 className="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-5xl lg:text-5xl">
-            Internship Opportunities
+            Volunteer Opportunities
           </h1>
           {/* Table of posts */}
           <div className="flex flex-col">
@@ -220,7 +220,7 @@ const InternshipPostCard = () => {
   );
 };
 
-export default InternshipPostCard;
+export default Volunteer_post_card;
 
 const CategoryIcon = () => (
   <svg

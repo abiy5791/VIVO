@@ -84,8 +84,7 @@ export default () => {
 
                 <div className="flex items-center gap-x-3 sm:text-sm">
                   <Link
-                    to="/applyproposal"
-                    state={post}
+                    to="/applicant_dashboard/applyproposal"
                     className="flex items-center justify-center gap-x-1 py-3 px-4 dark:bg-slate-700 dark:text-white text-white font-medium bg-gray-800 duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg md:inline-flex"
                   >
                     Start The Program

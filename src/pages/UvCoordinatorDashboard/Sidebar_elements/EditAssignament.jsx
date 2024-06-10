@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Table, Collapse, Button, Divider } from "antd";
 import { useNavigate } from "react-router-dom"; // Step 2
-
+import useAuth from "../../../hooks/useAuth";
 const students = [
   {
     id: 8,
@@ -246,6 +246,9 @@ const Supervisor = [
 // other boss data...
 
 export default function EditAssignament() {
+  const {
+    user: { user_id, email, role, university_coordinator_id },
+  } = useAuth();
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedStudentsByBoss, setSelectedStudentsByBoss] = useState({});
   const navigate = useNavigate();

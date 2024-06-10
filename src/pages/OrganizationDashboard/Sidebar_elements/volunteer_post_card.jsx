@@ -37,10 +37,16 @@ export default () => {
   const filteredData = posts.filter(
     (data) =>
       data.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.subCategory.toLowerCase().includes(searchTerm.toLowerCase()) ||
       data.price.toLowerCase().includes(searchTerm.toLowerCase()) ||
       data.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.date.toLowerCase().includes(searchTerm.toLowerCase())
+      data.created.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      data.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      data.image ||
+      data.id ||
+      data.description ||
+      data.skills_gained ||
+      data.duration ||
+      data.level
   );
 
   useEffect(() => {
@@ -131,13 +137,13 @@ export default () => {
                           </th>
                         </tr>
                       </thead>
-                      {posts.map((data, index) => (
+                      {filteredData.map((data, index) => (
                         <tbody
                           key={index}
                           className="divide-y divide-gray-200 dark:divide-gray-700"
                         >
                           <tr>
-                            <Link to="internship_posts_details">
+                            <Link state={data} to="internship_posts_details">
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
                                 {data.title}
                               </td>

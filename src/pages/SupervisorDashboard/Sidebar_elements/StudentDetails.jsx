@@ -1,14 +1,23 @@
 import { Steps } from "antd";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 export default function StudentDetails() {
+  const {
+    user: { user_id, email, role, university_supervisor_id },
+  } = useAuth();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const {
     current,
     selectedStudent,
     selectedTasks,
     onChange,
     setSelectedTasks,
+    postDetails,
   } = useOutletContext();
   const navigate = useNavigate();
 
@@ -19,6 +28,30 @@ export default function StudentDetails() {
   // const rowHeightPercentage = 100 / (selectedTasks.length || 1);
   const rowHeightPercentage = 100 / selectedStudent.tasks.length;
   console.log(selectedStudent);
+  const id = selectedStudent.id;
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Fetch assignments data
+
+        const response = await axios.get(`posts/${id}/`);
+        const fetchedData = response.data || [];
+        setData(fetchedData);
+        console.log(data);
+        // console.log(Data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [university_supervisor_id]);
 
   const handleStepClick = (index) => {
     if (selectedStudent) {
@@ -67,52 +100,8 @@ export default function StudentDetails() {
           Here General Description about the Intership
         </h1>
         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-          Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-          gentrify, subway tile poke farm-to-table. Franzen you probably havent
-          heard of them man bun deep.
+          {data && data.description}
         </p>{" "}
-        <div className="mt-4 mb-4 w-full">
-          <h2 className="sm:text-2xl text-1xl text-gray-900 font-medium text-center">
-            Supervisors Comment
-          </h2>
-          {commentVisible && (
-            <textarea
-              className={`p-2 border-slate-400 rounded w-full ${
-                !isEditing && "border-none"
-              }`}
-              rows="4"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              readOnly={!isEditing}
-            />
-          )}
-          <div className="mt-2 ">
-            {!commentVisible && (
-              <button
-                className="bg-blue-500 float-right hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleAddCommentClick}
-              >
-                Add Comment
-              </button>
-            )}
-            {commentVisible && isEditing && (
-              <button
-                className="bg-green-500 float-right hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleSaveCommentClick}
-              >
-                Save
-              </button>
-            )}
-            {commentVisible && !isEditing && (
-              <button
-                className="bg-yellow-500 float-right hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleEditCommentClick}
-              >
-                Edit
-              </button>
-            )}
-          </div>
-        </div>
       </div>
 
       <div className="flex  mt-4 flex-row border-b p-y-2 ">
@@ -202,7 +191,48 @@ export default function StudentDetails() {
           })}
         </div>
       </div>
-
+      <div className="mt-4 mb-4 w-full">
+        <h2 className="sm:text-2xl text-1xl text-gray-900 font-medium text-center">
+          Supervisors Comment
+        </h2>
+        {commentVisible && (
+          <textarea
+            className={`p-2 border-slate-400 rounded w-full ${
+              !isEditing && "border-none"
+            }`}
+            rows="4"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            readOnly={!isEditing}
+          />
+        )}
+        <div className="mt-2 ">
+          {!commentVisible && (
+            <button
+              className="bg-blue-500 float-right hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={handleAddCommentClick}
+            >
+              Add Comment
+            </button>
+          )}
+          {commentVisible && isEditing && (
+            <button
+              className="bg-green-500 float-right hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              onClick={handleSaveCommentClick}
+            >
+              Save
+            </button>
+          )}
+          {commentVisible && !isEditing && (
+            <button
+              className="bg-yellow-500 float-right hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+              onClick={handleEditCommentClick}
+            >
+              Edit
+            </button>
+          )}
+        </div>
+      </div>
       <button
         className="bg-blue-500 float-right mb-16 mt-8 mr-20 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleRegisterClick}

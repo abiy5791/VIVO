@@ -5,7 +5,7 @@ import axios from "../../api/axios";
 import LoadingIndicator from "../loading_indicator";
 import useAuth from "../../hooks/useAuth";
 
-function SubmittedTaskDetails() {
+function Sys_coordinator_submitted_Task_Details() {
   const [post, setPost] = useState(null);
   const [evaluation, setEvaluation] = useState({});
   const {
@@ -273,4 +273,4 @@ function SubmittedTaskDetails() {
     </>
   );
 }
-export default SubmittedTaskDetails;
+export default Sys_coordinator_submitted_Task_Details;

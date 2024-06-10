@@ -23,6 +23,7 @@ function DashboardCard11() {
     }
   };
 
+  console.log(submittedTasks);
   useEffect(() => {
     if (organization_id) {
       fetchSubmittedTasks(organization_id);
@@ -32,15 +33,16 @@ function DashboardCard11() {
   // Filtered data based on search term
   const filteredData = submittedTasks.filter(
     (data) =>
-      data.applicant.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.task.toLowerCase().includes(searchTerm.toLowerCase())
+      data.applicant.first_name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      data.task.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Function to handle search input change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  console.log(submittedTasks);
 
   return (
     <div className="col-span-full xl:col-span-full bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
@@ -93,6 +95,9 @@ function DashboardCard11() {
                 <th className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-left">Task</div>
                 </th>
+                <th className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">Status</div>
+                </th>
               </tr>
             </thead>
             {/* Table body */}
@@ -104,6 +109,7 @@ function DashboardCard11() {
                       <NavLink
                         end
                         to="Submitted_Tasks_Detail"
+                        state={submitted}
                         className={({ isActive }) =>
                           "block transition duration-150 truncate " +
                           (isActive
@@ -113,13 +119,30 @@ function DashboardCard11() {
                       >
                         <div className="flex items-center">
                           <div className="font-medium text-slate-800 dark:text-slate-100">
-                            {submitted.applicant}
+                            {`${submitted.applicant.first_name} ${submitted.applicant.last_name}`}
                           </div>
                         </div>
                       </NavLink>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="text-left">{submitted.task}</div>
+                      <div className="text-left">{submitted.task.title}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                      {submitted.status == "Completed" ? (
+                        <button
+                          type="button"
+                          className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                        >
+                          Completed
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                        >
+                          {submitted.status}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );
