@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Form, Input, Button, Select, Cascader, Upload, Image } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import axios from "../../../api/axios";
+
 import useAuth from "../../../hooks/useAuth";
 
 const { Option } = Select;
@@ -90,7 +92,9 @@ const AddSupervisor = () => {
     if (file) {
       const preview = await getBase64(file.originFileObj);
       setPreviewImage(preview);
-      setUploadedImage(file);
+      setUploadedImage();
+
+      console.log(file);
       // Set the value of the Image field in the form
       form.setFieldsValue({ Image: file.name });
     } else {
@@ -156,9 +160,28 @@ const AddSupervisor = () => {
     return Promise.resolve();
   };
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append("first_name", values.firstName);
+      formData.append("last_name", values.lastName);
+      formData.append("email", values.email);
+      formData.append("phone_number", values.phone);
+      formData.append("password", values.password);
+      formData.append("department", values.Department);
+      formData.append("coordinator", 13);
+      formData.append("specialization", values.SpecializationField);
+
+      const response = await axios.post("/UvSupervisors/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
     console.log("Received values of form:", values);
-    console.log("hell");
   };
 
   return (

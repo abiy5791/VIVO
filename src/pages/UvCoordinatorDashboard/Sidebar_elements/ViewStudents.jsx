@@ -9,6 +9,7 @@ export default function ViewStudents() {
   const {
     user: { user_id, email, role, university_coordinator_id },
   } = useAuth();
+
   // const Students = [
   //   {
   //     avatar:
@@ -194,7 +195,6 @@ export default function ViewStudents() {
               <th className="py-3 px-6">Id</th>
               <th className="py-3 px-6">Year</th>
               <th className="py-3 px-6">departemet</th>
-              <th className="py-3 px-6">Organization</th>
 
               <th className="py-3 px-6">Action</th>
             </tr>
@@ -223,9 +223,7 @@ export default function ViewStudents() {
                 <td className="px-6 py-4 whitespace-nowrap">
                   {item.department}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {/* {item.hostingOrganization.HostingOrgName} */}
-                </td>
+
                 <td className="text-right px-6 whitespace-nowrap">
                   <a
                     href="javascript:void()"

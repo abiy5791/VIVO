@@ -292,6 +292,12 @@ export default function AssignSupervisor() {
 
         setSupervisor(Supervsr);
 
+        // const REs = await axios.post("/UvSupervisors/", formData, {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // });
+        // console.log("Form submitted successfully:", REs.data);
         //////
         // const allstudResponse = await axios.get(`/students`);
         // const fetchedAllStud = studResponse.data || [];
@@ -310,6 +316,12 @@ export default function AssignSupervisor() {
     fetchData();
   }, [university_coordinator_id]);
 
+  function transformAssignmentList(assignmentList) {
+    return assignmentList.map(({ student, supervisor }) => ({
+      student: student.toString(),
+      supervisor: supervisor.toString(),
+    }));
+  }
   function filterSupervisorsByCoordinator(supervisors, coordinatorId) {
     return supervisors.filter(
       (supervisor) => supervisor.coordinator === coordinatorId
@@ -337,6 +349,11 @@ export default function AssignSupervisor() {
   const [selectedStudentsByBoss, setSelectedStudentsByBoss] = useState({});
   const [studentsList, setStudentsList] = useState(updateStudentsData(stud));
   const [Addbutton, setAddbutton] = useState(false);
+  const [forM, setForM] = useState({
+    student: "21",
+
+    supervisor: "19",
+  });
   const navigate = useNavigate();
 
   const handleRowClick = (record) => {
@@ -348,7 +365,24 @@ export default function AssignSupervisor() {
     }
   };
 
-  const handleButtonClick = (boss) => {
+  const handleButtonClick = async (boss) => {
+    try {
+      const transformedData = transformAssignmentList(AssignmentList);
+      for (const entry of transformedData) {
+        const response = await axios.post(
+          `UvCoordniators/${university_coordinator_id}/assignments`,
+          entry,
+          {
+            headers: {
+              "Content-Type": "application/json", // Adjust the content type if needed
+            },
+          }
+        );
+      }
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
     const selectedStudentIDs = selectedRows.map((student) => student.id);
     const remainingStudents = studentsList.filter(
       (student) => !selectedStudentIDs.includes(student.id)
@@ -369,6 +403,7 @@ export default function AssignSupervisor() {
 
     ///
   };
+
   const handleButtonClickAdd = (boss) => {
     const selectedStudentIDs = selectedRows.map((student) => student.id);
     const remainingStudents = studentsList.filter(
@@ -405,17 +440,29 @@ export default function AssignSupervisor() {
 
     /// here a function to send to api
   };
+  const AssignmentList = transformData(selectedStudentsByBoss);
 
-  const handleEditClick = () => {
-    navigate("/UvCoordinator/AssignSupervisor/Editassignament", {
-      state: {
-        Supervisor,
-        students: studentsList,
-        selectedStudentsByBoss: selectedStudentsByBoss,
-      },
-    });
-  };
-  console.log(selectedStudentsByBoss);
+  const handleEditClick = async () => {};
+
+  function transformData(selectedStudentsByBoss) {
+    let result = [];
+
+    for (const [supervisorId, students] of Object.entries(
+      selectedStudentsByBoss
+    )) {
+      students.forEach((student) => {
+        result.push({
+          student: student.id,
+          supervisor: parseInt(supervisorId),
+        });
+      });
+    }
+
+    return result;
+  }
+
+  console.log(Supervisor);
+
   const columns = [
     {
       title: "Name",
@@ -623,11 +670,11 @@ export default function AssignSupervisor() {
           })}
           <div className="mt-9">
             <Button
-              type="primary"
+              type="Submit"
               className="float-right mr-20"
               onClick={handleEditClick}
             >
-              Edit
+              Submit
             </Button>
           </div>
         </div>

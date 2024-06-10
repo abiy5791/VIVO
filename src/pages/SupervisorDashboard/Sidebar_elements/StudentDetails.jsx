@@ -1,14 +1,23 @@
 import { Steps } from "antd";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 export default function StudentDetails() {
+  const {
+    user: { user_id, email, role, university_supervisor_id },
+  } = useAuth();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const {
     current,
     selectedStudent,
     selectedTasks,
     onChange,
     setSelectedTasks,
+    postDetails,
   } = useOutletContext();
   const navigate = useNavigate();
 
@@ -19,6 +28,30 @@ export default function StudentDetails() {
   // const rowHeightPercentage = 100 / (selectedTasks.length || 1);
   const rowHeightPercentage = 100 / selectedStudent.tasks.length;
   console.log(selectedStudent);
+  const id = selectedStudent.id;
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Fetch assignments data
+
+        const response = await axios.get(`posts/${id}/`);
+        const fetchedData = response.data || [];
+        setData(fetchedData);
+        console.log(data);
+        // console.log(Data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [university_supervisor_id]);
 
   const handleStepClick = (index) => {
     if (selectedStudent) {
@@ -67,9 +100,7 @@ export default function StudentDetails() {
           Here General Description about the Intership
         </h1>
         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-          Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-          gentrify, subway tile poke farm-to-table. Franzen you probably havent
-          heard of them man bun deep.
+          {data && data.description}
         </p>{" "}
       </div>
 
