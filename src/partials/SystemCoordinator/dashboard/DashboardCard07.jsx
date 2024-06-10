@@ -22,7 +22,7 @@ function DashboardCard07() {
   const fetchApplicant = async (system_coordinator_id) => {
     try {
       const res = await axios.get(
-        `systemCoordinators/${system_coordinator_id}/applications`
+        `systemCoordinators/${system_coordinator_id}/applications/`
       );
       const filteredApplications = res.data
         .filter((application) => application.status === "accepted")

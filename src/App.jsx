@@ -86,6 +86,8 @@ import Applicant_progress from "./components/SystemCoordinatorComponents/Applica
 import Internships from "./components/LandingPageComponents/internships";
 import Volunteers from "./components/LandingPageComponents/volunteer";
 import SignupUVcoordinator from "./pages/AuthPages/Signup_UVcoordinator";
+import SystemCoordinator_Submitted_tasks from "./pages/SystemCoordinatorDashboard/Sidebar_elements/SystemCoordinator_Submitted_tasks";
+import Sys_coordinator_submitted_Task_Details from "./components/SystemCoordinatorComponents/Sys_coordinator_submitted_Task_Details";
 
 function App() {
   const location = useLocation();
@@ -196,6 +198,13 @@ function App() {
                   element={<System_coordinator_addTask />}
                 />
               </Route>
+              <Route path="Submitted_Tasks" element={<ProLayout />}>
+                <Route index element={<SystemCoordinator_Submitted_tasks />} />
+                <Route
+                  path="Submitted_Tasks_Detail"
+                  element={<SubmittedTaskDetails />}
+                />
+              </Route>
               <Route path="Evaluated_applicant" element={<ProLayout />}>
                 <Route index element={<Evaluated_applicants />} />
                 <Route
@@ -246,7 +255,7 @@ function App() {
                 <Route index element={<Organization_Submitted_tasks />} />
                 <Route
                   path="Submitted_Tasks_Detail"
-                  element={<SubmittedTaskDetails />}
+                  element={<Sys_coordinator_submitted_Task_Details />}
                 />
               </Route>
             </Route>
