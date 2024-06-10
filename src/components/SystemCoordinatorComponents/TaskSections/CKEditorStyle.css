@@ -1,0 +1,59 @@
+/* ckeditor-styles.css */
+
+.ck.ck-content h1 {
+  font-size: 2em; /* Example size for H1 */
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.ck.ck-content h2 {
+  font-size: 1.75em; /* Example size for H2 */
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.ck.ck-content h3 {
+  font-size: 1.5em; /* Example size for H3 */
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.ck.ck-content h4 {
+  font-size: 1.25em; /* Example size for H4 */
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.ck.ck-content h5 {
+  font-size: 1em; /* Example size for H5 */
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.ck.ck-content h6 {
+  font-size: 0.875em; /* Example size for H6 */
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.ck.ck-content ul,
+.ck.ck-content ul li {
+  list-style-type: inherit;
+}
+
+.ck.ck-content ul {
+  padding-left: 40px;
+}
+
+.ck.ck-content ol,
+.ck.ck-content ol li {
+  list-style-type: decimal;
+}
+
+.ck.ck-content ol {
+  padding-left: 40px;
+}
+
+.ck-editor__editable_inline {
+  padding: 0 30px !important;
+}

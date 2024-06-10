@@ -1,4 +1,9 @@
+import Image01 from "../../images/user-36-05.jpg";
+import load_bar from "../../images/load-bar.png";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import axios from "../../api/axios";
+import { useState, useEffect } from "react";
 
 const tasksByCategory = [
   {
@@ -42,6 +47,57 @@ const tasksByCategory = [
 ];
 
 function MainTaskPage() {
+  const {
+    user: { applicant_id },
+  } = useAuth();
+
+  const [applications, setApplications] = useState([]);
+  const fetchApplications = async (applicant_id) => {
+    try {
+      const res = await axios.get(`applicants/${applicant_id}/applications/`);
+      const filteredApplications = res.data
+        .filter((application) => application.status === "accepted")
+        .map((application) => ({
+          id: application.id.toString(),
+          image: Image01,
+          post_id: application.post.id,
+          post: application.post.title,
+          spent: new Date(application.created).toLocaleDateString(),
+          status: load_bar,
+          progress: "25%",
+        }));
+      setApplications(filteredApplications);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    }
+  };
+  // const post_id = applications[0].post_id;
+  // const fetchTask = async (post_id) => {
+  //   try {
+  //     const res = await axios.get(`applicants/${applicant_id}/applications/`);
+  //     const filteredApplications = res.data
+  //       .filter((application) => application.status === "accepted")
+  //       .map((application) => ({
+  //         id: application.id.toString(),
+  //         image: Image01,
+  //         post_id: application.post.id,
+  //         post: application.post.title,
+  //         spent: new Date(application.created).toLocaleDateString(),
+  //         status: load_bar,
+  //         progress: "25%",
+  //       }));
+  //     setApplications(filteredApplications);
+  //   } catch (error) {
+  //     console.error("Error fetching applications:", error);
+  //   }
+  // };
+
+  useEffect(() => {
+    if (applicant_id) {
+      fetchApplications(applicant_id);
+    }
+  }, [applicant_id]);
+  console.log(applications[0].post);
   return (
     <div class="mx-auto px-4 mb-6 sm:px-6 lg:px-8">
       {tasksByCategory.map((categoryObj, index) => (
@@ -51,7 +107,7 @@ function MainTaskPage() {
         >
           <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-gray-50 dark:bg-slate-800 p-4 text-gray-900">
             <h2 class="font-bold dark:text-slate-300">
-              {categoryObj.category}
+              {applications[0].post}
             </h2>
 
             <svg
