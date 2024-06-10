@@ -6,32 +6,21 @@ import LoadingIndicator from "../loading_indicator";
 export default () => {
   const location = useLocation();
   const post = useMemo(() => location.state || {}, [location.state]);
-  const [tasks, setTasks] = useState();
-
-  const { id } = post;
-  console.log(id);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    if (id) {
-      const fetchTask = async () => {
-        try {
-          const res = await axios.get(`posts/${id}/tasks`);
-          console.log(res);
-          setTasks(res.data);
-        } catch (error) {
-          console.error("Error fetching post:", error);
-        }
-      };
-      fetchTask();
-    } else {
-      console.error("Post ID is missing");
-    }
-  }, [id]);
-  console.log(tasks);
+    const fetchTasks = async () => {
+      try {
+        const { id } = post;
+        const response = await axios.get(`/posts/${id}/tasks/`);
+        setTasks(response.data);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
 
-  if (!id) {
-    return <LoadingIndicator />;
-  }
+    fetchTasks();
+  }, [post]);
 
   return (
     <section class="text-gray-600 body-font">

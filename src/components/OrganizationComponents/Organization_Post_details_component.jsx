@@ -6,32 +6,21 @@ import LoadingIndicator from "../loading_indicator";
 export default () => {
   const location = useLocation();
   const post = useMemo(() => location.state || {}, [location.state]);
-  const [tasks, setTasks] = useState();
-
-  const { id } = post;
-  console.log(id);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    if (id) {
-      const fetchTask = async () => {
-        try {
-          const res = await axios.get(`posts/${id}/tasks`);
-          console.log(res);
-          setTasks(res.data);
-        } catch (error) {
-          console.error("Error fetching post:", error);
-        }
-      };
-      fetchTask();
-    } else {
-      console.error("Post ID is missing");
-    }
-  }, [id]);
-  console.log(tasks);
+    const fetchTasks = async () => {
+      try {
+        const { id } = post;
+        const response = await axios.get(`/posts/${id}/tasks/`);
+        setTasks(response.data);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
 
-  if (!id) {
-    return <LoadingIndicator />;
-  }
+    fetchTasks();
+  }, [post]);
 
   return (
     <section class="text-gray-600 body-font">
@@ -159,7 +148,7 @@ export default () => {
                                 <polygon points="221.27 305.808 147.857 232.396 125.23 255.023 221.27 351.063 388.77 183.564 366.142 160.937 221.27 305.808"></polygon>
                               </svg>
                               <h4 className="font-medium">
-                                Task {idx}: {task.title}
+                                Task {idx + 1}: {task.title}
                               </h4>
                             </div>
                             <p className="ml-7 dark:text-gray-400">
