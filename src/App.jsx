@@ -123,11 +123,6 @@ function App() {
 
             <Route path="profile" element={<Applicant_profile_component />} />
             <Route path="settings" element={<Settings_component />} />
-<<<<<<< HEAD
-            <Route path="applyproposal" element={<ApplyComponent />} />
-=======
-
->>>>>>> 14d79347838633cbbc080d9d0ab733048269bfe7
             <Route path="applicant_dashboard" element={<Home footer={false} />}>
               <Route index element={<ApplicantDashboard />} />
               <Route path="applyproposal" element={<ApplyComponent />} />
