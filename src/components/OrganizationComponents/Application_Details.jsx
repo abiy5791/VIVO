@@ -57,6 +57,8 @@ function ApplicationDetails() {
     }
   };
 
+  console.log(application);
+
   if (!post_id || !applicant_id) {
     return <div>Task ID is missing. Please provide a valid task.</div>;
   }
@@ -147,36 +149,27 @@ function ApplicationDetails() {
             </dl>
           </div>
         </div>
-        {application.status == "accepted" ||
-        application.status == "rejected" ? (
-          <>
-            <p className="flex justify-center w-full max-w-2xl gap-5 mx-auto m-10 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-              Already {application.status} application.
-            </p>
-          </>
-        ) : (
-          <>
-            {" "}
-            <div class="flex justify-center w-full max-w-2xl gap-5 mx-auto m-10">
-              <div class="mt-3 rounded-lg sm:mt-0">
-                <button
-                  onClick={() => handleClick("accepted")}
-                  class="px-5 py-4 text-base font-medium text-center text-slate-700 transition duration-500 ease-in-out transform bg-green-300 lg:px-10 rounded-lg hover:bg-greem-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Accept
-                </button>
-              </div>
-              <div class="mt-3 rounded-lg sm:mt-0 sm:ml-3">
-                <button
-                  onClick={() => handleClick("rejected")}
-                  class="items-center block px-5 lg:px-10 py-3.5 text-base font-medium text-center text-red-600 transition duration-500 ease-in-out transform border-2 border-slate-300 shadow-md rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                >
-                  Decline
-                </button>
-              </div>
+
+        <>
+          <div class="flex justify-center w-full max-w-2xl gap-5 mx-auto m-10">
+            <div class="mt-3 rounded-lg sm:mt-0">
+              <button
+                onClick={() => handleClick("accepted")}
+                class="px-5 py-4 text-base font-medium text-center text-slate-700 transition duration-500 ease-in-out transform bg-green-300 lg:px-10 rounded-lg hover:bg-greem-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Accept
+              </button>
             </div>
-          </>
-        )}
+            <div class="mt-3 rounded-lg sm:mt-0 sm:ml-3">
+              <button
+                onClick={() => handleClick("rejected")}
+                class="items-center block px-5 lg:px-10 py-3.5 text-base font-medium text-center text-red-600 transition duration-500 ease-in-out transform border-2 border-slate-300 shadow-md rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+        </>
       </div>
     </>
   );

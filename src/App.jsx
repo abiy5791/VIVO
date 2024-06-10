@@ -82,6 +82,7 @@ import Volunteer_post_card from "./pages/OrganizationDashboard/Sidebar_elements/
 import Internships from "./components/LandingPageComponents/internships";
 import Volunteers from "./components/LandingPageComponents/volunteer";
 import SignupUVcoordinator from "./pages/AuthPages/Signup_UVcoordinator";
+import Organization_volunteer_detail from "./components/OrganizationComponents/organization_volunteer_detail";
 
 function App() {
   const location = useLocation();
@@ -206,7 +207,7 @@ function App() {
                 <Route index element={<Volunteer_post_card />} />
                 <Route
                   path="internship_posts_details"
-                  element={<Organization_Post_details_component />}
+                  element={<Organization_volunteer_detail />}
                 />
               </Route>
               <Route path="add_post" element={<ProLayout />}>
