@@ -97,7 +97,7 @@ function MainTaskPage() {
       fetchApplications(applicant_id);
     }
   }, [applicant_id]);
-  console.log(applications[0].post);
+  // console.log(applications[0]);
   return (
     <div class="mx-auto px-4 mb-6 sm:px-6 lg:px-8">
       {tasksByCategory.map((categoryObj, index) => (
@@ -106,9 +106,7 @@ function MainTaskPage() {
           class="group [&_summary::-webkit-details-marker]:hidden mb-2"
         >
           <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-gray-50 dark:bg-slate-800 p-4 text-gray-900">
-            <h2 class="font-bold dark:text-slate-300">
-              {applications[0].post}
-            </h2>
+            <h2 class="font-bold dark:text-slate-300">teurtwe</h2>
 
             <svg
               class="w-5 h-5 shrink-0 transition duration-300 group-open:-rotate-180 dark:text-slate-300"

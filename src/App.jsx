@@ -112,7 +112,6 @@ function App() {
               path="posted_opportunity_detail"
               element={<Posted_opportunity_details />}
             />
-            <Route path="applyproposal" element={<ApplyComponent />} />
           </Route>
 
           <Route
@@ -122,9 +121,10 @@ function App() {
             {/* <Route path="applyproposal" element={<ApplyComponent />} /> */}
             <Route path="profile" element={<Applicant_profile_component />} />
             <Route path="settings" element={<Settings_component />} />
+
             <Route path="applicant_dashboard" element={<Home footer={false} />}>
               <Route index element={<ApplicantDashboard />} />
-
+              <Route path="applyproposal" element={<ApplyComponent />} />
               <Route path="task" element={<Task />}>
                 <Route index element={<Navigate to="1/section/1" />} />
                 <Route path=":taskId/section/1" element={<TaskSection1 />} />
