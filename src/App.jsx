@@ -89,6 +89,12 @@ import SignupUVcoordinator from "./pages/AuthPages/Signup_UVcoordinator";
 import Organization_volunteer_detail from "./components/OrganizationComponents/organization_volunteer_detail";
 import SystemCoordinator_Submitted_tasks from "./pages/SystemCoordinatorDashboard/Sidebar_elements/SystemCoordinator_Submitted_tasks";
 import Sys_coordinator_submitted_Task_Details from "./components/SystemCoordinatorComponents/Sys_coordinator_submitted_Task_Details";
+import ApplicantDetail from "./components/AdminComponents/ApplicantDetail";
+import OrganizationDetail from "./components/AdminComponents/OrganizationDetail";
+import Uvcoordinator_list from "./pages/AdminDashboard/Sidebar_elements/uvcoordinator_list";
+import UvCoordinatorDetail from "./components/AdminComponents/UvCoordinator_detail";
+import Uvsupervisor_list from "./pages/AdminDashboard/uvsupervisor_list";
+import UvSupervisorDetail from "./components/AdminComponents/UvSupervisor_detail";
 
 function App() {
   const location = useLocation();
@@ -140,11 +146,33 @@ function App() {
           <Route element={<RequireAuth allowedRoles={["admin"]} />}>
             <Route exact path="/admin_dashboard" element={<Dashboard />}>
               <Route index element={<Admin_home />} />
-              <Route path="applicants_list" element={<Applicants_list />} />
-              <Route
-                path="organizations_list"
-                element={<Organizations_list />}
-              />
+
+              <Route path="applicants_list" element={<ProLayout />}>
+                <Route index element={<Applicants_list />} />
+                <Route path="applicant_detail" element={<ApplicantDetail />} />
+              </Route>
+              <Route path="organizations_list" element={<ProLayout />}>
+                <Route index element={<Organizations_list />} />
+                <Route
+                  path="orgaization_detail"
+                  element={<OrganizationDetail />}
+                />
+              </Route>
+
+              <Route path="uvcoordinator_list" element={<ProLayout />}>
+                <Route index element={<Uvcoordinator_list />} />
+                <Route
+                  path="uvcoordinator_detail"
+                  element={<UvCoordinatorDetail />}
+                />
+              </Route>
+              <Route path="uvSupervisor_list" element={<ProLayout />}>
+                <Route index element={<Uvsupervisor_list />} />
+                <Route
+                  path="uvSupervisor_detail"
+                  element={<UvSupervisorDetail />}
+                />
+              </Route>
               <Route path="internship_opportunities" element={<ProLayout />}>
                 <Route index element={<Internship_opportunity_card />} />
                 <Route

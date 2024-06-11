@@ -4,15 +4,15 @@ import useAuth from "../../../hooks/useAuth";
 import axios from "../../../api/axios";
 import { useState, useEffect } from "react";
 
-function DashboardCard02() {
+function DashboardCard11() {
   const { user } = useAuth();
-  const [uvSupervisors, setUvSupervisors] = useState([]);
+  const [uvcoordinator, setUvcoordinator] = useState([]);
 
-  const fetchUvSupervisor = async (user) => {
+  const fetchUvCoordinator = async (user) => {
     try {
       if (user.role === "admin") {
-        const res = await axios.get(`UvSupervisors`);
-        setUvSupervisors(res.data);
+        const res = await axios.get(`UvCoordniators`);
+        setUvcoordinator(res.data);
       }
     } catch (error) {
       console.error("Error fetching applications:", error);
@@ -20,14 +20,14 @@ function DashboardCard02() {
   };
 
   useEffect(() => {
-    fetchUvSupervisor(user);
+    fetchUvCoordinator(user);
   }, [user]);
-  console.log(uvSupervisors);
+  console.log(uvcoordinator);
   return (
     <div className="col-span-full xl:col-span-full bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-          University Supervisors
+          University Coordinator
         </h2>
       </header>
       <div className="p-3">
@@ -56,43 +56,43 @@ function DashboardCard02() {
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-100 dark:divide-slate-700">
-              {uvSupervisors.map((supervisor) => {
+              {uvcoordinator.map((data) => {
                 return (
-                  <tr key={supervisor.id}>
+                  <tr key={data.id}>
                     <td className="p-2 whitespace-nowrap">
-                      <Link to="uvSupervisor_detail" state={supervisor}>
+                      <Link to="uvcoordinator_detail" state={data}>
                         <div className="flex items-center">
                           <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                             <img
                               className="rounded-full"
-                              src={supervisor.image}
+                              src={data.avatar}
                               width="40"
                               height="40"
-                              alt={supervisor.name}
+                              alt={data.name}
                             />
                           </div>
                           <div className="font-medium text-slate-800 dark:text-slate-100">
-                            {supervisor.name}
+                            {data.name}
                           </div>
                         </div>
                       </Link>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="text-left">{supervisor.email}</div>
+                      <div className="text-left">{data.email}</div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-left font-medium text-green-500">
-                        {supervisor.date_joined}
+                        {data.date_joined}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-md text-center">
-                        {supervisor.phone_number}
+                        {data.phone_number}
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-center font-medium">
-                        {`${supervisor.is_active}`}
+                        {`${data.is_active}`}
                       </div>
                     </td>
                   </tr>
@@ -106,4 +106,4 @@ function DashboardCard02() {
   );
 }
 
-export default DashboardCard02;
+export default DashboardCard11;

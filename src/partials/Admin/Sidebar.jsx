@@ -342,7 +342,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to=""
+                              to="uvcoordinator_list"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
                                 (isActive
@@ -358,7 +358,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to=""
+                              to="uvSupervisor_list"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
                                 (isActive
