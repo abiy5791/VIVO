@@ -4,289 +4,6 @@ import { List, Avatar, Steps, Divider } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
 import axios from "../../../api/axios";
 import useAuth from "../../../hooks/useAuth";
-// const data = [
-//   {
-//     id: "",
-//     name: "Jane Cooper",
-//     current: 3,
-//     tasks: [
-//       {
-//         title: "Task 1",
-//         description: "This is a Step 1.",
-//         duration: "2 hours",
-//         skillGained: "Basic Coding",
-//         proficiencyLevel: 9,
-//       },
-//       {
-//         title: "Task 2",
-//         description: "This is a Step 1.",
-//         duration: "2 hours",
-//         skillGained: "Basic Coding",
-//         proficiencyLevel: 8,
-//       },
-//       {
-//         title: "Task 3",
-//         description: "This is a Step 1.",
-//         duration: "2 hours",
-//         skillGained: "Basic Coding",
-//         proficiencyLevel: 8,
-//       },
-//       {
-//         title: "Task 4",
-//         description: "This is a Step 1.",
-//         duration: "2 hours",
-//         skillGained: "Basic Coding",
-//         proficiencyLevel: 6,
-//       },
-//       {
-//         title: "Task 5",
-//         description: "This is a Step 1.",
-//         duration: "2 hours",
-//         skillGained: "Basic Coding",
-//         proficiencyLevel: 9,
-//       },
-//       {
-//         title: "Task 6",
-//         description: "This is a Step 1.",
-//         duration: "2 hours",
-//         skillGained: "Basic Coding",
-//         proficiencyLevel: 9,
-//       },
-//     ],
-//     email: "jane.cooper@example.com",
-//     imgsrc: "https://i.pravatar.cc/150?img=2",
-//   },
-//   {
-//     name: "John Doe",
-//     current: 1,
-//     status: "error",
-//     tasks: [
-//       {
-//         title: "Task 1",
-//         description: "This is a Step 2.",
-//         duration: "3 hours",
-//         skillGained: "Problem Solving",
-//         proficiencyLevel: 9,
-//       },
-
-//       {
-//         title: "Task 2",
-//         description: "This is a Step 2.",
-//         duration: "4 years",
-//         skillGained: "ziget",
-//         proficiencyLevel: 5,
-//       },
-
-//       {
-//         title: "Task 3",
-//         description: "This is a Step 2.",
-//         duration: "3 hours",
-//         skillGained: "",
-//         proficiencyLevel: "",
-//       },
-
-//       {
-//         title: "Task 4",
-//         description: "This is a Step 2.",
-//         duration: "3 hours",
-//         skillGained: "Problem Solving",
-//         proficiencyLevel: 7,
-//       },
-
-//       {
-//         title: "Task 5",
-//         description: "This is a Step 2.",
-//         duration: "3 hours",
-//         skillGained: "Problem Solving",
-//         proficiencyLevel: 7,
-//       },
-//     ],
-//     email: "john.Doe@example.com",
-//     imgsrc: "https://i.pravatar.cc/150?img=3",
-//   },
-//   {
-//     name: "Alice Smith",
-//     current: 6,
-//     tasks: [
-//       {
-//         title: "Task 1",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 8,
-//       },
-
-//       {
-//         title: "Task 2",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 7,
-//       },
-
-//       {
-//         title: "Task 3",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 10,
-//       },
-
-//       {
-//         title: "Task 4",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 6,
-//       },
-
-//       {
-//         title: "Task 5",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 8,
-//       },
-
-//       {
-//         title: "Task 6",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 8,
-//       },
-
-//       {
-//         title: "Task 7",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 9,
-//       },
-
-//       {
-//         title: "Task 8",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 8,
-//       },
-
-//       {
-//         title: "Task 9",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 9,
-//       },
-
-//       {
-//         title: "Task 10",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 8,
-//       },
-
-//       {
-//         title: "Task 11",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 9,
-//       },
-
-//       {
-//         title: "Task 12",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 7,
-//       },
-
-//       {
-//         title: "Task 13",
-//         description: "This is a Step 3.",
-//         duration: "4 hours",
-//         skillGained: "Algorithm Design",
-//         proficiencyLevel: 9,
-//       },
-//     ],
-//     email: "alice.smith@example.com",
-//     imgsrc: "https://i.pravatar.cc/150?img=3",
-//   },
-//   {
-//     name: "Bob Brown",
-//     current: 6,
-//     tasks: [
-//       {
-//         title: "Task 1",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 8,
-//       },
-//       {
-//         title: "Task 2",
-//         description: "Personal Portfolio",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 9,
-//       },
-//       {
-//         title: "Task 3",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 8,
-//       },
-//       {
-//         title: "Task 4",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 6,
-//       },
-//       {
-//         title: "Task 5",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 9,
-//       },
-//       {
-//         title: "Task 6",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 9,
-//       },
-//       {
-//         title: "Task 7",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 6,
-//       },
-//       {
-//         title: "Task 8",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 8,
-//       },
-//       {
-//         title: "Task 9",
-//         description: "This is a Step 4.",
-//         duration: "1.5 hours",
-//         skillGained: "Data Structures",
-//         proficiencyLevel: 8,
-//       },
-//     ],
-//     email: " bob.brown@example.com",
-//     imgsrc: "https://i.pravatar.cc/150?img=4",
-//   },
-// ];
 
 export default function ListOfStudents() {
   const [mergedData, setMergedData] = useState([]);
@@ -307,7 +24,7 @@ export default function ListOfStudents() {
   // console.log(user_id);
 
   const extractPostIds = (dataArray) => {
-    const ids = dataArray.map((item) => item.post_id);
+    const ids = dataArray.map((item) => item.posts[0].id);
     // console.log(ids);
     setPostIds(ids);
   };
@@ -335,16 +52,17 @@ export default function ListOfStudents() {
   useEffect(() => {
     const fetchPostDetails = async () => {
       const details = await Promise.all(
-        postIds.map(async (id) => {
+        postIds.map(async () => {
           try {
-            const response = await axios.get(`posts/${id}/`);
+            const response = await axios.get(`posts/${id}/tasks`);
 
             const Taskresponse = await axios.get(`tasks`);
             const fetchedTask = Taskresponse.data || [];
             setTasks(fetchedTask);
+            console.log(fetchedTask);
 
             setMergedData(mergePostAndTasks(postDetails, Tasks));
-            return { id, data: response.data };
+            // return { id, data: response.data };
           } catch (error) {
             console.error(`Failed to fetch details for post_id ${id}:`, error);
             return { id, error: error.message };
@@ -406,13 +124,18 @@ export default function ListOfStudents() {
 
       try {
         // Fetch assignments data
-
+        const Taskresponse = await axios.get(`tasks`);
+        const fetchedTask = Taskresponse.data || [];
+        setTasks(fetchedTask);
+        console.log(fetchedTask);
         const response = await axios.get(
           `UvSupervisors/${university_supervisor_id}/students`
         );
         const fetchedData = response.data || [];
         setData(fetchedData);
+        console.log(fetchedData);
         extractPostIds(fetchedData);
+        console.log(mergedData);
         const result = addTasksToData(fetchedData, mergedData);
         console.log(result);
         // console.log(Data);
@@ -427,7 +150,6 @@ export default function ListOfStudents() {
   }, [university_supervisor_id]);
 
   function mergePostAndTasks(postDetails, tasks) {
-    // Create a map for quick lookup of post details by id
     const postMap = new Map();
     postDetails.forEach((post) => {
       postMap.set(post.id, post.data);
@@ -470,7 +192,7 @@ export default function ListOfStudents() {
     }).filter((task) => task !== null); // Filter out null values
   };
 
-  // console.log(mergedData);
+  console.log(mergedData);
   // console.log(postIds);
   const navigate = useNavigate();
 
@@ -515,7 +237,7 @@ export default function ListOfStudents() {
         renderItem={(item, categorizedData, index) => (
           <List.Item onClick={() => handleItemClick(item)}>
             <List.Item.Meta
-              avatar={<Avatar src={item.imgsrc} />}
+              avatar={<Avatar src={item.avatar} />}
               title={<a href="">{item.name}</a>}
               description={item.email}
             />

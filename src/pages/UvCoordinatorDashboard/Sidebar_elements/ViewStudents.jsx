@@ -10,102 +10,6 @@ export default function ViewStudents() {
     user: { user_id, email, role, university_coordinator_id },
   } = useAuth();
 
-  // const Students = [
-  //   {
-  //     avatar:
-  //       "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-  //     name: "Liam James",
-  //     email: "liamjames@example.com",
-  //     phone_number: "+1 (555) 000-000",
-  //     departemet: "Software engineer",
-  //     id: "ugr/1974/12",
-  //     year: 2,
-
-  //     internshipDescription: "Full Stack Hospital Management system",
-  //     status: "accepted",
-  //     hostingOrganization: {
-  //       HostingOrgName: "INSA",
-  //       email: "INSA@example.com",
-  //       phoneNumber: "(123) 456-7890",
-  //       address: "123 Main St\nAnytown, USA 12345",
-  //     },
-  //   },
-  //   {
-  //     avatar: "https://randomuser.me/api/portraits/men/86.jpg",
-  //     name: "Olivia Emma",
-  //     email: "oliviaemma@example.com",
-  //     phone_number: "+1 (555) 000-000",
-  //     departemet: "Product designer",
-  //     id: "ugr/1974/12",
-  //     year: 4,
-
-  //     internshipDescription: "Full Stack Hospital Management system",
-  //     status: "accepted",
-  //     hostingOrganization: {
-  //       HostingOrgName: "INSA",
-  //       email: "INSA@example.com",
-  //       phoneNumber: "(123) 456-7890",
-  //       address: "123 Main St\nAnytown, USA 12345",
-  //     },
-  //   },
-  //   {
-  //     avatar: "https://randomuser.me/api/portraits/women/79.jpg",
-  //     name: "William Benjamin",
-  //     email: "william.benjamin@example.com",
-  //     phone_number: "+1 (555) 000-000",
-  //     departemet: "Front-end developer",
-  //     id: "ugr/1974/12",
-  //     year: 5,
-  //     internshipDescription: "Full Stack Hospital Management system",
-  //     status: "accepted",
-  //     hostingOrganization: {
-  //       HostingOrgName: "Addis Way",
-  //       email: "Addisway@example.com",
-  //       phoneNumber: "(123) 456-7890",
-  //       address: "123 Main St\nAnytown, USA 12345",
-  //     },
-  //     intern_place: "Addis Way",
-  //   },
-  //   {
-  //     avatar: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-  //     name: "Henry Theodore",
-
-  //     email: "henrytheodore@example.com",
-  //     phone_number: "+1 (555) 000-000",
-  //     departemet: "Laravel engineer",
-  //     id: "ugr/1974/12",
-  //     year: 4,
-  //     intern_place: "OBN",
-  //     internshipDescription: "Full Stack Hospital Management system",
-  //     status: "accepted",
-  //     hostingOrganization: {
-  //       HostingOrgName: "OBN",
-  //       email: "OBN@example.com",
-  //       phoneNumber: "(123) 456-7890",
-  //       address: "123 Main St\nAnytown, USA 12345",
-  //     },
-  //   },
-  //   {
-  //     avatar:
-  //       "https://images.unsplash.com/photo-1439911767590-c724b615299d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-  //     name: "Amelia Elijah",
-  //     email: "amelia.elijah@example.com",
-  //     phone_number: "+1 (555) 000-000",
-  //     departemet: "Open source manager",
-  //     id: "ugr/1974/12",
-  //     year: 4,
-
-  //     internshipDescription: "Full Stack Hospital Management system",
-  //     status: "accepted",
-  //     hostingOrganization: {
-  //       HostingOrgName: "Commercial Bank",
-  //       email: "Commercial Bank@example.com",
-  //       phoneNumber: "(123) 456-7890",
-  //       address: "123 Main St\nAnytown, USA 12345",
-  //     },
-  //   },
-  // ];
-
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -124,14 +28,6 @@ export default function ViewStudents() {
 
         // const students = updateStudentsData(fetchedStud);
         // setStudentsList(students);
-
-        // const allstudResponse = await axios.get(`/students`);
-        // const fetchedAllStud = studResponse.data || [];
-        // setallStudentdata(fetchedAllStud);
-
-        // Format data after both API calls complete
-        // const formatted = formatData(fetchedData, fetchedStud);
-        // setFormattedData(formatted);
       } catch (error) {
         setError(error);
       } finally {

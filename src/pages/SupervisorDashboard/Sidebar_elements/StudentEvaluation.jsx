@@ -1,67 +1,47 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../api/axios";
 import useAuth from "../../../hooks/useAuth";
-const initialStudents = [
-  {
-    id: 123456,
-    name: "Jane Cooper",
-    email: "jane.cooper@example.com",
-    avatar: "https://i.pravatar.cc/150?img=1",
-    document: 18,
-    presentation: 30,
-    firmEvaluation: 20,
-    supervisorEvaluation: 16,
-    total: 84,
-    grade: "A",
-  },
-  {
-    id: 789012,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    avatar: "https://i.pravatar.cc/150?img=2",
-    document: 16,
-    presentation: 28,
-    firmEvaluation: 18,
-    supervisorEvaluation: 17,
-    total: 79,
-    grade: "B",
-  },
-  {
-    id: 345678,
-    name: "Alice Smith",
-    email: "alice.smith@example.com",
-    avatar: "https://i.pravatar.cc/150?img=3",
-    document: 19,
-    presentation: 32,
-    firmEvaluation: 21,
-    supervisorEvaluation: 18,
-    total: 90,
-    grade: "A",
-  },
-  {
-    id: 901234,
-    name: "Bob Brown",
-    email: "bob.brown@example.com",
-    avatar: "https://i.pravatar.cc/150?img=4",
-    document: 17,
-    presentation: 29,
-    firmEvaluation: 19,
-    supervisorEvaluation: 16,
-    total: 81,
-    grade: "B",
-  },
-];
 
 export default function StudentEvaluation() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [students, setStudents] = useState(data);
   const [isEditable, setIsEditable] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
+
   const {
     user: { user_id, email, role, university_supervisor_id },
   } = useAuth();
+
+  // Utility function to generate a random number between min and max, inclusive
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  // Utility function to calculate the total score and grade
+  const calculateTotalAndGrade = (student) => {
+    const total =
+      parseFloat(student.document) +
+      parseFloat(student.presentation) +
+      parseFloat(student.firmEvaluation) +
+      parseFloat(student.supervisorEvaluation);
+
+    // Define grading logic based on total score (adjust as needed)
+    let grade;
+    if (total >= 85) {
+      grade = "A";
+    } else if (total >= 75) {
+      grade = "B";
+    } else if (total >= 65) {
+      grade = "C";
+    } else if (total >= 50) {
+      grade = "D";
+    } else {
+      grade = "F";
+    }
+
+    return { total, grade };
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -69,13 +49,28 @@ export default function StudentEvaluation() {
       setError(null);
 
       try {
-        // Fetch assignments data
-
         const response = await axios.get(
           `UvSupervisors/${university_supervisor_id}/students`
         );
         const fetchedData = response.data || [];
-        setData(fetchedData);
+
+        // Update firmEvaluation with random numbers between 10 and 25 and calculate total and grade
+        const updatedData = fetchedData.map((student) => {
+          const firmEvaluation = getRandomNumber(10, 25);
+          const { total, grade } = calculateTotalAndGrade({
+            ...student,
+            firmEvaluation,
+          });
+
+          return {
+            ...student,
+            firmEvaluation,
+            total,
+            grade,
+          };
+        });
+
+        setData(updatedData);
       } catch (error) {
         setError(error);
       } finally {
@@ -86,75 +81,66 @@ export default function StudentEvaluation() {
     fetchData();
   }, [university_supervisor_id]);
 
-  console.log(data);
   const handleInputChange = (id, field, value) => {
-    const updatedStudents = students.map((student) => {
+    const updatedData = data.map((student) => {
       if (student.id === id) {
-        const validatedValue = Math.min(parseFloat(value), getMaxValue(field));
-        const updatedStudent = {
-          ...student,
-          [field]: validatedValue,
-        };
-        const total = calculateTotal(updatedStudent);
-        const grade = calculateGrade(total);
+        const updatedStudent = { ...student, [field]: value };
+        const { total, grade } = calculateTotalAndGrade(updatedStudent);
         return { ...updatedStudent, total, grade };
       }
       return student;
     });
-    setStudents(updatedStudents);
+    setData(updatedData);
   };
 
-  const getMaxValue = (field) => {
-    switch (field) {
-      case "document":
-        return 20;
-      case "presentation":
-        return 35;
-      case "firmEvaluation":
-        return 25;
-      case "supervisorEvaluation":
-        return 20;
-      default:
-        return 100;
-    }
-  };
-
-  const calculateTotal = ({
-    document,
-    presentation,
-    firmEvaluation,
-    supervisorEvaluation,
-  }) => {
-    return (
-      document * 1 +
-      presentation +
-      firmEvaluation +
-      supervisorEvaluation
-    ).toFixed(2);
-  };
-
-  const calculateGrade = (total) => {
-    const totalInt = parseFloat(total);
-    if (totalInt >= 90) return "A";
-    if (totalInt >= 80) return "B";
-    if (totalInt >= 70) return "C";
-    if (totalInt >= 60) return "D";
-    return "F";
-  };
-
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     if (isEditable) {
       setIsEditable(false);
       setIsSaved(true);
+
+      // Send each student's data individually
+      data.forEach(async (student) => {
+        const evaluationData = {
+          document_evaluation: parseFloat(student.document),
+          presentation_evaluation: parseFloat(student.presentation),
+          firm_evaluation: parseFloat(student.firmEvaluation),
+          supervisor_evaluation: parseFloat(student.supervisorEvaluation),
+          supervisor: user_id, // Change to appropriate value
+          applicant: student.id, // Change to appropriate value
+        };
+
+        console.log(evaluationData);
+
+        try {
+          const response = await axios.post(
+            `UvSupervisors/${user_id}/evaluations/`,
+            evaluationData
+          );
+          console.log(
+            "POST request successful for student:",
+            student.id,
+            response
+          );
+        } catch (error) {
+          console.error(
+            "Error submitting data for student:",
+            student.id,
+            error
+          );
+        }
+      });
     } else {
       setIsEditable(true);
       setIsSaved(false);
     }
   };
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div className="w-full flex mx-auto justify-center flex-col items-center">
-      <div className="bg-gray-900">
+      <div className="bg-gray-900 w-full">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -209,8 +195,6 @@ export default function StudentEvaluation() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {console.log(data)}
-
             {data.map((student) => (
               <tr key={student.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -225,7 +209,6 @@ export default function StudentEvaluation() {
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
                         {student.first_name}
-                        {console.log(student)}
                       </div>
                       <div className="text-sm text-gray-500">
                         {student.email}
@@ -239,6 +222,7 @@ export default function StudentEvaluation() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   <input
                     type="number"
+                    id={`document_${student.id}`}
                     inputMode="numeric"
                     pattern="[0-9]*"
                     max="20"
@@ -247,11 +231,7 @@ export default function StudentEvaluation() {
                     }`}
                     defaultValue={student.document}
                     onChange={(e) =>
-                      handleInputChange(
-                        student.id,
-                        "document",
-                        Math.min(parseFloat(e.target.value), 20)
-                      )
+                      handleInputChange(student.id, "document", e.target.value)
                     }
                     disabled={!isEditable}
                   />
@@ -259,6 +239,7 @@ export default function StudentEvaluation() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   <input
                     type="number"
+                    id={`presentation_${student.id}`}
                     inputMode="numeric"
                     pattern="[0-9]*"
                     max="35"
@@ -270,7 +251,7 @@ export default function StudentEvaluation() {
                       handleInputChange(
                         student.id,
                         "presentation",
-                        Math.min(parseFloat(e.target.value), 35)
+                        e.target.value
                       )
                     }
                     disabled={!isEditable}
@@ -282,6 +263,7 @@ export default function StudentEvaluation() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   <input
                     type="number"
+                    id={`supervisor_${student.id}`}
                     inputMode="numeric"
                     pattern="[0-9]*"
                     max="20"
@@ -293,7 +275,7 @@ export default function StudentEvaluation() {
                       handleInputChange(
                         student.id,
                         "supervisorEvaluation",
-                        Math.min(parseFloat(e.target.value), 20)
+                        e.target.value
                       )
                     }
                     disabled={!isEditable}
@@ -310,7 +292,7 @@ export default function StudentEvaluation() {
           </tbody>
         </table>
       </div>
-      <div className="w-full ">
+      <div className="w-full">
         <button
           className="mt-7 mr-12 px-4 py-2 bg-blue-500 text-white font-semibold rounded float-right"
           onClick={handleSaveClick}

@@ -4,252 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import axios from "../../../api/axios";
 import useAuth from "../../../hooks/useAuth";
-// const students = [
-//   {
-//     id: 8,
-//     name: "Mark Johnson",
-//     department: "Marketing",
-//     year: 5,
-//     Bossid: null,
-//   },
-//   {
-//     id: 9,
-//     name: "Sarah Adams",
-//     department: "Marketing",
-//     year: 4,
-//     Bossid: null,
-//   },
-//   {
-//     id: 6,
-//     name: "Emma Davis",
-//     department: "Finance",
-//     year: 3,
-//     Bossid: null,
-//   },
-//   {
-//     id: 3,
-//     name: "David Brown",
-//     department: "Finance",
-//     year: 2,
-//     Bossid: null,
-//   },
-//   {
-//     id: 58,
-//     name: "Chris White",
-//     department: "Operations",
-//     year: 7,
-//     Bossid: null,
-//   },
-//   {
-//     id: 60,
-//     name: "Jennifer Garcia",
-//     department: "Operations",
-//     year: 6,
-//     Bossid: null,
-//   },
-//   {
-//     id: 72,
-//     name: "Sophia Taylor",
-//     department: "Human Resources",
-//     year: 4,
-//     Bossid: null,
-//   },
-//   {
-//     id: 87,
-//     name: "James Rodriguez",
-//     department: "Human Resources",
-//     year: 3,
-//     Bossid: null,
-//   },
-//   {
-//     id: 96,
-//     name: "Ryan Martinez",
-//     department: "Sales",
-//     year: 8,
-//     Bossid: null,
-//   },
-//   {
-//     id: 19,
-//     name: "Lily Wilson",
-//     department: "Sales",
-//     year: 5,
-//     Bossid: null,
-//   },
-//   {
-//     id: 16,
-//     name: "Ethan Anderson",
-//     department: "IT",
-//     year: 6,
-//     Bossid: null,
-//   },
-//   {
-//     id: 13,
-//     name: "Grace Thompson",
-//     department: "IT",
-//     year: 4,
-//     Bossid: null,
-//   },
-//   {
-//     id: 14,
-//     name: "Olivia Hernandez",
-//     department: "Engineering",
-//     year: 9,
-//     Bossid: null,
-//   },
-//   {
-//     id: 109,
-//     name: "William Moore",
-//     department: "Engineering",
-//     year: 5,
-//     Bossid: null,
-//   },
-//   {
-//     id: 157,
-//     name: "Noah Thompson",
-//     department: "Customer Service",
-//     year: 2,
-//     Bossid: null,
-//   },
-//   {
-//     id: 168,
-//     name: "Ava Walker",
-//     department: "Customer Service",
-//     year: 1,
-//     Bossid: null,
-//   },
-//   {
-//     id: 177,
-//     name: "Liam Garcia",
-//     department: "Product Management",
-//     year: 4,
-//     Bossid: null,
-//   },
-//   {
-//     id: 108,
-//     name: "Mia Rodriguez",
-//     department: "Product Management",
-//     year: 3,
-//     Bossid: null,
-//   },
-//   {
-//     id: 189,
-//     name: "Lucas Martinez",
-//     department: "Research and Development",
-//     year: 5,
-//     Bossid: null,
-//   },
-//   {
-//     id: 200,
-//     name: "Ella Davis",
-//     department: "Research and Development",
-//     year: 3,
-//     Bossid: null,
-//   },
-// ];
-
-// const Supervisor = [
-//   {
-//     id: 19,
-//     name: "John Smith",
-//     age: 45,
-//     department: "Marketing",
-//     teamSize: 20,
-//     Students: [],
-//     imgsrc: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-//   },
-//   {
-//     id: 72,
-//     name: "Alice Johnson",
-//     age: 38,
-//     department: "Finance",
-//     teamSize: 15,
-//     Students: [],
-//     imgsrc:
-//       "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-//   },
-//   {
-//     id: 973,
-//     name: "David Lee",
-//     age: 50,
-//     department: "Operations",
-//     teamSize: 30,
-//     Students: [],
-//     imgsrc: "https://randomuser.me/api/portraits/men/86.jpg",
-//   },
-//   {
-//     id: 64,
-//     name: "Emily Chen",
-//     age: 42,
-//     department: "Human Resources",
-//     teamSize: 25,
-//     Students: [],
-//     imgsrc: "https://randomuser.me/api/portraits/women/79.jpg",
-//   },
-//   {
-//     id: 235,
-//     name: "Michael Brown",
-//     age: 55,
-//     department: "Sales",
-//     teamSize: 35,
-//     Students: [],
-//     imgsrc:
-//       "https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-//   },
-//   {
-//     id: 706,
-//     name: "Jennifer Wang",
-//     age: 40,
-//     department: "IT",
-//     teamSize: 10,
-//     Students: [],
-//     imgsrc: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-//   },
-//   {
-//     id: 79,
-//     name: "Robert Garcia",
-//     age: 48,
-//     department: "Engineering",
-//     teamSize: 40,
-//     Students: [],
-//     imgsrc:
-//       "https://images.unsplash.com/photo-1439911767590-c724b615299d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-//   },
-//   {
-//     id: 86,
-//     name: "Samantha White",
-//     age: 36,
-//     department: "Customer Service",
-//     teamSize: 25,
-//     Students: [],
-//     imgsrc:
-//       "https://images.unsplash.com/photo-1439911767590-c724b615299d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-//   },
-//   {
-//     id: 79,
-//     name: "Daniel Kim",
-//     age: 43,
-//     department: "Product Management",
-//     teamSize: 20,
-//     Students: [],
-//     imgsrc:
-//       "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-//   },
-//   {
-//     id: 610,
-//     name: "Jessica Martinez",
-//     age: 47,
-//     department: "Research and Development",
-//     teamSize: 30,
-//     Students: [],
-//     imgsrc:
-//       "https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-//   },
-// ];
 
 export default function AssignSupervisor() {
   const [data, setData] = useState([]);
   const [Supervisor, setSupervisor] = useState([]);
-  const [allStudentdata, setallStudentdata] = useState([]);
+  const [Filtered, setFiltered] = useState([]);
   const [stud, setStud] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -269,18 +28,29 @@ export default function AssignSupervisor() {
           `UvCoordniators/${university_coordinator_id}/assignments`
         );
         const fetchedData = response.data || [];
-        setData(fetchedData);
-        // console.log(fetchedData);
 
-        // Fetch students data
+        setData(fetchedData);
+        console.log(fetchedData);
+        // console.log(fetchedData);
+        const My = filterLatestEntries(fetchedData);
+        console.log(My);
+        setFiltered(My); /// filtered
+
+        // Fetch students data   getStudentsBySupervisor
         const studResponse = await axios.get(
-          `UvCoordniators/${university_coordinator_id}/students`
+          `UvCoordniators/${university_coordinator_id}/accepted`
         );
         const fetchedStud = studResponse.data || [];
+        console.log(fetchedStud);
         setStud(fetchedStud);
 
         const students = updateStudentsData(fetchedStud);
+        // console.log(students);
         setStudentsList(students);
+        // console.log(students);
+        const initialdata = getStudentsBySupervisor(students, My);
+        // console.log(getStudentsBySupervisor(students, My));
+        setSelectedStudentsByBoss(getStudentsBySupervisor(students, My));
 
         const superviorsResponse = await axios.get(`UvSupervisors/`);
         const fetchedSupervisors = superviorsResponse.data || [];
@@ -291,21 +61,6 @@ export default function AssignSupervisor() {
         );
 
         setSupervisor(Supervsr);
-
-        // const REs = await axios.post("/UvSupervisors/", formData, {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        // });
-        // console.log("Form submitted successfully:", REs.data);
-        //////
-        // const allstudResponse = await axios.get(`/students`);
-        // const fetchedAllStud = studResponse.data || [];
-        // setallStudentdata(fetchedAllStud);
-
-        // Format data after both API calls complete
-        // const formatted = formatData(fetchedData, fetchedStud);
-        // setFormattedData(formatted);
       } catch (error) {
         setError(error);
       } finally {
@@ -315,6 +70,25 @@ export default function AssignSupervisor() {
 
     fetchData();
   }, [university_coordinator_id]);
+  function filterLatestEntries(data) {
+    // Convert string dates to Date objects for comparison
+    const parseDate = (entry) => new Date(entry.created);
+
+    // Sort by created date descending
+    data.sort((a, b) => parseDate(b) - parseDate(a));
+
+    // Create a map to store the latest entry for each student
+    const latestEntries = new Map();
+
+    for (const entry of data) {
+      if (!latestEntries.has(entry.student)) {
+        latestEntries.set(entry.student, entry);
+      }
+    }
+
+    // Convert the map values back to an array
+    return Array.from(latestEntries.values());
+  }
 
   function transformAssignmentList(assignmentList) {
     return assignmentList.map(({ student, supervisor }) => ({
@@ -344,16 +118,76 @@ export default function AssignSupervisor() {
     });
   }
 
+  const [studentsList, setStudentsList] = useState(updateStudentsData(stud));
+
+  function getStudentsBySupervisor(students, assignments) {
+    // Step 1: Create a mapping of the latest assignment for each student
+    const latestAssignments = new Map();
+
+    for (const assignment of assignments) {
+      const { student, created } = assignment;
+      if (student !== null) {
+        if (
+          !latestAssignments.has(student) ||
+          new Date(latestAssignments.get(student).created) < new Date(created)
+        ) {
+          latestAssignments.set(student, assignment);
+        }
+      }
+    }
+
+    // Step 2: Create a map to group students by their supervisor
+    const supervisorMap = new Map();
+
+    for (const student of students) {
+      const assignment = latestAssignments.get(student.id);
+      if (assignment) {
+        const supervisorId = assignment.supervisor;
+        if (!supervisorMap.has(supervisorId)) {
+          supervisorMap.set(supervisorId, []);
+        }
+
+        supervisorMap.get(supervisorId).push({
+          id: student.id,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          email: student.email,
+          age: student.age,
+          gender: student.gender,
+          phone_number: student.phone_number,
+          avatar: student.avatar,
+          resume: student.resume,
+          portfolio_link: student.portfolio_link,
+          university: student.university,
+          university_id_number: student.university_id_number,
+          department: student.department,
+          date_joined: student.date_joined,
+          posts: student.posts,
+          year: student.batch, // Assuming 'batch' corresponds to 'year'
+          BossId: null,
+          Bossid: supervisorId,
+        });
+      }
+    }
+
+    // Step 3: Convert the map to the required format
+    const result = {};
+    for (const [supervisorId, students] of supervisorMap.entries()) {
+      result[supervisorId] = students;
+    }
+
+    return result;
+  }
+
+  console.log(studentsList);
+  //const initialdata = getStudentsBySupervisor(studentsList, Filtered);
+
   const [selectedRows, setSelectedRows] = useState([]);
 
   const [selectedStudentsByBoss, setSelectedStudentsByBoss] = useState({});
-  const [studentsList, setStudentsList] = useState(updateStudentsData(stud));
-  const [Addbutton, setAddbutton] = useState(false);
-  const [forM, setForM] = useState({
-    student: "21",
 
-    supervisor: "19",
-  });
+  const [Addbutton, setAddbutton] = useState(false);
+
   const navigate = useNavigate();
 
   const handleRowClick = (record) => {
@@ -365,24 +199,7 @@ export default function AssignSupervisor() {
     }
   };
 
-  const handleButtonClick = async (boss) => {
-    try {
-      const transformedData = transformAssignmentList(AssignmentList);
-      for (const entry of transformedData) {
-        const response = await axios.post(
-          `UvCoordniators/${university_coordinator_id}/assignments`,
-          entry,
-          {
-            headers: {
-              "Content-Type": "application/json", // Adjust the content type if needed
-            },
-          }
-        );
-      }
-      console.log("Form submitted successfully:", response.data);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+  const handleButtonClick = (boss) => {
     const selectedStudentIDs = selectedRows.map((student) => student.id);
     const remainingStudents = studentsList.filter(
       (student) => !selectedStudentIDs.includes(student.id)
@@ -440,9 +257,27 @@ export default function AssignSupervisor() {
 
     /// here a function to send to api
   };
-  const AssignmentList = transformData(selectedStudentsByBoss);
+  // console.log(selectedStudentsByBoss);
+  const handleEditClick = async () => {
+    const AssignmentList = transformData(selectedStudentsByBoss);
+    console.log(AssignmentList);
 
-  const handleEditClick = async () => {};
+    try {
+      const response = await axios.post(
+        `UvCoordniators/${university_coordinator_id}/assignments/`,
+        AssignmentList,
+        {
+          headers: {
+            "Content-Type": "application/json", // Adjust the content type if needed
+          },
+        }
+      );
+      // console.log(transformAssignmentList(AssignmentList));
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
 
   function transformData(selectedStudentsByBoss) {
     let result = [];
@@ -460,8 +295,6 @@ export default function AssignSupervisor() {
 
     return result;
   }
-
-  console.log(Supervisor);
 
   const columns = [
     {
@@ -546,8 +379,8 @@ export default function AssignSupervisor() {
                     <div className="m-0  flex  items-center  gap-x-3  px-6 whitespace-nowrap ">
                       <div className="ml-1 ">
                         <img
-                          src={boss.imgsrc}
-                          alt="Boss"
+                          src={boss.avatar}
+                          alt=" "
                           className="flex-none w-12 h-12 rounded-full"
                         />
                       </div>
@@ -670,7 +503,7 @@ export default function AssignSupervisor() {
           })}
           <div className="mt-9">
             <Button
-              type="Submit"
+              type="primary"
               className="float-right mr-20"
               onClick={handleEditClick}
             >

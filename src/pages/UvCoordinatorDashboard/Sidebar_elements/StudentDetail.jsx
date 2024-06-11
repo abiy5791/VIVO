@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "../../../api/axios";
 import useAuth from "../../../hooks/useAuth";
@@ -14,11 +14,12 @@ const StudentDetail = () => {
 
   const location = useLocation();
   const { items } = location.state;
-
+  const [studentid, setstudentid] = useState(items.id);
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       setError(null);
+      setstudentid(items.id);
 
       try {
         // Fetch  data
@@ -41,13 +42,37 @@ const StudentDetail = () => {
   }, [university_coordinator_id]);
 
   // console.log(Oranization);
+  console.log(items);
+  const handleAccept = async (items) => {
+    try {
+      const response = await axios.post(
+        `/UvCoordniators/${user_id}/accepted/`,
+        {
+          student: studentid,
+          coordinator: user_id,
+        }
+      );
 
-  const handleAccept = () => {
-    console.log("Accepted");
+      alert('"Form submitted successfully:"');
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+    console.log("Received values of form:");
   };
 
-  const handleReject = () => {
-    console.log("Rejected");
+  const handleReject = async () => {
+    try {
+      const response = await axios.patch(`/students/${studentid}/`, {
+        university: "None",
+      });
+
+      alert('"Form submitted successfully:"');
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+    console.log("Received values of form:");
   };
   // setPostId(items.post_id);
 

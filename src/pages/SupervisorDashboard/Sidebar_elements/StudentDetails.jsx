@@ -233,12 +233,6 @@ export default function StudentDetails() {
           )}
         </div>
       </div>
-      <button
-        className="bg-blue-500 float-right mb-16 mt-8 mr-20 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={handleRegisterClick}
-      >
-        Download Document
-      </button>
     </>
   );
 }

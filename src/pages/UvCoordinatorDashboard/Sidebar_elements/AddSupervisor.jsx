@@ -94,7 +94,7 @@ const AddSupervisor = () => {
       setPreviewImage(preview);
       setUploadedImage();
 
-      console.log(file);
+      // console.log(file);
       // Set the value of the Image field in the form
       form.setFieldsValue({ Image: file.name });
     } else {
@@ -169,7 +169,7 @@ const AddSupervisor = () => {
       formData.append("phone_number", values.phone);
       formData.append("password", values.password);
       formData.append("department", values.Department);
-      formData.append("coordinator", 13);
+      formData.append("coordinator", user_id);
       formData.append("specialization", values.SpecializationField);
 
       const response = await axios.post("/UvSupervisors/", formData, {
@@ -177,6 +177,8 @@ const AddSupervisor = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      alert('"Form submitted successfully:"');
       console.log("Form submitted successfully:", response.data);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -212,24 +214,6 @@ const AddSupervisor = () => {
           >
             <div class="flex ">
               <div class="w-1/2  p-4">
-                <Form.Item
-                  name="University"
-                  label="Select University"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please select your University!",
-                    },
-                  ]}
-                >
-                  <Select placeholder="Select your University">
-                    <Option value="Astu">
-                      Adama Science and Technology Universiy
-                    </Option>
-                    <Option value="female">Female</Option>
-                    <Option value="other">Other</Option>
-                  </Select>
-                </Form.Item>
                 <Form.Item
                   name="firstName"
                   label="First Name"
@@ -280,19 +264,6 @@ const AddSupervisor = () => {
                 >
                   <Input />
                 </Form.Item>
-                <Form.Item
-                  name="residence"
-                  label="Habitual Residence"
-                  rules={[
-                    {
-                      type: "array",
-                      required: true,
-                      message: "Please select your habitual residence!",
-                    },
-                  ]}
-                >
-                  <Cascader options={residences} />
-                </Form.Item>
 
                 <Form.Item
                   name="phone"
@@ -317,46 +288,27 @@ const AddSupervisor = () => {
                   <Select placeholder="Select your gender">
                     <Option value="male">Male</Option>
                     <Option value="female">Female</Option>
-                    <Option value="other">Other</Option>
                   </Select>
                 </Form.Item>
               </div>
 
               <div class="w-1/2  p-4">
                 <Form.Item
-                  name="Image"
-                  label="Profile Image"
-                  value={uploadedImage ? [uploadedImage] : []}
-                  rules={[
-                    {
-                      required: false,
-                      message: "Please select your profile number!",
-                    },
-                  ]}
+                  name="upload"
+                  label="Upload Image"
+                  valuePropName="fileList"
+                  getValueFromEvent={(e) =>
+                    Array.isArray(e) ? e : e?.fileList
+                  }
                 >
                   <Upload
-                    action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                    listType="picture-circle"
-                    fileList={uploadedImage ? [uploadedImage] : []}
-                    onPreview={handlePreview}
-                    onChange={handleChange}
+                    name="image"
+                    listType="picture"
+                    beforeUpload={() => false} // Prevent auto upload
+                    accept="image/*"
                   >
-                    {uploadButton}
+                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
                   </Upload>
-                  {previewImage && (
-                    <Image
-                      wrapperStyle={{
-                        display: "none",
-                      }}
-                      preview={{
-                        visible: previewOpen,
-                        onVisibleChange: (visible) => setPreviewOpen(visible),
-                        afterOpenChange: (visible) =>
-                          !visible && setPreviewImage(""),
-                      }}
-                      src={previewImage}
-                    />
-                  )}
                 </Form.Item>
 
                 <Form.Item
