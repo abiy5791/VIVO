@@ -1,17 +1,69 @@
+import { useLocation } from "react-router-dom";
+import { useMemo, useState } from "react";
+import axios from "../../api/axios";
 export default () => {
+  const location = useLocation();
+  const post = useMemo(() => location.state || {}, [location.state]);
+  const [certificates, setCertificates] = useState([]);
+  const [pdf, setPdf] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleCertify = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.get(
+        `http://127.0.0.1:8000/certificates/?applicant=${post.applicant.id}&post=${post.post.id}`
+      );
+
+      if (res.status === 200) {
+        if (res.data.length === 0) {
+          setMessage("No certificate found");
+          setIsLoading(false);
+          return;
+        }
+
+        const certificate = res.data[0];
+        setCertificates(res.data);
+
+        if (certificate.pdf) {
+          setPdf(`http://127.0.0.1:8000/media/certificates/${certificate.pdf}`);
+          setMessage("Certificate already generated");
+        } else {
+          const file = await axios.post(
+            `http://127.0.0.1:8000/certificates/${certificate.id}/generate-certificate/`
+          );
+          console.log("file", file);
+          setPdf(`http://127.0.0.1:8000${file.data.pdf_url}`);
+          setMessage("Certificate generated");
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 403) {
+        setMessage("Already certified");
+      } else {
+        console.error(error);
+        setMessage("An error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  console.log("certificate", certificates);
+
   return (
     <div>
       <div>
         <div class="flex rounded-t-lg bg-top-color sm:px-2 w-full">
           <div class="h-40 w-40 overflow-hidden sm:rounded-full sm:relative sm:p-0 top-10 left-5 p-3">
-            <img src="https://media.licdn.com/dms/image/C4D03AQH8qidO0nb_Ng/profile-displayphoto-shrink_800_800/0/1615696897070?e=2147483647&v=beta&t=ia3wfE2J7kVLdBy9ttkgUDAA_ul29fymykhQo0lABDo" />
+            <img src={post.applicant.avatar} alt="profile" />
           </div>
 
           <div class="w-2/3 sm:text-center pl-5 mt-10 text-start">
             <p class="font-poppins font-bold text-heading sm:text-4xl text-2xl">
               Certify Applicant
             </p>
-            <p class="text-heading">Post title</p>
           </div>
         </div>
 
@@ -38,7 +90,7 @@ export default () => {
                         ></path>
                       </svg>
                     </a>
-                    <div class="ml-2 truncate">amitpachange@gmail.com</div>
+                    <div class="ml-2 truncate">{post.applicant.email}</div>
                   </div>
                   <div class="flex items-center my-1">
                     <a
@@ -58,7 +110,7 @@ export default () => {
                         ></path>
                       </svg>
                     </a>
-                    <div>9145258775</div>
+                    <div>{post.applicant.phone_number}</div>
                   </div>
                   <div class="flex items-center my-1">
                     <a
@@ -252,14 +304,10 @@ export default () => {
             <div class="flex flex-col sm:w-2/3 order-first sm:order-none sm:-mt-10">
               <div class="py-3">
                 <h2 class="text-lg font-poppins font-bold text-top-color">
-                  post Description
+                  {post.post.title}
                 </h2>
                 <div class="border-2 w-20 border-top-color my-3"></div>
-                <p>
-                  To get a career opportunity which would help me to utilize my
-                  academic background to assist me to gain experience, employ my
-                  excellent skills, and enable me to make positive contribution.
-                </p>
+                <p>{post.post.description}</p>
               </div>
 
               <div class="py-3">
@@ -317,9 +365,29 @@ export default () => {
             </div>
           </div>
 
-          <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-            Certifiy
-          </button>
+          <div>
+            <button className="" onClick={handleCertify} disabled={isLoading}>
+              {isLoading ? "Loading..." : "Generate Certificate"}
+            </button>
+            {message && <p>{message}</p>}
+            {certificates.length > 0 && (
+              <div>
+                <p>Certificates:</p>
+                <div>
+                  <a href={pdf} download="certificate.pdf">
+                    Download Certificate
+                  </a>
+                </div>
+              </div>
+            )}
+            {pdf && (
+              <div>
+                <a href={pdf} download="certificate.pdf">
+                  Download Certificate
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
