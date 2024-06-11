@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import axios from "../../../api/axios";
 import { useState, useEffect } from "react";
 import defaultAvatar from "../../../images/default-avatar.jpg";
+import { Link } from "react-router-dom";
 
 function DashboardCard10() {
   const { user } = useAuth();
@@ -60,24 +61,22 @@ function DashboardCard10() {
                 return (
                   <tr key={applicant.id}>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                          <img
-                            className="rounded-full w-full h-full object-cover"
-                            src={
-                              applicant.avatar
-                                ? applicant.avatar
-                                : defaultAvatar
-                            }
-                            width="40"
-                            height="40"
-                            alt={`image of ${applicant.first_name}`}
-                          />
+                      <Link to="applicant_detail" state={applicant}>
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
+                            <img
+                              className="rounded-full"
+                              src={applicant.avatar}
+                              width="40"
+                              height="40"
+                              alt={applicant.name}
+                            />
+                          </div>
+                          <div className="font-medium text-slate-800 dark:text-slate-100">
+                            {applicant.name}
+                          </div>
                         </div>
-                        <div className="font-medium text-slate-800 dark:text-slate-100">
-                          {`${applicant.first_name} ${applicant.last_name}`}
-                        </div>
-                      </div>
+                      </Link>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div className="text-left">{applicant.email}</div>

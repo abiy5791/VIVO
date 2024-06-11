@@ -17,9 +17,9 @@ const ApplicantDashboard = () => {
         setCurrentStep={setCurrentStep}
       />
       <div>
+        {currentStep === "Progress" && <MainTaskPage />}
         {currentStep === "achievements" && <Achievements />}
         {currentStep === "apply" && <Apply />}
-        {currentStep === "Progress" && <MainTaskPage />}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 const initialStudents = [
   {
     id: 123456,
@@ -52,10 +53,40 @@ const initialStudents = [
 ];
 
 export default function StudentEvaluation() {
-  const [students, setStudents] = useState(initialStudents);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [students, setStudents] = useState(data);
   const [isEditable, setIsEditable] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
+  const {
+    user: { user_id, email, role, university_supervisor_id },
+  } = useAuth();
 
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Fetch assignments data
+
+        const response = await axios.get(
+          `UvSupervisors/${university_supervisor_id}/students`
+        );
+        const fetchedData = response.data || [];
+        setData(fetchedData);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [university_supervisor_id]);
+
+  console.log(data);
   const handleInputChange = (id, field, value) => {
     const updatedStudents = students.map((student) => {
       if (student.id === id) {
@@ -178,7 +209,9 @@ export default function StudentEvaluation() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {students.map((student) => (
+            {console.log(data)}
+
+            {data.map((student) => (
               <tr key={student.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
@@ -186,12 +219,13 @@ export default function StudentEvaluation() {
                       <img
                         className="h-10 w-10 rounded-full"
                         src={student.avatar}
-                        alt={student.name}
+                        alt={student.first_name}
                       />
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {student.name}
+                        {student.first_name}
+                        {console.log(student)}
                       </div>
                       <div className="text-sm text-gray-500">
                         {student.email}

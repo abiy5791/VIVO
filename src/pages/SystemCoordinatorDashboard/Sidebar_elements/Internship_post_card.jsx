@@ -136,7 +136,7 @@ const InternshipPostCard = () => {
                           className="divide-y divide-gray-200 dark:divide-gray-700"
                         >
                           <tr>
-                            <Link to="internship_posts_details">
+                            <Link state={data} to="internship_posts_details">
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
                                 {data.title}
                               </td>

@@ -1,29 +1,46 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 const StudentDetail = () => {
+  const [Posts, setPosts] = useState();
+  const [Oranization, setOrganization] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const {
+    user: { user_id, email, role, university_coordinator_id },
+  } = useAuth();
+
   const location = useLocation();
   const { items } = location.state;
 
-  //   console.log(items);
-  //   const items = {
-  //     avatar:
-  //       "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-  //     name: "Liam James",
-  //     email: "liamjames@example.com",
-  //     phone_number: "+1 (555) 000-000",
-  //     departemet: "Software engineer",
-  //     id: "ugr/1974/12",
-  //     year: 2,
-  //     internshipDescription: "Full Stack Hospital Management system",
-  //     status: "accepted",
-  //     hostingOrganization: {
-  //       HostingOrgName: "INSA",
-  //       email: "INSA@example.com",
-  //       phoneNumber: "(123) 456-7890",
-  //       address: "123 Main St\nAnytown, USA 12345",
-  //     },
-  //   };
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Fetch  data
+
+        const PostResponse = await axios.get(`/posts/${items.post_id}`);
+        const fetchedPost = PostResponse.data || [];
+        console.log(fetchedPost);
+        setPosts(fetchedPost);
+
+        console.log(fetchedPost);
+        setOrganization(fetchedPost.organization);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [university_coordinator_id]);
+
+  // console.log(Oranization);
 
   const handleAccept = () => {
     console.log("Accepted");
@@ -32,7 +49,9 @@ const StudentDetail = () => {
   const handleReject = () => {
     console.log("Rejected");
   };
+  // setPostId(items.post_id);
 
+  // console.log(items);
   return (
     <div className="flex mx-auto">
       <div className="flex px-3 py-3 ">
@@ -42,15 +61,15 @@ const StudentDetail = () => {
             <div className="font-bold text-xl mb-2">{items.name}</div>
             <p className="text-gray-700 text-base">
               <span>Name: </span>
-              {items.name}
+              {items.first_name} {items.last_name}
             </p>
             <p className="text-gray-700 text-base">
               <span>Id: </span>
-              {items.id}
+              {items.university_id_number}
             </p>
             <p className="text-gray-700 text-base">
               <span>Departemet: </span>
-              {items.departemet}
+              {items.department}
             </p>
           </div>
         </div>
@@ -66,7 +85,7 @@ const StudentDetail = () => {
         </div>
         <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
           <dl className="sm:divide-y sm:divide-gray-200">
-            {["HostingOrgName", "email", "phoneNumber", "address"].map(
+            {/* {["HostingOrgName", "email", "phoneNumber", "address"].map(
               (field, index) => (
                 <div
                   key={index}
@@ -92,13 +111,25 @@ const StudentDetail = () => {
                   </dd>
                 </div>
               )
-            )}
+            )} */}
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">
-                Internship Description
+                Organization Name
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {items.internshipDescription}
+                {Oranization && Oranization.name}
+              </dd>
+              <dt className="text-sm font-medium text-gray-500">
+                Organization Email
+              </dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {Oranization && Oranization.email}
+              </dd>
+              <dt className="text-sm font-medium text-gray-500">
+                Organization PhoneNumber
+              </dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {Oranization && Oranization.phone_number}
               </dd>
             </div>
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

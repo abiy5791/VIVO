@@ -1,60 +1,10 @@
 import { Link } from "react-router-dom";
+import nothingImage from "../../assets/nothing.png";
 const myStyle = {
   display: "-webkit-box",
   WebkitLineClamp: "2",
   WebkitBoxOrient: "vertical",
 };
-
-//JSON to generate a dummy database
-const apiData = [
-  {
-    category: "Project Managment",
-    title:
-      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
-    date: new Date().toDateString(),
-    location: "Addis Ababa, Ethiopia",
-    subCategory: "Easy",
-    price: "Free",
-    image:
-      "https://plus.unsplash.com/premium_photo-1661385965839-f6c4f10838ed?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
-    name: "Ethio Tech",
-  },
-  {
-    category: "Data Structure",
-    title:
-      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
-    date: new Date().toDateString(),
-    location: "Adama, Ethiopia",
-    subCategory: "Advance",
-    price: "Free",
-    image:
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cnNlJTIwdGVtcGxhdGV8ZW58MHx8MHx8fDA%3D",
-    name: "Habesha Tech",
-  },
-  {
-    category: "Business",
-    title:
-      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Accusamus, mollitia dolorem cupiditat necessitatibus ad quaerepudiandae cumque quos numquam a, natus quod expedita, dictaveniam porro minus delectus eos nemo?",
-    date: new Date().toDateString(),
-    location: "Addis Ababa, Ethiopia",
-    subCategory: "Intermidate",
-    price: "$52",
-    image:
-      "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
-    name: "Addisway Tech",
-  },
-  {
-    category: "Marketing",
-    title: " Lorem ipsum dol",
-    date: new Date().toDateString(),
-    location: "Addis Ababa, Ethiopia",
-    subCategory: "Advance",
-    price: "Free",
-    image:
-      "https://images.unsplash.com/photo-1557838923-2985c318be48?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGNvdXJzZSUyMHRlbXBsYXRlfGVufDB8fDB8fHww",
-    name: "Afro Tech",
-  },
-];
 
 const CategoryIcon = () => (
   <svg
@@ -87,91 +37,124 @@ const DateIcon = () => (
     />
   </svg>
 );
-const LocationIcon = () => (
+const SkillsIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="w-4 h-4"
     viewBox="0 0 24 24"
   >
-    <path
-      fill="gray"
-      d="M12 12q.825 0 1.413-.588T14 10q0-.825-.588-1.413T12 8q-.825 0-1.413.588T10 10q0 .825.588 1.413T12 12Zm0 7.35q3.05-2.8 4.525-5.088T18 10.2q0-2.725-1.738-4.462T12 4Q9.475 4 7.737 5.738T6 10.2q0 1.775 1.475 4.063T12 19.35Zm0 2.275q-.2 0-.4-.075t-.35-.2Q7.6 18.125 5.8 15.362T4 10.2q0-3.75 2.413-5.975T12 2q3.175 0 5.588 2.225T20 10.2q0 2.4-1.8 5.163t-5.45 5.987q-.15.125-.35.2t-.4.075ZM12 10.2Z"
-    />
+    <rect x="4" y="6" width="4" height="12" fill="gray" />
+    <rect x="10" y="4" width="4" height="14" fill="gray" />
+    <rect x="16" y="8" width="4" height="10" fill="gray" />
   </svg>
 );
+import React, { useState, useEffect } from "react";
+import axios from "../../api/axios";
 
 function Volunteers() {
+  const [VolunteerPost, setVolunteerPost] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/posts/?type=VolunteerWork")
+      .then((response) => {
+        setVolunteerPost(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts: ", error);
+      });
+  }, []);
   return (
     <div className="dark:bg-slate-900 bg-white min-h-[100vh] flex items-center">
       <div className="container mx-auto">
-        <h1 class="dark:text-slate-100 mb-8 mt-20 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
+        <h1 class="dark:text-slate-100 mb-8 text-4xl font-bold text-center leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
           Volunteer Opportunities
         </h1>
         {/* card grid */}
-        <Link to="/posted_opportunity_detail">
+        {VolunteerPost.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-10 text-left mx-5 xl:mx-10">
-            {Array(1).fill(
-              apiData.map((data, index) => (
+            {VolunteerPost.map((post) => (
+              <Link state={post} to="/posted_opportunity_detail">
                 <div
                   className="border rounded-lg hover:drop-shadow-md overflow-hidden relative dark:bg-transparent bg-white"
-                  key={index}
+                  key={post.id}
                 >
                   {/* image and avatar block */}
                   <div className="cursor-pointer h-48 overflow-hidden">
                     <img
-                      src={data.image}
+                      src={post.image}
                       alt="Profile image for perticular category"
                       sizes="300px"
                       className="w-full h-full hover:scale-125 delay-200 duration-300 ease-in-out"
                     />
                     <span className="absolute top-40 mx-auto w-36 h-8 items-center backdrop-blur bg-white/70 flex justify-center font-medium">
-                      {data.name}
+                      {post.category}
                     </span>
                   </div>
                   {/* card fields section  */}
                   <div className="p-4 space-y-2 relative h-60 text-gray-400">
                     <div>
-                      <p className="text-sm font-bold truncate">
-                        {data.category}
-                      </p>
+                      <p className="text-sm font-bold truncate">{post.title}</p>
                     </div>
                     <div>
                       <span
                         style={myStyle}
                         className="font-bold dark:text-slate-400 text-gray-600 overflow-hidden h-12"
                       >
-                        {data.title}
+                        {post.description}
                       </span>
                     </div>
                     <div className="flex gap-2 items-center">
                       <CategoryIcon />
-                      <span className="text-sm font-normal">
-                        {data.subCategory}
-                      </span>
+                      <span className="text-sm font-normal">{post.level}</span>
                     </div>
                     <div className="flex gap-2 items-center">
                       <DateIcon />
-                      <span className="text-sm font-normal">{data.date}</span>
+                      <span className="text-sm font-normal">
+                        {post.duration}
+                      </span>
                     </div>
                     <div className="flex gap-2 justify-start items-center">
-                      <LocationIcon />
+                      <SkillsIcon />
                       <span className="text-sm font-normal">
-                        {data.location}
+                        {post.skills_gained}
                       </span>
                     </div>
                     {/* fix bottom section */}
-                    <div className="bottom-2 absolute inset-x-0">
-                      <div className="border-t mt-2 mb-2"></div>
-                      <span className="dark:text-slate-100 text-xl text-gray-600 pl-4">
-                        {data.price}
-                      </span>
-                    </div>
+                    {post.is_paid ? (
+                      <div className="bottom-2 absolute inset-x-0">
+                        <div className="border-t mt-2 mb-2"></div>
+                        <span className="dark:text-slate-100 text-xl text-gray-600 pl-4">
+                          {post.price} ETB
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="bottom-2 absolute inset-x-0">
+                        <div className="border-t mt-2 mb-2"></div>
+                        <span className="dark:text-slate-100 text-xl text-gray-600 pl-4">
+                          Free
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))
-            )}
+              </Link>
+            ))}
           </div>
-        </Link>
+        ) : (
+          <div>
+            <div className="flex justify-center items-center">
+              <img
+                src={nothingImage}
+                alt="No data available"
+                className="w-96 h-96"
+              />
+            </div>
+            <h1 className="font-extralight text-xl mt-3 text-center">
+              No Volunteer Post data is available !
+            </h1>
+          </div>
+        )}
       </div>
     </div>
   );

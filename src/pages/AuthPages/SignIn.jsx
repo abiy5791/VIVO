@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Button, Checkbox, Form, Input } from "antd";
 
 export default () => {
   const [data, setData] = useState([]);
@@ -24,6 +25,22 @@ export default () => {
     } catch (error) {
       console.error("Login failed:", error);
     }
+  };
+
+  const [loading, setLoading] = useState(false);
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    setLoading(true);
+    // Simulate a login request
+    setTimeout(() => {
+      setLoading(false);
+      // Handle successful login here
+    }, 2000); // Simulate a 2 second delay
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -177,34 +194,90 @@ export default () => {
               Or continue with
             </p>
           </div>
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
-            <div>
-              <label className="font-medium">Email</label>
-              <input
-                onChange={handleChange}
-                type="email"
-                name="email"
-                required
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-            </div>
-            <div>
-              <label className="font-medium">Password</label>
-              <input
-                onChange={handleChange}
-                type="password"
-                name="password"
-                required
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-            </div>
-            <button
-              onClick={handleLogin}
-              className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+
+          <Form
+            name="basic"
+            labelCol={{
+              span: 8,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            style={{
+              maxWidth: 600,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+          >
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!",
+                },
+              ]}
             >
-              Sign In
-            </button>
-          </form>
+              <Input
+                name="email"
+                onChange={handleChange}
+                style={{ borderRadius: "8px" }}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+                {
+                  min: 6,
+                  message: "Password must be at least 6 characters long!",
+                },
+              ]}
+            >
+              <Input.Password name="password" onChange={handleChange} />
+            </Form.Item>
+
+            <Form.Item
+              name="remember"
+              valuePropName="checked"
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={handleLogin}
+                loading={loading}
+              >
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
       </div>
     </main>

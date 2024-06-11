@@ -1,10 +1,10 @@
 import WelcomeBanner from "../../partials/Admin/dashboard/WelcomeBanner";
 import DashboardCard01 from "../../partials/Admin/dashboard/DashboardCard01";
 import DashboardCard02 from "../../partials/Admin/dashboard/DashboardCard02";
-import DashboardCard03 from "../../partials/Admin/dashboard/DashboardCard03";
+import DashboardCard03 from "../../partials/Admin/dashboard/DashboardCard11";
 import DashboardCard07 from "../../partials/Admin/dashboard/DashboardCard07";
 import DashboardCard10 from "../../partials/Admin/dashboard/DashboardCard10";
-import Banner from "../../partials/Admin/Banner";
+
 export default () => {
   return (
     <>
@@ -27,8 +27,6 @@ export default () => {
           </div>
         </div>
       </main>
-
-      <Banner />
     </>
   );
 };

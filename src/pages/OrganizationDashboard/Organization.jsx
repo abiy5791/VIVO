@@ -1,7 +1,4 @@
 import WelcomeBanner from "../../partials/Organization/dashboard/WelcomeBanner";
-import DashboardCard07 from "../../partials/Organization/dashboard/DashboardCard07";
-import DashboardCard10 from "../../partials/Organization/dashboard/DashboardCard10";
-import Banner from "../../partials/Organization/Banner";
 import CookieComponent from "../../components/Cookie_Component";
 import DashboardCard06 from "../../partials/Organization/dashboard/DashbaordCard06";
 
